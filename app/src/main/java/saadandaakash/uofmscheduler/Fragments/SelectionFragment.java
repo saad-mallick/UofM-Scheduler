@@ -44,9 +44,9 @@ import saadandaakash.uofmscheduler.R;
 public class SelectionFragment extends Fragment {
 
     private String termCode = "2170";
-    private String schoolCode = "";
-    private String subjectCode = "";
-    private String catalogNum = "";
+    private String schoolCode = null;
+    private String subjectCode = null;
+    private String catalogNum = null;
 
     public Button submitButton;
     public AutoCompleteTextView editSubject, editSchool;
@@ -97,20 +97,21 @@ public class SelectionFragment extends Fragment {
             editSubject.setThreshold(1);
 
 
-            submitButton.setOnClickListener( new View.OnClickListener() {
-                                                 public void onClick(View view) {
+            submitButton.setOnClickListener(
+                    new View.OnClickListener() {
+                        public void onClick(View view) {
 
-                                                     // get school and subject values
-                                                     schoolCode = schoolData.get(editSchool.getText().toString());
-                                                     subjectCode = editSubject.getText().toString();
-                                                     CoursesFragment fragment = CoursesFragment.newInstance(schoolCode, subjectCode);
-                                                     hideKeyboard(getActivity());
-                                                     FragmentManager fragmentManager = getFragmentManager();
-                                                     fragmentManager.beginTransaction()
-                                                             .replace(R.id.container, fragment)
-                                                             .commit();
-                                                 }
-                                             }
+                            // get school and subject values
+                            schoolCode = schoolData.get(editSchool.getText().toString());
+                            subjectCode = editSubject.getText().toString();
+                            CoursesFragment fragment = CoursesFragment.newInstance(schoolCode, subjectCode);
+                            hideKeyboard(getActivity());
+                            FragmentManager fragmentManager = getFragmentManager();
+                            fragmentManager.beginTransaction()
+                                    .replace(R.id.container, fragment)
+                                    .commit();
+                        }
+                    }
             );
 
             // EFFECTS: when the focus moves from school field to subject field, populate

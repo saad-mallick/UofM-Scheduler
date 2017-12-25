@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/UOfMScheduler.iml" filepath="$PROJECT_DIR$/UOfMScheduler.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UM_Scheduler.iml" filepath="$PROJECT_DIR$/UM_Scheduler.iml" />
+      <module fileurl="file://C:\Users\Aakash\Programming\UM_Scheduler\UOfMScheduler.iml" filepath="C:\Users\Aakash\Programming\UM_Scheduler\UOfMScheduler.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
