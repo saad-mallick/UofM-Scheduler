@@ -1,0 +1,17 @@
+[
+    {
+        "SubjectDescr": "Art and Design",
+        "SubjectCode": "ARTDES",
+        "SubjectShortDescr": "Art&Des"
+    },
+    {
+        "SubjectDescr": "Art and Design Study Abroad",
+        "SubjectCode": "ADABRD",
+        "SubjectShortDescr": "A&D SA"
+    },
+    {
+        "SubjectDescr": "Interarts Performance",
+        "SubjectCode": "INTPERF",
+        "SubjectShortDescr": "IAP"
+    }
+]

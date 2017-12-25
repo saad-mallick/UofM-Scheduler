@@ -1,0 +1,17 @@
+[
+    {
+        "SubjectDescr": "Health Sciences",
+        "SubjectCode": "HS",
+        "SubjectShortDescr": "Hlth Sc"
+    },
+    {
+        "SubjectDescr": "Nursing",
+        "SubjectCode": "NURS",
+        "SubjectShortDescr": "Nurs"
+    },
+    {
+        "SubjectDescr": "Professional Nursing Education",
+        "SubjectCode": "PNE",
+        "SubjectShortDescr": "Pr NursEd"
+    }
+]

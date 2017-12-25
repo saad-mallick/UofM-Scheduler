@@ -1,0 +1,37 @@
+[
+    {
+        "SubjectDescr": "Core Courses",
+        "SubjectCode": "RCCORE",
+        "SubjectShortDescr": "RC Core"
+    },
+    {
+        "SubjectDescr": "Fine Arts",
+        "SubjectCode": "RCARTS",
+        "SubjectShortDescr": "RC Arts"
+    },
+    {
+        "SubjectDescr": "Humanities",
+        "SubjectCode": "RCHUMS",
+        "SubjectShortDescr": "RC Hums"
+    },
+    {
+        "SubjectDescr": "Interdivisional",
+        "SubjectCode": "RCIDIV",
+        "SubjectShortDescr": "RC I Div"
+    },
+    {
+        "SubjectDescr": "Languages",
+        "SubjectCode": "RCLANG",
+        "SubjectShortDescr": "RC Lang"
+    },
+    {
+        "SubjectDescr": "Natural Sciences",
+        "SubjectCode": "RCNSCI",
+        "SubjectShortDescr": "RC N Sci"
+    },
+    {
+        "SubjectDescr": "Social Sciences",
+        "SubjectCode": "RCSSCI",
+        "SubjectShortDescr": "RC S Sci"
+    }
+]

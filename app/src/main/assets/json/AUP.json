@@ -1,0 +1,17 @@
+[
+    {
+        "SubjectDescr": "Architecture",
+        "SubjectCode": "ARCH",
+        "SubjectShortDescr": "Arch"
+    },
+    {
+        "SubjectDescr": "Urban and Regional Planning",
+        "SubjectCode": "URP",
+        "SubjectShortDescr": "URP"
+    },
+    {
+        "SubjectDescr": "Urban Design",
+        "SubjectCode": "UD",
+        "SubjectShortDescr": "Urb Des"
+    }
+]

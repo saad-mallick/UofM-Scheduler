@@ -1,0 +1,177 @@
+[
+    {
+        "SubjectDescr": "Anatomy",
+        "SubjectCode": "ANATOMY",
+        "SubjectShortDescr": "Anatomy"
+    },
+    {
+        "SubjectDescr": "Anesthesia",
+        "SubjectCode": "ANESTH",
+        "SubjectShortDescr": "Anesth"
+    },
+    {
+        "SubjectDescr": "Bioinformatics",
+        "SubjectCode": "BIOINF",
+        "SubjectShortDescr": "Bioinforma"
+    },
+    {
+        "SubjectDescr": "Biological Chemistry",
+        "SubjectCode": "BIOLCHEM",
+        "SubjectShortDescr": "Biol Chem"
+    },
+    {
+        "SubjectDescr": "Biomedical Sciences",
+        "SubjectCode": "PIBS",
+        "SubjectShortDescr": "Biomed Sci"
+    },
+    {
+        "SubjectDescr": "Cancer Biology",
+        "SubjectCode": "CANCBIO",
+        "SubjectShortDescr": "Canc Biol"
+    },
+    {
+        "SubjectDescr": "Cell and Developmental Biology",
+        "SubjectCode": "CDB",
+        "SubjectShortDescr": "CDB"
+    },
+    {
+        "SubjectDescr": "Cellular And Molecular Biology",
+        "SubjectCode": "CMBIOL",
+        "SubjectShortDescr": "C M Biol"
+    },
+    {
+        "SubjectDescr": "Dermatology",
+        "SubjectCode": "DERM",
+        "SubjectShortDescr": "Derm"
+    },
+    {
+        "SubjectDescr": "Family Medicine",
+        "SubjectCode": "FAMMED",
+        "SubjectShortDescr": "Family Med"
+    },
+    {
+        "SubjectDescr": "Health & Health Care Research",
+        "SubjectCode": "HHCR",
+        "SubjectShortDescr": "Hlth & HCR"
+    },
+    {
+        "SubjectDescr": "Human Genetics",
+        "SubjectCode": "HUMGEN",
+        "SubjectShortDescr": "Hum Gen"
+    },
+    {
+        "SubjectDescr": "Immunology",
+        "SubjectCode": "IMMUNO",
+        "SubjectShortDescr": "Immunology"
+    },
+    {
+        "SubjectDescr": "Inteflex Medical School",
+        "SubjectCode": "INFLXMED",
+        "SubjectShortDescr": "Inflx Med"
+    },
+    {
+        "SubjectDescr": "Internal Medicine",
+        "SubjectCode": "INTMED",
+        "SubjectShortDescr": "Int Med"
+    },
+    {
+        "SubjectDescr": "Learning Health Sciences",
+        "SubjectCode": "LHS",
+        "SubjectShortDescr": "Learn Hlth"
+    },
+    {
+        "SubjectDescr": "Medical Education",
+        "SubjectCode": "MEDEDUC",
+        "SubjectShortDescr": "Med Educ"
+    },
+    {
+        "SubjectDescr": "Medical School Administration",
+        "SubjectCode": "MEDADM",
+        "SubjectShortDescr": "Med Admin"
+    },
+    {
+        "SubjectDescr": "Microbiology",
+        "SubjectCode": "MICRBIOL",
+        "SubjectShortDescr": "Microbiol"
+    },
+    {
+        "SubjectDescr": "Neurology",
+        "SubjectCode": "NEUROL",
+        "SubjectShortDescr": "Neurol"
+    },
+    {
+        "SubjectDescr": "Neuroscience",
+        "SubjectCode": "NEUROSCI",
+        "SubjectShortDescr": "Neurosci"
+    },
+    {
+        "SubjectDescr": "Neurosurgery",
+        "SubjectCode": "NEUSURG",
+        "SubjectShortDescr": "Neurosurg"
+    },
+    {
+        "SubjectDescr": "Obstetrics and Gynecology",
+        "SubjectCode": "OBSTGYN",
+        "SubjectShortDescr": "Ob/Gyn"
+    },
+    {
+        "SubjectDescr": "Ophthalmology",
+        "SubjectCode": "OPHTH",
+        "SubjectShortDescr": "Ophth"
+    },
+    {
+        "SubjectDescr": "Otorhinolaryngology",
+        "SubjectCode": "OTO",
+        "SubjectShortDescr": "Oto"
+    },
+    {
+        "SubjectDescr": "Pathology",
+        "SubjectCode": "PATH",
+        "SubjectShortDescr": "Path"
+    },
+    {
+        "SubjectDescr": "Pediatrics",
+        "SubjectCode": "PEDIAT",
+        "SubjectShortDescr": "Peds"
+    },
+    {
+        "SubjectDescr": "Pharmacology",
+        "SubjectCode": "PHRMACOL",
+        "SubjectShortDescr": "Pharm"
+    },
+    {
+        "SubjectDescr": "Physical Medicine & Rehab",
+        "SubjectCode": "PMR",
+        "SubjectShortDescr": "PM&R"
+    },
+    {
+        "SubjectDescr": "Physiology",
+        "SubjectCode": "PHYSIOL",
+        "SubjectShortDescr": "Physiology"
+    },
+    {
+        "SubjectDescr": "Postbac Premed Program",
+        "SubjectCode": "MEDPREP",
+        "SubjectShortDescr": "Med Prep"
+    },
+    {
+        "SubjectDescr": "Psychiatry",
+        "SubjectCode": "PSYCHIAT",
+        "SubjectShortDescr": "Psych"
+    },
+    {
+        "SubjectDescr": "Radiology",
+        "SubjectCode": "RADIOL",
+        "SubjectShortDescr": "Radiology"
+    },
+    {
+        "SubjectDescr": "Surgery",
+        "SubjectCode": "SURGERY",
+        "SubjectShortDescr": "Surgery"
+    },
+    {
+        "SubjectDescr": "Urology",
+        "SubjectCode": "UROLOGY",
+        "SubjectShortDescr": "Urology"
+    }
+]

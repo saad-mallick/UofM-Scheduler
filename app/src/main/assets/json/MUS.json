@@ -1,0 +1,202 @@
+[
+    {
+        "SubjectDescr": "Arts Administration",
+        "SubjectCode": "ARTSADMN",
+        "SubjectShortDescr": "Arts Admn"
+    },
+    {
+        "SubjectDescr": "Baroque Cello",
+        "SubjectCode": "BARCELLO",
+        "SubjectShortDescr": "Bar Cello"
+    },
+    {
+        "SubjectDescr": "Bassoon",
+        "SubjectCode": "BASSOON",
+        "SubjectShortDescr": "Bassoon"
+    },
+    {
+        "SubjectDescr": "Cello",
+        "SubjectCode": "CELLO",
+        "SubjectShortDescr": "Cello"
+    },
+    {
+        "SubjectDescr": "Clarinet",
+        "SubjectCode": "CLARINET",
+        "SubjectShortDescr": "Clarinet"
+    },
+    {
+        "SubjectDescr": "Composition",
+        "SubjectCode": "COMP",
+        "SubjectShortDescr": "Comp"
+    },
+    {
+        "SubjectDescr": "Conducting",
+        "SubjectCode": "CONDUCT",
+        "SubjectShortDescr": "Conduct"
+    },
+    {
+        "SubjectDescr": "Dance",
+        "SubjectCode": "DANCE",
+        "SubjectShortDescr": "Dance"
+    },
+    {
+        "SubjectDescr": "Double Bass",
+        "SubjectCode": "DBLBASS",
+        "SubjectShortDescr": "Doub Bass"
+    },
+    {
+        "SubjectDescr": "Early Music",
+        "SubjectCode": "EARLYMUS",
+        "SubjectShortDescr": "Early Mus"
+    },
+    {
+        "SubjectDescr": "Ensemble",
+        "SubjectCode": "ENS",
+        "SubjectShortDescr": "Ens"
+    },
+    {
+        "SubjectDescr": "Flute",
+        "SubjectCode": "FLUTE",
+        "SubjectShortDescr": "Flute"
+    },
+    {
+        "SubjectDescr": "Fortepiano",
+        "SubjectCode": "FPIANO",
+        "SubjectShortDescr": "Fortepian"
+    },
+    {
+        "SubjectDescr": "French Horn",
+        "SubjectCode": "FRENHORN",
+        "SubjectShortDescr": "Fren Horn"
+    },
+    {
+        "SubjectDescr": "Guitar",
+        "SubjectCode": "GUITAR",
+        "SubjectShortDescr": "Guitar"
+    },
+    {
+        "SubjectDescr": "Harp",
+        "SubjectCode": "HARP",
+        "SubjectShortDescr": "Harp"
+    },
+    {
+        "SubjectDescr": "Jazz & Improvisational Studies",
+        "SubjectCode": "JAZZ",
+        "SubjectShortDescr": "Jazz&Imst"
+    },
+    {
+        "SubjectDescr": "Music Education",
+        "SubjectCode": "MUSED",
+        "SubjectShortDescr": "Mus Ed"
+    },
+    {
+        "SubjectDescr": "Music Performance",
+        "SubjectCode": "MUSPERF",
+        "SubjectShortDescr": "Mus Perf"
+    },
+    {
+        "SubjectDescr": "Musical Theatre",
+        "SubjectCode": "MUSTHTRE",
+        "SubjectShortDescr": "Mus Thtre"
+    },
+    {
+        "SubjectDescr": "Musicology",
+        "SubjectCode": "MUSICOL",
+        "SubjectShortDescr": "Musicol"
+    },
+    {
+        "SubjectDescr": "Oboe",
+        "SubjectCode": "OBOE",
+        "SubjectShortDescr": "Oboe"
+    },
+    {
+        "SubjectDescr": "Opera",
+        "SubjectCode": "OPERA",
+        "SubjectShortDescr": "Opera"
+    },
+    {
+        "SubjectDescr": "Organ",
+        "SubjectCode": "ORGAN",
+        "SubjectShortDescr": "Organ"
+    },
+    {
+        "SubjectDescr": "Organ Literature",
+        "SubjectCode": "ORGANLIT",
+        "SubjectShortDescr": "Organ Lit"
+    },
+    {
+        "SubjectDescr": "Percussion",
+        "SubjectCode": "PERCUSS",
+        "SubjectShortDescr": "Percuss"
+    },
+    {
+        "SubjectDescr": "Performing Arts & Technology",
+        "SubjectCode": "PAT",
+        "SubjectShortDescr": "Arts-Tech"
+    },
+    {
+        "SubjectDescr": "Piano",
+        "SubjectCode": "PIANO",
+        "SubjectShortDescr": "Piano"
+    },
+    {
+        "SubjectDescr": "Piano Literature and Pedagogy",
+        "SubjectCode": "PIANOLP",
+        "SubjectShortDescr": "PnoLitPed"
+    },
+    {
+        "SubjectDescr": "Sacred Music",
+        "SubjectCode": "SACREDMU",
+        "SubjectShortDescr": "Sac Mus"
+    },
+    {
+        "SubjectDescr": "Study Exchange",
+        "SubjectCode": "STDEXCH",
+        "SubjectShortDescr": "StdExchang"
+    },
+    {
+        "SubjectDescr": "Theatre & Drama",
+        "SubjectCode": "THTREMUS",
+        "SubjectShortDescr": "Theatre"
+    },
+    {
+        "SubjectDescr": "Theory",
+        "SubjectCode": "THEORY",
+        "SubjectShortDescr": "Theory"
+    },
+    {
+        "SubjectDescr": "Trombone",
+        "SubjectCode": "TROMBONE",
+        "SubjectShortDescr": "Trombone"
+    },
+    {
+        "SubjectDescr": "Trumpet-Cornet",
+        "SubjectCode": "TRUM",
+        "SubjectShortDescr": "Trum/Corn"
+    },
+    {
+        "SubjectDescr": "Tuba",
+        "SubjectCode": "TUBA",
+        "SubjectShortDescr": "Tuba"
+    },
+    {
+        "SubjectDescr": "Viola",
+        "SubjectCode": "VIOLA",
+        "SubjectShortDescr": "Viola"
+    },
+    {
+        "SubjectDescr": "Violin",
+        "SubjectCode": "VIOLIN",
+        "SubjectShortDescr": "Violin"
+    },
+    {
+        "SubjectDescr": "Voice",
+        "SubjectCode": "VOICE",
+        "SubjectShortDescr": "Voice"
+    },
+    {
+        "SubjectDescr": "Voice Literature",
+        "SubjectCode": "VOICELIT",
+        "SubjectShortDescr": "Voice Lit"
+    }
+]

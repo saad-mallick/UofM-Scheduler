@@ -1,0 +1,77 @@
+[
+    {
+        "SubjectDescr": "Biomaterials",
+        "SubjectCode": "BIOMATLS",
+        "SubjectShortDescr": "Biomatls"
+    },
+    {
+        "SubjectDescr": "Dental Education",
+        "SubjectCode": "DENTED",
+        "SubjectShortDescr": "Dent Ed"
+    },
+    {
+        "SubjectDescr": "Dental Hygiene",
+        "SubjectCode": "DHYGRACK",
+        "SubjectShortDescr": "Dent Hyg"
+    },
+    {
+        "SubjectDescr": "Dentistry",
+        "SubjectCode": "DENT",
+        "SubjectShortDescr": "Dent"
+    },
+    {
+        "SubjectDescr": "Endodontics",
+        "SubjectCode": "ENDODONT",
+        "SubjectShortDescr": "Endodont"
+    },
+    {
+        "SubjectDescr": "Oral Biology",
+        "SubjectCode": "ORALBIOL",
+        "SubjectShortDescr": "Oral Biol"
+    },
+    {
+        "SubjectDescr": "Oral Diagnosis",
+        "SubjectCode": "ORALDIAG",
+        "SubjectShortDescr": "Oral Diag"
+    },
+    {
+        "SubjectDescr": "Oral Health Sciences",
+        "SubjectCode": "ORALHEAL",
+        "SubjectShortDescr": "Oral Heal"
+    },
+    {
+        "SubjectDescr": "Oral Pathology",
+        "SubjectCode": "ORALPATH",
+        "SubjectShortDescr": "Oral Path"
+    },
+    {
+        "SubjectDescr": "Oral Surgery",
+        "SubjectCode": "ORALSURG",
+        "SubjectShortDescr": "Oral Surg"
+    },
+    {
+        "SubjectDescr": "Orthodontics",
+        "SubjectCode": "ORTHO",
+        "SubjectShortDescr": "Ortho"
+    },
+    {
+        "SubjectDescr": "Pediatric Dentistry",
+        "SubjectCode": "PEDDENT",
+        "SubjectShortDescr": "Ped Dent"
+    },
+    {
+        "SubjectDescr": "Periodontics",
+        "SubjectCode": "PERIODON",
+        "SubjectShortDescr": "Periodont"
+    },
+    {
+        "SubjectDescr": "Prosthodontics",
+        "SubjectCode": "PROSTHOD",
+        "SubjectShortDescr": "Prsthdntc"
+    },
+    {
+        "SubjectDescr": "Restorative",
+        "SubjectCode": "RESTORA",
+        "SubjectShortDescr": "Restora"
+    }
+]

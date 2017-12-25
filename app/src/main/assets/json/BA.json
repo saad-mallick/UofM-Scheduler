@@ -1,0 +1,72 @@
+[
+    {
+        "SubjectDescr": "Accounting",
+        "SubjectCode": "ACC",
+        "SubjectShortDescr": "Acctg"
+    },
+    {
+        "SubjectDescr": "Business Abroad",
+        "SubjectCode": "BUSABRD",
+        "SubjectShortDescr": "Bus Abroad"
+    },
+    {
+        "SubjectDescr": "Business Administration",
+        "SubjectCode": "BA",
+        "SubjectShortDescr": "Bus Adm"
+    },
+    {
+        "SubjectDescr": "Business Communication",
+        "SubjectCode": "BCOM",
+        "SubjectShortDescr": "Bus Comm"
+    },
+    {
+        "SubjectDescr": "Business Econ & Public Policy",
+        "SubjectCode": "BE",
+        "SubjectShortDescr": "Bus Econ"
+    },
+    {
+        "SubjectDescr": "Business Law",
+        "SubjectCode": "BL",
+        "SubjectShortDescr": "Bus Law"
+    },
+    {
+        "SubjectDescr": "Entrepreneurial Studies",
+        "SubjectCode": "ES",
+        "SubjectShortDescr": "Es"
+    },
+    {
+        "SubjectDescr": "Executive MBA",
+        "SubjectCode": "EMBA",
+        "SubjectShortDescr": "EMBA"
+    },
+    {
+        "SubjectDescr": "Finance",
+        "SubjectCode": "FIN",
+        "SubjectShortDescr": "Finance"
+    },
+    {
+        "SubjectDescr": "Management & Organizations",
+        "SubjectCode": "MO",
+        "SubjectShortDescr": "MO"
+    },
+    {
+        "SubjectDescr": "Marketing",
+        "SubjectCode": "MKT",
+        "SubjectShortDescr": "Mktg"
+    },
+    {
+        "SubjectDescr": "Strategy",
+        "SubjectCode": "STRATEGY",
+        "SubjectShortDescr": "Strategy"
+    },
+    {
+        "SubjectDescr": "Technology & Operations",
+        "SubjectCode": "TO",
+        "SubjectShortDescr": "Tech & Op"
+    },
+    {
+        "SubjectDescr": "Weekend MBA",
+        "SubjectCode": "WMBA",
+        "SubjectShortDescr": "WMBA"
+    }
+]

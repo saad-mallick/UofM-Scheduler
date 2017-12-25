@@ -1,0 +1,502 @@
+[
+    {
+        "SubjectDescr": "Afroamerican & African Studies",
+        "SubjectCode": "AAS",
+        "SubjectShortDescr": "Afroamer"
+    },
+    {
+        "SubjectDescr": "American Culture",
+        "SubjectCode": "AMCULT",
+        "SubjectShortDescr": "Am Cult"
+    },
+    {
+        "SubjectDescr": "American Sign Language",
+        "SubjectCode": "RCASL",
+        "SubjectShortDescr": "Am Sign L"
+    },
+    {
+        "SubjectDescr": "Anthropological Archaeology",
+        "SubjectCode": "ANTHRARC",
+        "SubjectShortDescr": "Anthr Arc"
+    },
+    {
+        "SubjectDescr": "Anthropology,Biological",
+        "SubjectCode": "ANTHRBIO",
+        "SubjectShortDescr": "Anthr Bio"
+    },
+    {
+        "SubjectDescr": "Anthropology,Cultural",
+        "SubjectCode": "ANTHRCUL",
+        "SubjectShortDescr": "Anthr Cul"
+    },
+    {
+        "SubjectDescr": "Applied Liberal Arts",
+        "SubjectCode": "ALA",
+        "SubjectShortDescr": "ALA"
+    },
+    {
+        "SubjectDescr": "Applied Physics",
+        "SubjectCode": "APPPHYS",
+        "SubjectShortDescr": "Apphysics"
+    },
+    {
+        "SubjectDescr": "Arab American Studies",
+        "SubjectCode": "ARABAM",
+        "SubjectShortDescr": "Ar Am Std"
+    },
+    {
+        "SubjectDescr": "Arabic Language",
+        "SubjectCode": "ARABIC",
+        "SubjectShortDescr": "Arabic"
+    },
+    {
+        "SubjectDescr": "Armenian Language",
+        "SubjectCode": "ARMENIAN",
+        "SubjectShortDescr": "Armenian"
+    },
+    {
+        "SubjectDescr": "Asian Languages",
+        "SubjectCode": "ASIANLAN",
+        "SubjectShortDescr": "Asian Lang"
+    },
+    {
+        "SubjectDescr": "Asian Studies",
+        "SubjectCode": "ASIAN",
+        "SubjectShortDescr": "Asian"
+    },
+    {
+        "SubjectDescr": "Asian/Pacific Island Amer Std",
+        "SubjectCode": "ASIANPAM",
+        "SubjectShortDescr": "As Pac Am"
+    },
+    {
+        "SubjectDescr": "Astronomy",
+        "SubjectCode": "ASTRO",
+        "SubjectShortDescr": "Astronomy"
+    },
+    {
+        "SubjectDescr": "Biology",
+        "SubjectCode": "BIOLOGY",
+        "SubjectShortDescr": "Biology"
+    },
+    {
+        "SubjectDescr": "Biophysics",
+        "SubjectCode": "BIOPHYS",
+        "SubjectShortDescr": "Biophysic"
+    },
+    {
+        "SubjectDescr": "Bosnian/Croatian/Serbian",
+        "SubjectCode": "BCS",
+        "SubjectShortDescr": "BCS"
+    },
+    {
+        "SubjectDescr": "Buddhist Studies",
+        "SubjectCode": "BUDDHST",
+        "SubjectShortDescr": "Budht Std"
+    },
+    {
+        "SubjectDescr": "Catalan",
+        "SubjectCode": "CATALAN",
+        "SubjectShortDescr": "Catalan"
+    },
+    {
+        "SubjectDescr": "Chemistry",
+        "SubjectCode": "CHEM",
+        "SubjectShortDescr": "Chem"
+    },
+    {
+        "SubjectDescr": "Chinese Studies",
+        "SubjectCode": "CCS",
+        "SubjectShortDescr": "CCS"
+    },
+    {
+        "SubjectDescr": "Classical Archaeology",
+        "SubjectCode": "CLARCH",
+        "SubjectShortDescr": "Cl Arch"
+    },
+    {
+        "SubjectDescr": "Classical Civilization",
+        "SubjectCode": "CLCIV",
+        "SubjectShortDescr": "Cl Civilz"
+    },
+    {
+        "SubjectDescr": "Classical Linguistics",
+        "SubjectCode": "CLLING",
+        "SubjectShortDescr": "Cl Ling"
+    },
+    {
+        "SubjectDescr": "Cognitive Science",
+        "SubjectCode": "COGSCI",
+        "SubjectShortDescr": "Cog Sci"
+    },
+    {
+        "SubjectDescr": "College Honors",
+        "SubjectCode": "HONORS",
+        "SubjectShortDescr": "Honors"
+    },
+    {
+        "SubjectDescr": "Communication Studies",
+        "SubjectCode": "COMM",
+        "SubjectShortDescr": "Comunctn"
+    },
+    {
+        "SubjectDescr": "Comparative Literature",
+        "SubjectCode": "COMPLIT",
+        "SubjectShortDescr": "Comp Lit"
+    },
+    {
+        "SubjectDescr": "Complex Systems",
+        "SubjectCode": "CMPLXSYS",
+        "SubjectShortDescr": "CmplxSys"
+    },
+    {
+        "SubjectDescr": "Comprehensive Studies Program",
+        "SubjectCode": "CSP",
+        "SubjectShortDescr": "CSP"
+    },
+    {
+        "SubjectDescr": "Czech",
+        "SubjectCode": "CZECH",
+        "SubjectShortDescr": "Czech"
+    },
+    {
+        "SubjectDescr": "Dutch",
+        "SubjectCode": "DUTCH",
+        "SubjectShortDescr": "Dutch"
+    },
+    {
+        "SubjectDescr": "Earth & Environmental Sciences",
+        "SubjectCode": "EARTH",
+        "SubjectShortDescr": "E & ES"
+    },
+    {
+        "SubjectDescr": "Ecology & Evolutionary Biology",
+        "SubjectCode": "EEB",
+        "SubjectShortDescr": "EEB"
+    },
+    {
+        "SubjectDescr": "Economics",
+        "SubjectCode": "ECON",
+        "SubjectShortDescr": "Econ"
+    },
+    {
+        "SubjectDescr": "English Lang & Literature",
+        "SubjectCode": "ENGLISH",
+        "SubjectShortDescr": "Engl"
+    },
+    {
+        "SubjectDescr": "English Language Institute",
+        "SubjectCode": "ELI",
+        "SubjectShortDescr": "Eng Lng I"
+    },
+    {
+        "SubjectDescr": "Environment",
+        "SubjectCode": "ENVIRON",
+        "SubjectShortDescr": "Environ"
+    },
+    {
+        "SubjectDescr": "European Studies",
+        "SubjectCode": "EURO",
+        "SubjectShortDescr": "Eur Std"
+    },
+    {
+        "SubjectDescr": "French",
+        "SubjectCode": "FRENCH",
+        "SubjectShortDescr": "French"
+    },
+    {
+        "SubjectDescr": "Geography",
+        "SubjectCode": "GEOG",
+        "SubjectShortDescr": "Geog"
+    },
+    {
+        "SubjectDescr": "German",
+        "SubjectCode": "GERMAN",
+        "SubjectShortDescr": "Ger"
+    },
+    {
+        "SubjectDescr": "Greek",
+        "SubjectCode": "GREEK",
+        "SubjectShortDescr": "Greek"
+    },
+    {
+        "SubjectDescr": "Hebrew Language",
+        "SubjectCode": "HEBREW",
+        "SubjectShortDescr": "Hebrew"
+    },
+    {
+        "SubjectDescr": "History",
+        "SubjectCode": "HISTORY",
+        "SubjectShortDescr": "Hist"
+    },
+    {
+        "SubjectDescr": "History of Art",
+        "SubjectCode": "HISTART",
+        "SubjectShortDescr": "Hist Art"
+    },
+    {
+        "SubjectDescr": "Humanities",
+        "SubjectCode": "RCHUMS",
+        "SubjectShortDescr": "RC Hums"
+    },
+    {
+        "SubjectDescr": "Institute For The Humanities",
+        "SubjectCode": "INSTHUM",
+        "SubjectShortDescr": "Inst Hum"
+    },
+    {
+        "SubjectDescr": "International Studies",
+        "SubjectCode": "INTLSTD",
+        "SubjectShortDescr": "Intern Std"
+    },
+    {
+        "SubjectDescr": "Islamic Studies",
+        "SubjectCode": "ISLAM",
+        "SubjectShortDescr": "Islamis St"
+    },
+    {
+        "SubjectDescr": "Italian",
+        "SubjectCode": "ITALIAN",
+        "SubjectShortDescr": "Ital"
+    },
+    {
+        "SubjectDescr": "Japanese Studies",
+        "SubjectCode": "CJS",
+        "SubjectShortDescr": "CJS"
+    },
+    {
+        "SubjectDescr": "Judaic Studies",
+        "SubjectCode": "JUDAIC",
+        "SubjectShortDescr": "Judaic St"
+    },
+    {
+        "SubjectDescr": "Korean Studies",
+        "SubjectCode": "KRSTD",
+        "SubjectShortDescr": "Korean Sts"
+    },
+    {
+        "SubjectDescr": "Latin",
+        "SubjectCode": "LATIN",
+        "SubjectShortDescr": "Latin"
+    },
+    {
+        "SubjectDescr": "Latin Amer & Caribbean Stu",
+        "SubjectCode": "LACS",
+        "SubjectShortDescr": "LatCar St"
+    },
+    {
+        "SubjectDescr": "Latina/o American Studies",
+        "SubjectCode": "LATINOAM",
+        "SubjectShortDescr": "Lat Am Std"
+    },
+    {
+        "SubjectDescr": "Linguistics",
+        "SubjectCode": "LING",
+        "SubjectShortDescr": "Ling"
+    },
+    {
+        "SubjectDescr": "Lloyd Hall Scholars Program",
+        "SubjectCode": "LHSP",
+        "SubjectShortDescr": "LHSP"
+    },
+    {
+        "SubjectDescr": "Macromolecular Science",
+        "SubjectCode": "MACROMOL",
+        "SubjectShortDescr": "Macromclr"
+    },
+    {
+        "SubjectDescr": "Mathematics",
+        "SubjectCode": "MATH",
+        "SubjectShortDescr": "Math"
+    },
+    {
+        "SubjectDescr": "Medieval & Early Modern Std",
+        "SubjectCode": "MEMS",
+        "SubjectShortDescr": "MEMS"
+    },
+    {
+        "SubjectDescr": "Middle Eastern & N African Stu",
+        "SubjectCode": "MENAS",
+        "SubjectShortDescr": "Mid N Afr"
+    },
+    {
+        "SubjectDescr": "Modern Greek",
+        "SubjectCode": "GREEKMOD",
+        "SubjectShortDescr": "Mod Greek"
+    },
+    {
+        "SubjectDescr": "Molec, Cell & Develop Biology",
+        "SubjectCode": "MCDB",
+        "SubjectShortDescr": "MCDB"
+    },
+    {
+        "SubjectDescr": "Museum Methods",
+        "SubjectCode": "MUSMETH",
+        "SubjectShortDescr": "Mus Meth"
+    },
+    {
+        "SubjectDescr": "Museums",
+        "SubjectCode": "MUSEUMS",
+        "SubjectShortDescr": "Museums"
+    },
+    {
+        "SubjectDescr": "Native American Studies",
+        "SubjectCode": "NATIVEAM",
+        "SubjectShortDescr": "Nat Am Std"
+    },
+    {
+        "SubjectDescr": "Near East Languages",
+        "SubjectCode": "NESLANG",
+        "SubjectShortDescr": "NE Lang"
+    },
+    {
+        "SubjectDescr": "Near Eastern Studies",
+        "SubjectCode": "NEAREAST",
+        "SubjectShortDescr": "N East Std"
+    },
+    {
+        "SubjectDescr": "Organizational Studies",
+        "SubjectCode": "ORGSTUDY",
+        "SubjectShortDescr": "OrgStudy"
+    },
+    {
+        "SubjectDescr": "Persian Language",
+        "SubjectCode": "PERSIAN",
+        "SubjectShortDescr": "Persian"
+    },
+    {
+        "SubjectDescr": "Philos, Politics & Economics",
+        "SubjectCode": "PPE",
+        "SubjectShortDescr": "PPE"
+    },
+    {
+        "SubjectDescr": "Philosophy",
+        "SubjectCode": "PHIL",
+        "SubjectShortDescr": "Philosophy"
+    },
+    {
+        "SubjectDescr": "Physics",
+        "SubjectCode": "PHYSICS",
+        "SubjectShortDescr": "Phys"
+    },
+    {
+        "SubjectDescr": "Polish",
+        "SubjectCode": "POLISH",
+        "SubjectShortDescr": "Polish"
+    },
+    {
+        "SubjectDescr": "Political Science",
+        "SubjectCode": "POLSCI",
+        "SubjectShortDescr": "Pol Sci"
+    },
+    {
+        "SubjectDescr": "Portuguese",
+        "SubjectCode": "PORTUG",
+        "SubjectShortDescr": "Portugues"
+    },
+    {
+        "SubjectDescr": "Psychology",
+        "SubjectCode": "PSYCH",
+        "SubjectShortDescr": "Psych"
+    },
+    {
+        "SubjectDescr": "Religion",
+        "SubjectCode": "RELIGION",
+        "SubjectShortDescr": "Religion"
+    },
+    {
+        "SubjectDescr": "Romance Languages&Literatures",
+        "SubjectCode": "ROMLANG",
+        "SubjectShortDescr": "Rom Lang"
+    },
+    {
+        "SubjectDescr": "Romance Linguistics",
+        "SubjectCode": "ROMLING",
+        "SubjectShortDescr": "Rom Ling"
+    },
+    {
+        "SubjectDescr": "Russian",
+        "SubjectCode": "RUSSIAN",
+        "SubjectShortDescr": "Russian"
+    },
+    {
+        "SubjectDescr": "Russian, E Europe & Euras Stu",
+        "SubjectCode": "REEES",
+        "SubjectShortDescr": "REEES"
+    },
+    {
+        "SubjectDescr": "Scandinavian",
+        "SubjectCode": "SCAND",
+        "SubjectShortDescr": "Scand"
+    },
+    {
+        "SubjectDescr": "Screen Arts & Cultures",
+        "SubjectCode": "SAC",
+        "SubjectShortDescr": "Sc A & Cul"
+    },
+    {
+        "SubjectDescr": "Slavic",
+        "SubjectCode": "SLAVIC",
+        "SubjectShortDescr": "Slav"
+    },
+    {
+        "SubjectDescr": "Sociology",
+        "SubjectCode": "SOC",
+        "SubjectShortDescr": "Soc"
+    },
+    {
+        "SubjectDescr": "South Asian Studies",
+        "SubjectCode": "SAS",
+        "SubjectShortDescr": "SAS"
+    },
+    {
+        "SubjectDescr": "Southeast Asian Studies",
+        "SubjectCode": "SEAS",
+        "SubjectShortDescr": "SEAS"
+    },
+    {
+        "SubjectDescr": "Spanish",
+        "SubjectCode": "SPANISH",
+        "SubjectShortDescr": "Span"
+    },
+    {
+        "SubjectDescr": "Statistics",
+        "SubjectCode": "STATS",
+        "SubjectShortDescr": "Stat"
+    },
+    {
+        "SubjectDescr": "Study Abroad",
+        "SubjectCode": "STDABRD",
+        "SubjectShortDescr": "StdAbroad"
+    },
+    {
+        "SubjectDescr": "Survey Methodology",
+        "SubjectCode": "SURVMETH",
+        "SubjectShortDescr": "Surv Meth"
+    },
+    {
+        "SubjectDescr": "Sweetland Center for Writing",
+        "SubjectCode": "WRITING",
+        "SubjectShortDescr": "Sweetland"
+    },
+    {
+        "SubjectDescr": "Turkish Language",
+        "SubjectCode": "TURKISH",
+        "SubjectShortDescr": "Turkish"
+    },
+    {
+        "SubjectDescr": "Ukrainian",
+        "SubjectCode": "UKR",
+        "SubjectShortDescr": "Ukrainian"
+    },
+    {
+        "SubjectDescr": "University Courses",
+        "SubjectCode": "UC",
+        "SubjectShortDescr": "Univ Crse"
+    },
+    {
+        "SubjectDescr": "Womens Studies",
+        "SubjectCode": "WOMENSTD",
+        "SubjectShortDescr": "Women Std"
+    }
+]

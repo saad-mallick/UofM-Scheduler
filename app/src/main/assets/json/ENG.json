@@ -1,0 +1,127 @@
+[
+    {
+        "SubjectDescr": "Aerospace Engineering",
+        "SubjectCode": "AEROSP",
+        "SubjectShortDescr": "Aero"
+    },
+    {
+        "SubjectDescr": "Atmos, Oceanic & Space Sci",
+        "SubjectCode": "AOSS",
+        "SubjectShortDescr": "Ao&Ss"
+    },
+    {
+        "SubjectDescr": "Automotive Engineering Program",
+        "SubjectCode": "AUTO",
+        "SubjectShortDescr": "Auto"
+    },
+    {
+        "SubjectDescr": "Biomedical Engineering",
+        "SubjectCode": "BIOMEDE",
+        "SubjectShortDescr": "Biomed E"
+    },
+    {
+        "SubjectDescr": "Chemical Engineering",
+        "SubjectCode": "CHE",
+        "SubjectShortDescr": "Ch E"
+    },
+    {
+        "SubjectDescr": "Civil & Environmental Engin",
+        "SubjectCode": "CEE",
+        "SubjectShortDescr": "Cee"
+    },
+    {
+        "SubjectDescr": "Climate & Meteorology",
+        "SubjectCode": "CLIMATE",
+        "SubjectShortDescr": "Climate"
+    },
+    {
+        "SubjectDescr": "Design Science",
+        "SubjectCode": "DESCI",
+        "SubjectShortDescr": "Des Sci"
+    },
+    {
+        "SubjectDescr": "Elec Engin & Computer Sci",
+        "SubjectCode": "EECS",
+        "SubjectShortDescr": "EECS"
+    },
+    {
+        "SubjectDescr": "Energy Systems Engineering",
+        "SubjectCode": "ESENG",
+        "SubjectShortDescr": "En Sys Eng"
+    },
+    {
+        "SubjectDescr": "Engineering",
+        "SubjectCode": "ENGR",
+        "SubjectShortDescr": "Engr"
+    },
+    {
+        "SubjectDescr": "Entrepreneurship",
+        "SubjectCode": "ENTR",
+        "SubjectShortDescr": "Entrepren"
+    },
+    {
+        "SubjectDescr": "Environmental Sciences & Engin",
+        "SubjectCode": "ENSCEN",
+        "SubjectShortDescr": "Enscen"
+    },
+    {
+        "SubjectDescr": "Industrial & Operations Engin",
+        "SubjectCode": "IOE",
+        "SubjectShortDescr": "I&Oe"
+    },
+    {
+        "SubjectDescr": "Integrative Systems & Design",
+        "SubjectCode": "ISD",
+        "SubjectShortDescr": "Int Sys&De"
+    },
+    {
+        "SubjectDescr": "Manufacturing",
+        "SubjectCode": "MFG",
+        "SubjectShortDescr": "Mfg"
+    },
+    {
+        "SubjectDescr": "Materials Science Engineering",
+        "SubjectCode": "MATSCIE",
+        "SubjectShortDescr": "Mat Sci E"
+    },
+    {
+        "SubjectDescr": "Mechanical Engineering",
+        "SubjectCode": "MECHENG",
+        "SubjectShortDescr": "ME"
+    },
+    {
+        "SubjectDescr": "Naval Arch & Marine Engin",
+        "SubjectCode": "NAVARCH",
+        "SubjectShortDescr": "Nav Arch"
+    },
+    {
+        "SubjectDescr": "Nuclear Engin & Radiolog Sci",
+        "SubjectCode": "NERS",
+        "SubjectShortDescr": "Ne&Rs"
+    },
+    {
+        "SubjectDescr": "Robotics",
+        "SubjectCode": "ROB",
+        "SubjectShortDescr": "Robotics"
+    },
+    {
+        "SubjectDescr": "Robotics & Auton Vehicle Engin",
+        "SubjectCode": "RAV",
+        "SubjectShortDescr": "RAV"
+    },
+    {
+        "SubjectDescr": "Space Science & Engineering",
+        "SubjectCode": "SPACE",
+        "SubjectShortDescr": "Space"
+    },
+    {
+        "SubjectDescr": "Technical Communication",
+        "SubjectCode": "TCHNCLCM",
+        "SubjectShortDescr": "Tchncl Cm"
+    },
+    {
+        "SubjectDescr": "University Arts",
+        "SubjectCode": "UARTS",
+        "SubjectShortDescr": "Univ Arts"
+    }
+]

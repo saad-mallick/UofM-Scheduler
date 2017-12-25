@@ -1,0 +1,17 @@
+[
+    {
+        "SubjectDescr": "Chemical Biology",
+        "SubjectCode": "CHEMBIO",
+        "SubjectShortDescr": "Chem Biol"
+    },
+    {
+        "SubjectDescr": "Museum Studies",
+        "SubjectCode": "MSP",
+        "SubjectShortDescr": "MSP"
+    },
+    {
+        "SubjectDescr": "Rackham Graduate School",
+        "SubjectCode": "RACKHAM",
+        "SubjectShortDescr": "Rack Gr"
+    }
+]

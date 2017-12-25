@@ -1,0 +1,17 @@
+[
+    {
+        "SubjectDescr": "Air Force Officer Education",
+        "SubjectCode": "AERO",
+        "SubjectShortDescr": "Air Force"
+    },
+    {
+        "SubjectDescr": "Military Science",
+        "SubjectCode": "MILSCI",
+        "SubjectShortDescr": "Mil Sci"
+    },
+    {
+        "SubjectDescr": "Naval Science",
+        "SubjectCode": "NAVSCI",
+        "SubjectShortDescr": "Nav Sci"
+    }
+]

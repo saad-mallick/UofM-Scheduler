@@ -1,0 +1,32 @@
+[
+    {
+        "SubjectDescr": "Athletic Training",
+        "SubjectCode": "AT",
+        "SubjectShortDescr": "Athlet Tr"
+    },
+    {
+        "SubjectDescr": "Health and Fitness",
+        "SubjectCode": "HF",
+        "SubjectShortDescr": "Hlth & Fit"
+    },
+    {
+        "SubjectDescr": "Kinesiology",
+        "SubjectCode": "KINESLGY",
+        "SubjectShortDescr": "KIN"
+    },
+    {
+        "SubjectDescr": "Movement Science",
+        "SubjectCode": "MOVESCI",
+        "SubjectShortDescr": "MVS"
+    },
+    {
+        "SubjectDescr": "Physical Education",
+        "SubjectCode": "PHYSED",
+        "SubjectShortDescr": "PE"
+    },
+    {
+        "SubjectDescr": "Sport Management",
+        "SubjectCode": "SM",
+        "SubjectShortDescr": "Sport Mgt"
+    }
+]
