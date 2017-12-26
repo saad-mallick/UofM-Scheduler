@@ -26,29 +26,25 @@ import java.util.TreeMap;
 
 public class Utility {
 
-    public static JSONArray getJSONArray(String url) throws SocketTimeoutException, JSONException, IOException {
-
-        /*
-         * TODO: Catch SocketTimeoutException and print "sorry timeout" message
-         */
-
-        // Build and set timeout values for the request.
-        System.out.println("HERE");
-        URLConnection connection = (new URL(url)).openConnection();
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(20000);
-        connection.connect();
+    public static String getStringFromURL(String url) throws IOException, SocketTimeoutException {
+        URL api_url = new URL(url);
 
         // Read and store the result line by line then return the entire string.
-        InputStream in = connection.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        StringBuilder html = new StringBuilder();
-        for (String line; (line = reader.readLine()) != null; ) {
-            html.append(line.trim());
-        }
-        in.close();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(api_url.openStream()));
+        StringBuilder info = new StringBuilder();
 
-        return new JSONArray(html.toString());
+        String line;
+        while ((line = reader.readLine()) != null) {
+            info.append(line.trim());
+        }
+        reader.close();
+
+        return info.toString();
+    }
+
+    public static JSONArray getJSONArray(String url) throws JSONException, IOException {
+        String info = getStringFromURL(url);
+        return new JSONArray(info);
     }
 
     public static Map<String, String> readMapFromFile(Activity activity, String filename, String key_str, String value_str) {

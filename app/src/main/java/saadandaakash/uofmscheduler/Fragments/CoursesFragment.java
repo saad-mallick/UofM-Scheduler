@@ -78,10 +78,6 @@ public class CoursesFragment extends ListFragment {
                                 infoObject.getString("CatalogNumber")));
             }
         }
-        catch (SocketTimeoutException s) {
-            s.printStackTrace();
-            /* TODO: do something different for timeout */
-        }
         catch (Exception e){
             e.printStackTrace();
         }
