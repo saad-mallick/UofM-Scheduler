@@ -82,7 +82,8 @@ public class SelectionFragment extends Fragment {
             editSubject.setTypeface(t);
 
             // create map of schools and their codes
-            schoolData = readMapFromFile(
+            schoolData = Utility.readMapFromFile(
+                    getActivity(),
                     "schools.json",
                     "SchoolDescr",
                     "SchoolCode");
@@ -141,7 +142,8 @@ public class SelectionFragment extends Fragment {
                         if (schoolCode != null) {
                             try {
                                 subject_adapter.clear();
-                                subjectData = readMapFromFile(
+                                subjectData = Utility.readMapFromFile(
+                                        getActivity(),
                                         schoolCode + ".json",
                                         "SubjectDescr",
                                         "SubjectCode"
@@ -173,69 +175,5 @@ public class SelectionFragment extends Fragment {
         }
     }
 
-    public String findOpenCourses() throws Exception {
 
-        String openClasses = "";
-
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-        String url = "http://umich-schedule-api.herokuapp.com/v4/get_sections?" +
-                "term_code=" + termCode +
-                "&school=" + schoolCode +
-                "&subject=" + subjectCode.toUpperCase() +
-                "&catalog_num=" + catalogNum;
-
-        JSONArray infoFromAPI = Utility.getJSONArray(url);
-
-        // go through course info array and find open sections
-        for (int i = 0; i < infoFromAPI.length(); i++) {
-            JSONObject infoObject = infoFromAPI.getJSONObject(i);
-
-            String append = "Section " + infoObject.getString("SectionNumber") + ": " +
-                    String.valueOf(infoObject.getInt("AvailableSeats")) + "\n";
-            openClasses += append;
-
-        }
-        // if no open classes are found...
-        if (openClasses.length() == 0) {
-            throw new Exception();
-        }
-
-        return openClasses;
-    }
-
-    public Map<String, String> readMapFromFile(String filename, String key_str, String value_str) {
-        try {
-            // read from json into JSONArray
-            InputStream is = getActivity().getAssets().open("json/" + filename);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            String json = new String(buffer, "UTF-8");
-            JSONArray arr = new JSONArray(json);
-
-            // convert JSONArray to Map
-            Map<String, String> school_map = new TreeMap<>();
-            for (int i = 0; i < arr.length(); i++) {
-                JSONObject obj = arr.getJSONObject(i);
-                // get key and value from JSON, put into map
-                String key = obj.getString(key_str);
-                String value = obj.getString(value_str);
-                school_map.put(key, value);
-            }
-            return school_map;
-
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-        catch (JSONException j) {
-            j.printStackTrace();
-            return new HashMap<>();
-        }
-    }
 }

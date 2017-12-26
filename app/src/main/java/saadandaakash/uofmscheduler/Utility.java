@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +16,9 @@ import java.io.InputStreamReader;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by Aakash on 12/26/2017.
@@ -45,6 +49,39 @@ public class Utility {
         in.close();
 
         return new JSONArray(html.toString());
+    }
+
+    public static Map<String, String> readMapFromFile(Activity activity, String filename, String key_str, String value_str) {
+        try {
+            // read from json into JSONArray
+            InputStream is = activity.getAssets().open("json/" + filename);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            String json = new String(buffer, "UTF-8");
+            JSONArray arr = new JSONArray(json);
+
+            // convert JSONArray to Map
+            Map<String, String> school_map = new TreeMap<>();
+            for (int i = 0; i < arr.length(); i++) {
+                JSONObject obj = arr.getJSONObject(i);
+                // get key and value from JSON, put into map
+                String key = obj.getString(key_str);
+                String value = obj.getString(value_str);
+                school_map.put(key, value);
+            }
+            return school_map;
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        catch (JSONException j) {
+            j.printStackTrace();
+            return new HashMap<>();
+        }
     }
 
     public static void hideKeyboard(Context context) {
