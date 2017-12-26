@@ -41,5 +41,4 @@ public class ClassFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-
 }
