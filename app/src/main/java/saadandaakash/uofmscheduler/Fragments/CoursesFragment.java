@@ -30,7 +30,6 @@ public class CoursesFragment extends ListFragment {
     private String schoolCode;
     private String subjectCode;
     private String termCode = "2170";
-    private ArrayList<String> courses = new ArrayList<String>();
 
     //REQUIRES: A valid school code and subject code
     //EFFECTS: Creates a new instance of CoursesFragment with the correct schoolCode and subjectCode
@@ -46,9 +45,7 @@ public class CoursesFragment extends ListFragment {
     //EFFECTS: Sets up the list with the custom adapter
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        getCourses();
-        System.out.println(courses);
-        CustomAdapter adapter = new CustomAdapter(getActivity(), courses);
+        CustomAdapter adapter = new CustomAdapter(getActivity(), getCourses());
 
         /*
          * TODO: top margin of course list is too small, needs to be moved down
@@ -59,8 +56,7 @@ public class CoursesFragment extends ListFragment {
     }
 
     //EFFECTS: Fills the courses array list with correct data
-    public void getCourses(){
-        String openClasses = "";
+    public ArrayList<Course> getCourses(){
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -71,34 +67,37 @@ public class CoursesFragment extends ListFragment {
                 "term_code=" + termCode +
                 "&school=" + schoolCode +
                 "&subject=" + subjectCode;
+
+        ArrayList<Course> courses = new ArrayList<>();
         try {
             JSONArray infoFromAPI = Utility.getJSONArray(url);
             // go through course info array and find open sections
             for (int i = 0; i < infoFromAPI.length(); i++) {
                 JSONObject infoObject = infoFromAPI.getJSONObject(i);
-                courses.add(subjectCode + " " + infoObject.getString("CatalogNumber")
-                        + ": " + infoObject.getString("CourseTitle"));
+                courses.add(new Course(infoObject.getString("CourseTitle"),
+                                infoObject.getString("CatalogNumber")));
             }
         }
         catch (SocketTimeoutException s) {
             s.printStackTrace();
-
+            /* TODO: do something different for timeout */
         }
         catch (Exception e){
             e.printStackTrace();
         }
+        return courses;
     }
 
     //This CustomAdapter will store information about the school code and the subject code
     //and display them. The layout is specified in courses_fragment_sectional_layout
     //I chose to make this a custom adapter in case we decide to add images or add things like
     //"fills X LSA preq" or something along those lines
-    private class CustomAdapter extends ArrayAdapter<String> {
+    private class CustomAdapter extends ArrayAdapter {
 
         private final Activity context;
-        private final ArrayList<String> courses;
+        private final ArrayList<Course> courses;
 
-        public CustomAdapter(Activity context, ArrayList<String> courses) {
+        public CustomAdapter(Activity context, ArrayList<Course> courses) {
             super(context, R.layout.courses_fragment_sectional_layout, courses);
 
             this.context = context;
@@ -111,7 +110,11 @@ public class CoursesFragment extends ListFragment {
             View rowView = inflater.inflate(R.layout.courses_fragment_sectional_layout, null,true);
 
             TextView courseName = (TextView) rowView.findViewById(R.id.name);
-            courseName.setText(courses.get(position));
+
+            Course currentCourse = courses.get(position);
+            String printCourse = subjectCode + " " + currentCourse.catalogNumber + ": " +
+                    currentCourse.courseName;
+            courseName.setText(printCourse);
 
             View.OnClickListener clickListener = new View.OnClickListener() {
                 public void onClick(View v) {
@@ -124,6 +127,15 @@ public class CoursesFragment extends ListFragment {
             };
             rowView.setOnClickListener(clickListener);
             return rowView;
+        }
+    }
+
+    private class Course {
+        private String courseName, catalogNumber;
+
+        public Course(String courseName, String catalogNumber) {
+            this.catalogNumber = catalogNumber;
+            this.courseName = courseName;
         }
     }
 
