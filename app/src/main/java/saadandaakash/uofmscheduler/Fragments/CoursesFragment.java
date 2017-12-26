@@ -114,7 +114,5 @@ public class CoursesFragment extends ListFragment {
             return rowView;
         }
     }
-
-    private class 
-
+    
 }
