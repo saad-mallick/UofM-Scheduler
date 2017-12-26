@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="Please enter the course you would like to view:"/>
+        android:text="@string/enter_course"/>
 
     <RelativeLayout
         android:id="@+id/enterInfo"
@@ -31,7 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:text="School:"/>
+                android:text="@string/school"/>
 
             <AutoCompleteTextView
                 android:id="@+id/enterSchool"
@@ -54,7 +54,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:text="Subject:"/>
+                android:text="@string/subject"/>
 
             <AutoCompleteTextView
                 android:id="@+id/enterSubject"
@@ -74,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/enterInfo"
-        android:text="Submit" />
+        android:text="@string/submit" />
 
     <RelativeLayout
         android:id="@+id/courseDisplay"

@@ -1,5 +1,6 @@
 package saadandaakash.uofmscheduler;
 
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -54,6 +58,18 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        /*Typeface t = Typeface.createFromAsset(getAssets(),
+                "fonts/Quicksand-Regular.otf");
+
+        // apply custom font
+        MenuItem m1 = menu.getItem(R.id.Select_Courses);
+        MenuItem m2 = menu.getItem(R.id.My_Courses);
+        MenuItem m3 = menu.getItem(R.id.Settings);*/
+        /*
+
+        TODO: Figure out how to actually apply the font...
+
+        */
         return true;
     }
 
@@ -82,9 +98,13 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.Select_Courses) {
             fragment = new SelectionFragment();
         } else if (id == R.id.My_Courses) {
-
+            // temporary to avoid crashing
+            // TODO: make courses fragment
+            return true;
         } else if (id == R.id.Settings) {
-
+            // temporary to avoid crashing
+            // TODO: make settings fragment
+            return true;
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();

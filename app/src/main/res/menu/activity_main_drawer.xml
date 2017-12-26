@@ -5,15 +5,15 @@
         <item
             android:id="@+id/Select_Courses"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Select Courses" />
+            android:title="@string/select_courses"/>
         <item
             android:id="@+id/My_Courses"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="My Courses" />
+            android:title="@string/my_courses" />
         <item
             android:id="@+id/Settings"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Settings" />
+            android:title="@string/settings" />
     </group>
 
 </menu>

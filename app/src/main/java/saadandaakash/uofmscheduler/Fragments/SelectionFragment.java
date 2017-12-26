@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 
 import android.os.StrictMode;
 
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -104,12 +106,17 @@ public class SelectionFragment extends Fragment {
                             // get school and subject values
                             schoolCode = schoolData.get(editSchool.getText().toString());
                             subjectCode = editSubject.getText().toString();
-                            CoursesFragment fragment = CoursesFragment.newInstance(schoolCode, subjectCode);
-                            hideKeyboard(getActivity());
-                            FragmentManager fragmentManager = getFragmentManager();
-                            fragmentManager.beginTransaction()
-                                    .replace(R.id.container, fragment)
-                                    .commit();
+                            
+                            // check to make sure something was entered before switching fragments
+                            if (schoolCode != null && !schoolCode.trim().isEmpty() &&
+                                    subjectCode != null && !subjectCode.trim().isEmpty()) {
+                                CoursesFragment fragment = CoursesFragment.newInstance(schoolCode, subjectCode);
+                                hideKeyboard(getActivity());
+                                FragmentManager fragmentManager = getFragmentManager();
+                                fragmentManager.beginTransaction()
+                                        .replace(R.id.container, fragment)
+                                        .commit();
+                            }
                         }
                     }
             );
