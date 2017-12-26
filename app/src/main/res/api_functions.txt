@@ -1,0 +1,69 @@
+def get_terms():
+    '''
+    Returns a list of valid terms.
+    Each item in the list is a dictionary containing:
+        ('TermCode', 'TermDescr', 'TermShortDescr')
+    '''
+    return get_data('/get_terms')
+
+def get_schools(TermCode):
+    '''
+    Returns a list of schools as a dictionary containing:
+        ('SchoolCode', 'SchoolDescr', 'SchoolShortDescr')
+    '''
+    return get_data('/get_schools?term_code=' + TermCode)
+
+def get_subjects(TermCode, SchoolCode):
+    '''
+    Returns a list of subjects as a dictionary containing:
+        ('SubjectShortDesrc', 'SubjectCode', 'SubjectDescr')
+    '''
+    return get_data('/get_subjects?term_code=' + TermCode + '&school=' + SchoolCode)
+
+def get_catalog_numbers(TermCode, SchoolCode, SubjectCode):
+    '''
+    Returns a list of Course titles and catalog numbers containing:
+        ('CourseTitle', 'CatalogNumber')
+    '''
+    return get_data('/get_catalog_numbers?term_code=' + TermCode + '&school=' + SchoolCode + '&subject=' + SubjectCode)
+
+def get_course_description(TermCode, SchoolCode, SubjectCode, CatalogNumber):
+    '''
+    Returns course description.
+    '''
+
+    return get_data('/get_course_description?term_code=' + TermCode + '&school=' + SchoolCode + '&subject='
+     + SubjectCode + '&catalog_num=' + CatalogNumber)
+
+def get_additional_info(TermCode, SchoolCode, SubjectCode, CatalogNumber):
+    '''
+    Returns additional information about the course.
+    '''
+
+    return get_data('/get_additional_info?term_code=' + TermCode + '&school=' + SchoolCode + '&subject='
+     + SubjectCode + '&catalog_num=' + CatalogNumber)
+
+
+def get_sections(TermCode, SchoolCode, SubjectCode, CatalogNumber):
+    '''
+    Returns SectionType, SectionTypeDescr, CreditHours, EnrollmentStatus, EnrollmentTotal, WaitTotal, Instructors,
+    Available Seats, SectionNumber, Meetings, WaitCapacity, EnrollmentCapacity
+    '''
+
+    return get_data('/get_sections?term_code=' + TermCode + '&school=' + SchoolCode + '&subject='
+     + SubjectCode + '&catalog_num=' + CatalogNumber)
+
+def get_section_details(TermCode, SchoolCode, SubjectCode, CatalogNumber, SectionNumber):
+    '''
+    Returns specific section details.
+    '''
+
+    return get_data('/get_section_details?term_code=' + TermCode + '&school=' + SchoolCode + '&subject='
+     + SubjectCode + '&catalog_num=' + CatalogNumber + '&section_num=' + SectionNumber)
+
+def get_meetings(TermCode, SchoolCode, SubjectCode, CatalogNumber, SectionNumber):
+    '''
+    Returns meeting times for a specific section
+    '''
+    return get_data('/get_meetings?term_code=' + TermCode + '&school=' + SchoolCode + '&subject='
+     + SubjectCode + '&catalog_num=' + CatalogNumber + '&section_num=' + SectionNumber)

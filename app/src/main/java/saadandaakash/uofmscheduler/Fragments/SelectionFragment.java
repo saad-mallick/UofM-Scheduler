@@ -212,6 +212,10 @@ public class SelectionFragment extends Fragment {
 
     public static JSONArray getJSONArray(String url) throws IOException, JSONException {
 
+        /*
+         * TODO: Catch SocketTimeoutException and print "sorry timeout" message
+         */
+
         // Build and set timeout values for the request.
         System.out.println("HERE");
         URLConnection connection = (new URL(url)).openConnection();

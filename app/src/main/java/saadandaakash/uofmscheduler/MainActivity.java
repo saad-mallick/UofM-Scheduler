@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import saadandaakash.uofmscheduler.Fragments.SectionsFragment;
 import saadandaakash.uofmscheduler.Fragments.SelectionFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -97,11 +98,21 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         if (id == R.id.Select_Courses) {
             fragment = new SelectionFragment();
-        } else if (id == R.id.My_Courses) {
+        }
+        else if (id == R.id.My_Courses) {
             // temporary to avoid crashing
             // TODO: make saved courses fragment
-            return true;
-        } else if (id == R.id.Settings) {
+            // testing sections fragment before courses fragment is complete
+            try {
+                fragment = SectionsFragment.newInstance("ENG", "EECS", "280");
+                System.out.println("SECTIONS FRAGMENT CREATED");
+            }
+            catch (Exception e) {
+                System.out.println("ERROR: SECTIONS FRAGMENT COULD NOT BE CREATED");
+                e.printStackTrace();
+            }
+        }
+        else if (id == R.id.Settings) {
             // temporary to avoid crashing
             // TODO: make settings fragment
             return true;

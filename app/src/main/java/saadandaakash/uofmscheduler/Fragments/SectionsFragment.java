@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
-import java.sql.Struct;
 import java.util.ArrayList;
 
 import saadandaakash.uofmscheduler.R;
@@ -22,6 +22,11 @@ import static saadandaakash.uofmscheduler.Fragments.SelectionFragment.getJSONArr
 
 /**
  * Created by Saad on 12/26/2017.
+ */
+
+/*
+ * TODO: make back button go to previous fragment, not just close app
+ * TODO: also make another class for helper functions like close keyboard
  */
 
 public class SectionsFragment extends ListFragment{
@@ -34,9 +39,12 @@ public class SectionsFragment extends ListFragment{
     private ArrayList<Section> sections = new ArrayList<>();
 
     //You are not allowed to make constructors in Fragments, so this is what is typically done
-    public static SectionsFragment newInstance(String catalog_number){
+    public static SectionsFragment newInstance(String schoolCode, String subjectCode, String catalog_number){
         SectionsFragment fragment = new SectionsFragment();
         fragment.catalog_number = catalog_number;
+        fragment.schoolCode = schoolCode;
+        fragment.subjectCode = subjectCode;
+
         return fragment;
     }
 
@@ -65,10 +73,11 @@ public class SectionsFragment extends ListFragment{
             StrictMode.setThreadPolicy(policy);
         }
 
-        String url = "http://umich-schedule-api.herokuapp.com/v4/get_catalog_numbers?" +
+        String url = "http://umich-schedule-api.herokuapp.com/v4/get_sections?" +
                 "term_code=" + termCode +
                 "&school=" + schoolCode +
-                "&subject=" + subjectCode.substring(0, subjectCode.indexOf(' ')).toUpperCase();
+                "&subject=" + subjectCode +
+                "&catalog_num=" + catalog_number;
 
         try {
             JSONArray infoFromAPI = getJSONArray(url);
@@ -90,7 +99,7 @@ public class SectionsFragment extends ListFragment{
                 section.meetings.times = meetingObject.getString("Times");
 
                 sections.add(section);
-                System.out.println(section);
+                System.out.println(section.toString());
 
             }
         } catch (Exception e){
@@ -99,23 +108,42 @@ public class SectionsFragment extends ListFragment{
         }
     }
 
-    private class CustomAdapter extends ArrayAdapter<String> {
+    private class CustomAdapter extends ArrayAdapter {
         ArrayList<Section> sections;
         Activity context;
 
         public CustomAdapter(Activity context, ArrayList<Section> sections){
-            super(context, R.layout.courses_fragment_sectional_layout, new ArrayList<String>());
+            super(context, R.layout.courses_fragment_sectional_layout, sections);
             this.sections = sections;
             this.context = context;
         }
 
         @Override
         public View getView(int position, View view, ViewGroup parent){
+            // TODO: figure out what 'View Holder' pattern is
             LayoutInflater inflater = context.getLayoutInflater();
-            View rowView = inflater.inflate(R.layout.courses_fragment_sectional_layout, null,true);
+            View rowView = inflater.inflate(R.layout.sections_fragment_layout, null,true);
 
-            TextView sectionName = (TextView) rowView.findViewById(R.id.name);
-            sectionName.setText(sections.get(position).sectionNumber);
+            /*
+             * Section [Num] ([LEC/LAB/DIS])
+             * [Days] [Times]
+             * [Available seats] / [Total seats]
+             */
+            Section currentSection = sections.get(position);
+            TextView sectionTitle = (TextView) rowView.findViewById(R.id.sectionTitle);
+            String title = "Section " + currentSection.sectionNumber +
+                    " (" + currentSection.sectionType + ")";
+            sectionTitle.setText(title);
+
+            TextView meetingsInfo = (TextView) rowView.findViewById(R.id.meetingsInfo);
+            String meetings = currentSection.meetings.days + " " + currentSection.meetings.times;
+            meetingsInfo.setText(meetings);
+
+            TextView enrollmentInfo = (TextView) rowView.findViewById(R.id.enrollmentInfo);
+            String enrollment = "Available Seats: " + currentSection.availableSeats + " / " +
+                    currentSection.enrollmentTotal;
+            enrollmentInfo.setText(enrollment);
+
 
             return rowView;
         }
@@ -129,7 +157,7 @@ public class SectionsFragment extends ListFragment{
 
         private String classTopic, sectionType, sectionNumber;
         private int creditHours, enrollmentTotal, availableSeats;
-        private Meetings meetings;
+        private Meetings meetings = new Meetings();
 
     }
 }

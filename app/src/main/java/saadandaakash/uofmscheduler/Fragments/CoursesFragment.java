@@ -54,6 +54,7 @@ public class CoursesFragment extends ListFragment {
          */
 
         setListAdapter(adapter);
+
     }
 
     //EFFECTS: Fills the courses array list with correct data
@@ -65,17 +66,20 @@ public class CoursesFragment extends ListFragment {
             StrictMode.setThreadPolicy(policy);
         }
 
+        // TODO: we should be parsing the string before the fragment is
+        // created and passing only the subject code as the parameter
+
+        subjectCode = subjectCode.substring(0, subjectCode.indexOf(' ')).toUpperCase();
         String url = "http://umich-schedule-api.herokuapp.com/v4/get_catalog_numbers?" +
                 "term_code=" + termCode +
                 "&school=" + schoolCode +
-                "&subject=" + subjectCode.substring(0, subjectCode.indexOf(' ')).toUpperCase();
+                "&subject=" + subjectCode;
         try {
             JSONArray infoFromAPI = getJSONArray(url);
             // go through course info array and find open sections
             for (int i = 0; i < infoFromAPI.length(); i++) {
                 JSONObject infoObject = infoFromAPI.getJSONObject(i);
-                courses.add(subjectCode.substring(0, subjectCode.indexOf(' ')).toUpperCase()
-                        + " " + infoObject.getString("CatalogNumber")
+                courses.add(subjectCode + " " + infoObject.getString("CatalogNumber")
                         + ": " + infoObject.getString("CourseTitle"));
             }
         } catch (Exception e){
@@ -105,11 +109,12 @@ public class CoursesFragment extends ListFragment {
             View rowView = inflater.inflate(R.layout.courses_fragment_sectional_layout, null,true);
 
             TextView courseName = (TextView) rowView.findViewById(R.id.name);
-
             courseName.setText(courses.get(position));
 
             return rowView;
         }
     }
+
+    private class 
 
 }
