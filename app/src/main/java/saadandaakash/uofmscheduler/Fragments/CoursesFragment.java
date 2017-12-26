@@ -18,8 +18,7 @@ import java.util.ArrayList;
 import org.json.*;
 
 import saadandaakash.uofmscheduler.R;
-
-import static saadandaakash.uofmscheduler.Fragments.SelectionFragment.getJSONArray;
+import saadandaakash.uofmscheduler.Utility;
 
 /**
  * Created by Saad on 12/22/2017.
@@ -76,7 +75,7 @@ public class CoursesFragment extends ListFragment {
                 "&school=" + schoolCode +
                 "&subject=" + subjectCode;
         try {
-            JSONArray infoFromAPI = getJSONArray(url);
+            JSONArray infoFromAPI = Utility.getJSONArray(url);
             // go through course info array and find open sections
             for (int i = 0; i < infoFromAPI.length(); i++) {
                 JSONObject infoObject = infoFromAPI.getJSONObject(i);
@@ -125,5 +124,5 @@ public class CoursesFragment extends ListFragment {
             return rowView;
         }
     }
-    
+
 }

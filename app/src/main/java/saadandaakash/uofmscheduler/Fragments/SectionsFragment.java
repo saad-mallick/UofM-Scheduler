@@ -12,13 +12,11 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import saadandaakash.uofmscheduler.R;
-
-import static saadandaakash.uofmscheduler.Fragments.SelectionFragment.getJSONArray;
+import saadandaakash.uofmscheduler.Utility;
 
 /**
  * Created by Saad on 12/26/2017.
@@ -80,7 +78,7 @@ public class SectionsFragment extends ListFragment{
                 "&catalog_num=" + catalog_number;
 
         try {
-            JSONArray infoFromAPI = getJSONArray(url);
+            JSONArray infoFromAPI = Utility.getJSONArray(url);
             // go through course info array and find open sections
             for (int i = 0; i < infoFromAPI.length(); i++) {
                 JSONObject infoObject = infoFromAPI.getJSONObject(i);

@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ import org.json.*;
 import saadandaakash.uofmscheduler.Adapters.AutocompleteAdapter;
 import saadandaakash.uofmscheduler.Fragments.CoursesFragment;
 import saadandaakash.uofmscheduler.R;
+import saadandaakash.uofmscheduler.Utility;
 
 /**
  * Created by Aakash on 12/22/2017.
@@ -111,7 +113,8 @@ public class SelectionFragment extends Fragment {
                             if (schoolCode != null && !schoolCode.trim().isEmpty() &&
                                     subjectCode != null && !subjectCode.trim().isEmpty()) {
                                 CoursesFragment fragment = CoursesFragment.newInstance(schoolCode, subjectCode);
-                                hideKeyboard(getActivity());
+                                Utility.hideKeyboard(getActivity());
+
                                 FragmentManager fragmentManager = getFragmentManager();
                                 fragmentManager.beginTransaction()
                                         .replace(R.id.container, fragment)
@@ -170,13 +173,6 @@ public class SelectionFragment extends Fragment {
         }
     }
 
-    public static void hideKeyboard(Context context) {
-        InputMethodManager inputManager = (InputMethodManager) context
-                .getSystemService(Context.INPUT_METHOD_SERVICE);
-        View v = ((Activity) context).getCurrentFocus();
-        if(v != null) inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
-    }
-
     public String findOpenCourses() throws Exception {
 
         String openClasses = "";
@@ -191,7 +187,7 @@ public class SelectionFragment extends Fragment {
                 "&subject=" + subjectCode.toUpperCase() +
                 "&catalog_num=" + catalogNum;
 
-        JSONArray infoFromAPI = getJSONArray(url);
+        JSONArray infoFromAPI = Utility.getJSONArray(url);
 
         // go through course info array and find open sections
         for (int i = 0; i < infoFromAPI.length(); i++) {
@@ -208,31 +204,6 @@ public class SelectionFragment extends Fragment {
         }
 
         return openClasses;
-    }
-
-    public static JSONArray getJSONArray(String url) throws IOException, JSONException {
-
-        /*
-         * TODO: Catch SocketTimeoutException and print "sorry timeout" message
-         */
-
-        // Build and set timeout values for the request.
-        System.out.println("HERE");
-        URLConnection connection = (new URL(url)).openConnection();
-        connection.setConnectTimeout(5000);
-        connection.setReadTimeout(20000);
-        connection.connect();
-
-        // Read and store the result line by line then return the entire string.
-        InputStream in = connection.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        StringBuilder html = new StringBuilder();
-        for (String line; (line = reader.readLine()) != null; ) {
-            html.append(line.trim());
-        }
-        in.close();
-
-        return new JSONArray(html.toString());
     }
 
     public Map<String, String> readMapFromFile(String filename, String key_str, String value_str) {
