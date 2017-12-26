@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new SelectionFragment();
         } else if (id == R.id.My_Courses) {
             // temporary to avoid crashing
-            // TODO: make courses fragment
+            // TODO: make saved courses fragment
             return true;
         } else if (id == R.id.Settings) {
             // temporary to avoid crashing

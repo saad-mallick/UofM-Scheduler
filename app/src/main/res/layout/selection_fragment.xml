@@ -13,18 +13,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:textSize="20sp"
+        android:padding="5dp"
         android:text="@string/enter_course"/>
 
     <RelativeLayout
         android:id="@+id/enterInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/enterCourseMessage">
+        android:layout_below="@+id/enterCourseMessage"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp">
         <LinearLayout
             android:id="@+id/school"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:textSize="12sp"
             android:orientation="horizontal">
             <saadandaakash.uofmscheduler.customTextView
                 android:id="@+id/schoolName"
@@ -47,6 +52,7 @@
             android:id="@+id/subject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="12sp"
             android:layout_below="@+id/school"
             android:orientation="horizontal">
             <saadandaakash.uofmscheduler.customTextView

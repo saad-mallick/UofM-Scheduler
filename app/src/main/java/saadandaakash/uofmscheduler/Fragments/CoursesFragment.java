@@ -70,7 +70,8 @@ public class CoursesFragment extends ListFragment {
             for (int i = 0; i < infoFromAPI.length(); i++) {
                 JSONObject infoObject = infoFromAPI.getJSONObject(i);
                 courses.add(subjectCode.substring(0, subjectCode.indexOf(' ')).toUpperCase()
-                        + " " + infoObject.getString("CatalogNumber"));
+                        + " " + infoObject.getString("CatalogNumber")
+                        + ": " + infoObject.getString("CourseTitle"));
             }
         } catch (Exception e){
             e.printStackTrace();

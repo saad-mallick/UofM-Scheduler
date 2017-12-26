@@ -106,7 +106,7 @@ public class SelectionFragment extends Fragment {
                             // get school and subject values
                             schoolCode = schoolData.get(editSchool.getText().toString());
                             subjectCode = editSubject.getText().toString();
-                            
+
                             // check to make sure something was entered before switching fragments
                             if (schoolCode != null && !schoolCode.trim().isEmpty() &&
                                     subjectCode != null && !subjectCode.trim().isEmpty()) {
