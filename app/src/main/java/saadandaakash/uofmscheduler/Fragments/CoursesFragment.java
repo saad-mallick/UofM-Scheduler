@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import org.json.*;
@@ -66,10 +67,6 @@ public class CoursesFragment extends ListFragment {
             StrictMode.setThreadPolicy(policy);
         }
 
-        // TODO: we should be parsing the string before the fragment is
-        // created and passing only the subject code as the parameter
-
-        subjectCode = subjectCode.substring(0, subjectCode.indexOf(' ')).toUpperCase();
         String url = "http://umich-schedule-api.herokuapp.com/v4/get_catalog_numbers?" +
                 "term_code=" + termCode +
                 "&school=" + schoolCode +
@@ -82,7 +79,12 @@ public class CoursesFragment extends ListFragment {
                 courses.add(subjectCode + " " + infoObject.getString("CatalogNumber")
                         + ": " + infoObject.getString("CourseTitle"));
             }
-        } catch (Exception e){
+        }
+        catch (SocketTimeoutException s) {
+            s.printStackTrace();
+
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
     }

@@ -88,20 +88,22 @@ public class SelectionFragment extends Fragment {
                     "SchoolDescr",
                     "SchoolCode");
             final Set<String> SCHOOLS = schoolData.keySet();
-            final ArrayList<String> SCHOOLSList = new ArrayList<String>();
-            SCHOOLSList.addAll(SCHOOLS);
+            final ArrayList<String> schoolsList = new ArrayList<String>();
+            schoolsList.addAll(SCHOOLS);
+
             // create array adapter for school input field with school names
-            final AutocompleteAdapter school_adapter = new AutocompleteAdapter(getActivity(),
-                    SCHOOLSList);
+            final AutocompleteAdapter school_adapter = new AutocompleteAdapter(getActivity(), schoolsList);
             editSchool.setAdapter(school_adapter);
             editSchool.setThreshold(1);
 
             // create array adapter for subject field, currently empty
+            // will be populated once the school is entered
             final AutocompleteAdapter subject_adapter = new AutocompleteAdapter(getActivity(), new ArrayList<String>());
             editSubject.setAdapter(subject_adapter);
             editSubject.setThreshold(1);
 
 
+            // submit button clicked
             submitButton.setOnClickListener(
                     new View.OnClickListener() {
                         public void onClick(View view) {
@@ -109,6 +111,7 @@ public class SelectionFragment extends Fragment {
                             // get school and subject values
                             schoolCode = schoolData.get(editSchool.getText().toString());
                             subjectCode = editSubject.getText().toString();
+                            subjectCode = subjectCode.substring(0, subjectCode.indexOf(' ')).toUpperCase();
 
                             // check to make sure something was entered before switching fragments
                             if (schoolCode != null && !schoolCode.trim().isEmpty() &&
@@ -130,26 +133,23 @@ public class SelectionFragment extends Fragment {
             editSchool.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 public void onFocusChange(View view, boolean hasFocus) {
                     if (!hasFocus) {
-                        // check if the school field is filled
                         String school = editSchool.getText().toString();
-                        System.out.println("Input school: " + school);
 
+                        // check that school field is not empty
                         if (!school.trim().isEmpty()) {
                             schoolCode = schoolData.get(school);
-                            System.out.println(schoolCode);
                         }
                         // check if the school entered is valid
                         if (schoolCode != null) {
                             try {
                                 subject_adapter.clear();
+                                // read subjects from file
                                 subjectData = Utility.readMapFromFile(
                                         getActivity(),
                                         schoolCode + ".json",
                                         "SubjectDescr",
                                         "SubjectCode"
                                 );
-
-                                System.out.println(subjectData);
 
                                 // add values to subject adapter in form
                                 ArrayList<String> list = new ArrayList<>();
