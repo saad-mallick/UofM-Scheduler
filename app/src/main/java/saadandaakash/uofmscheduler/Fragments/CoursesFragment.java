@@ -3,6 +3,7 @@ package saadandaakash.uofmscheduler.Fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,6 +112,16 @@ public class CoursesFragment extends ListFragment {
             TextView courseName = (TextView) rowView.findViewById(R.id.name);
             courseName.setText(courses.get(position));
 
+            View.OnClickListener clickListener = new View.OnClickListener() {
+                public void onClick(View v) {
+                    ClassFragment fragment = ClassFragment.newInstance("test");
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, fragment)
+                            .commit();
+                }
+            };
+            rowView.setOnClickListener(clickListener);
             return rowView;
         }
     }
