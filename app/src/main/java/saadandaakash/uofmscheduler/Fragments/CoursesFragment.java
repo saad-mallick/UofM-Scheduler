@@ -48,6 +48,11 @@ public class CoursesFragment extends ListFragment {
         getCourses();
         System.out.println(courses);
         CustomAdapter adapter = new CustomAdapter(getActivity(), courses);
+
+        /*
+         * TODO: top margin of course list is too small, needs to be moved down
+         */
+
         setListAdapter(adapter);
     }
 

@@ -3,6 +3,7 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_header">UMich Course Guide</string>
 
     <string name="select_courses">Select Courses</string>
     <string name="my_courses">My Courses</string>
