@@ -65,16 +65,21 @@ public class ClassFragment extends Fragment {
             public void run() {
                 final String description = getDescription();
                 final String requirements = getRequirements();
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        TextView descr = (TextView)getView().findViewById(R.id.des);
-                        TextView req = (TextView)getView().findViewById(R.id.preqs);
-                        descr.setText(description);
-                        req.setText(requirements);
+                try {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            TextView descr = (TextView) getView().findViewById(R.id.des);
+                            TextView req = (TextView) getView().findViewById(R.id.preqs);
+                            descr.setText(description);
+                            req.setText(requirements);
 
-                    }
-                });
+                        }
+                    });
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
 

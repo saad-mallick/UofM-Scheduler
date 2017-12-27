@@ -1,8 +1,5 @@
 package saadandaakash.uofmscheduler.Fragments;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,32 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import android.os.StrictMode;
-
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.SocketTimeoutException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
-
-import org.json.*;
 
 import saadandaakash.uofmscheduler.Adapters.AutocompleteAdapter;
-import saadandaakash.uofmscheduler.Fragments.CoursesFragment;
 import saadandaakash.uofmscheduler.R;
 import saadandaakash.uofmscheduler.Utility;
 
@@ -164,7 +143,7 @@ public class SelectionFragment extends Fragment {
                                 subject_adapter.getFilter().filter(editSubject.getText(), null);
                             }
                             catch (Exception e) {
-                                editSubject.setText(e.toString());
+                                //editSubject.setText(e.toString());
                                 e.printStackTrace();
                             }
                         }
