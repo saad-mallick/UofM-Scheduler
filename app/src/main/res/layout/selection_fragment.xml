@@ -9,98 +9,46 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <saadandaakash.uofmscheduler.customTextView
-        android:id="@+id/enterCourseMessage"
+        android:id="@+id/enterSubjectMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:textSize="20sp"
         android:padding="5dp"
-        android:text="@string/enter_course"/>
+        android:text="@string/enter_subject"/>
 
-    <RelativeLayout
-        android:id="@+id/enterInfo"
+    <LinearLayout
+        android:id="@+id/subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/enterCourseMessage"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp">
-        <LinearLayout
-            android:id="@+id/school"
-            android:layout_width="match_parent"
+        android:layout_below="@id/enterSubjectMessage"
+        android:orientation="horizontal"
+        android:textSize="12sp">
+
+        <saadandaakash.uofmscheduler.customTextView
+            android:id="@+id/subjectName"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:textSize="12sp"
-            android:orientation="horizontal">
-            <saadandaakash.uofmscheduler.customTextView
-                android:id="@+id/schoolName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:text="@string/school"/>
+            android:layout_weight="0.2"
+            android:text="@string/subject" />
 
-            <AutoCompleteTextView
-                android:id="@+id/enterSchool"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:inputType="text"
-                android:dropDownHeight="150dp"
-                android:imeOptions="actionNext"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/subject"
-            android:layout_width="match_parent"
+        <AutoCompleteTextView
+            android:id="@+id/enterSubject"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:layout_below="@+id/school"
-            android:orientation="horizontal">
-            <saadandaakash.uofmscheduler.customTextView
-                android:id="@+id/subjectName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:text="@string/subject"/>
+            android:layout_weight="0.8"
+            android:dropDownHeight="150dp"
+            android:imeOptions="actionDone" />
 
-            <AutoCompleteTextView
-                android:id="@+id/enterSubject"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:dropDownHeight="150dp"
-                android:imeOptions="actionDone"/>
-
-        </LinearLayout>
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/submitCourseInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/enterInfo"
+        android:layout_below="@+id/subject"
         android:text="@string/submit" />
 
-    <RelativeLayout
-        android:id="@+id/courseDisplay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/submitCourseInfo">
-        <saadandaakash.uofmscheduler.customTextView
-            android:id="@+id/courseDisplayHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:text="" />
-        <saadandaakash.uofmscheduler.customTextView
-            android:id="@+id/courseInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="vertical"
-            android:text=""
-            android:layout_below="@+id/courseDisplayHeader" />
-
-    </RelativeLayout>
 
 </RelativeLayout>

@@ -28,16 +28,14 @@ import saadandaakash.uofmscheduler.Utility;
 
 public class CoursesFragment extends ListFragment {
 
-    private String schoolCode;
     private String subjectCode;
     private String termCode = "2170";
 
     //REQUIRES: A valid school code and subject code
     //EFFECTS: Creates a new instance of CoursesFragment with the correct schoolCode and subjectCode
     //         and returns it. Use instead of constructor
-    public static CoursesFragment newInstance(String schoolCode, String subjectCode){
+    public static CoursesFragment newInstance(String subjectCode){
         CoursesFragment coursesFragment = new CoursesFragment();
-        coursesFragment.schoolCode = schoolCode;
         coursesFragment.subjectCode = subjectCode;
         return coursesFragment;
     }
@@ -74,7 +72,6 @@ public class CoursesFragment extends ListFragment {
 
         String url = "http://umich-schedule-api.herokuapp.com/v4/get_catalog_numbers?" +
                 "term_code=" + termCode +
-                "&school=" + schoolCode +
                 "&subject=" + subjectCode;
 
         ArrayList<Course> courses = new ArrayList<>();
@@ -89,6 +86,7 @@ public class CoursesFragment extends ListFragment {
         }
         catch (Exception e){
             e.printStackTrace();
+
         }
         return courses;
     }
@@ -124,7 +122,7 @@ public class CoursesFragment extends ListFragment {
             View.OnClickListener clickListener = new View.OnClickListener() {
                 public void onClick(View v) {
                     ClassFragment fragment = ClassFragment.newInstance(termCode, subjectCode,
-                            currentCourse.catalogNumber, currentCourse.courseName, schoolCode);
+                            currentCourse.catalogNumber, currentCourse.courseName);
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.container, fragment)

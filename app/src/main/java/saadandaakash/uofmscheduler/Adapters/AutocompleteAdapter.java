@@ -34,6 +34,7 @@ public class AutocompleteAdapter extends ArrayAdapter {
         }
     }
 
+
     @Override
     public View getView(int position, View view, ViewGroup parent){
 
@@ -58,9 +59,6 @@ public class AutocompleteAdapter extends ArrayAdapter {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence)
             {
-                System.out.println(charSequence);
-                System.out.println(data);
-
                 FilterResults results = new FilterResults();
                 ArrayList<String> resultingData = new ArrayList<>();
 

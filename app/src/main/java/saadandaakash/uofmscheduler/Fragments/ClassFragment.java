@@ -41,10 +41,9 @@ public class ClassFragment extends Fragment {
     private ArrayList<Section> sections = new ArrayList<>();
 
     public static ClassFragment newInstance(String termCode, String courseArea, String courseNumber,
-                                            String courseTitle, String school){
+                                            String courseTitle){
         ClassFragment fragment = new ClassFragment();
         fragment.termCode = termCode;
-        fragment.schoolCode = school;
         fragment.subjectCode = courseArea;
         fragment.catalog_number = courseNumber;
         fragment.courseTitle = courseTitle;
@@ -75,8 +74,9 @@ public class ClassFragment extends Fragment {
 
     public String getDescription() {
         String url = "http://umich-schedule-api.herokuapp.com/v4/g" +
-                "et_course_description?term_code=" + termCode + "&school_code=" + schoolCode
-                + "&subject=" + subjectCode + "&catalog_num=" + catalog_number;
+                "et_course_description?term_code=" + termCode
+                + "&subject=" + subjectCode + "&catalog_num="
+                + catalog_number;
         try {
             return Utility.getStringFromURL(url);
         }
@@ -88,8 +88,9 @@ public class ClassFragment extends Fragment {
 
     public String getRequirements(){
         String url = "http://umich-schedule-api.herokuapp.com/v4/" +
-                "get_additional_info?term_code=" + termCode + "&school_code=" + schoolCode
-                + "&subject=" + subjectCode + "&catalog_num=" + catalog_number;
+                "get_additional_info?term_code=" + termCode
+                + "&subject=" + subjectCode + "&catalog_num="
+                + catalog_number;
         try {
             return Utility.getStringFromURL(url);
         }
