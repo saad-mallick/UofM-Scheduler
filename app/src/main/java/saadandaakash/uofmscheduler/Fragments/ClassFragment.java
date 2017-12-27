@@ -1,7 +1,6 @@
 package saadandaakash.uofmscheduler.Fragments;
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
@@ -16,8 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import saadandaakash.uofmscheduler.R;
 import saadandaakash.uofmscheduler.Utility;
