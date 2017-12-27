@@ -14,6 +14,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import saadandaakash.uofmscheduler.Adapters.AutocompleteAdapter;
 import saadandaakash.uofmscheduler.R;
@@ -36,6 +37,7 @@ public class SelectionFragment extends Fragment {
     public AutoCompleteTextView editSubject;
 
     private static Map<String, String> schoolData;
+    private static TreeMap<String, String> subjectData = new TreeMap<>();
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
@@ -68,7 +70,6 @@ public class SelectionFragment extends Fragment {
             final Set<String> SCHOOLS = schoolData.keySet();
 
             // go through each school and get the subjects 
-            ArrayList<String> subjectData = new ArrayList<>();
             for (String schoolCode : SCHOOLS) {
                 // read subjects from file
                 Map<String, String> subject = Utility.readMapFromFile(
@@ -77,16 +78,20 @@ public class SelectionFragment extends Fragment {
                         "SubjectCode",
                         "SubjectDescr"
                 );
-
+                //System.out.println(subject);
                 for (Map.Entry<String, String> entry : subject.entrySet()) {
-                    subjectData.add(entry.getKey() + " - " + entry.getValue());
-                    System.out.println(entry.getValue());
+                    subjectData.putAll(subject);
+                    //System.out.println(entry.getValue());
                 }
+            }
+            ArrayList<String> subjects = new ArrayList<>();
+            for (Map.Entry<String, String> entry : subjectData.entrySet()) {
+                subjects.add(entry.getKey() + " - " + entry.getValue());
             }
 
             // create array adapter for subject field, currently empty
             // will be populated once the school is entered
-            final AutocompleteAdapter subject_adapter = new AutocompleteAdapter(getActivity(), subjectData);
+            final AutocompleteAdapter subject_adapter = new AutocompleteAdapter(getActivity(), subjects);
             editSubject.setAdapter(subject_adapter);
             editSubject.setThreshold(1);
 
