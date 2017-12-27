@@ -60,11 +60,31 @@ public class ClassFragment extends Fragment {
         TextView courseTitleText = (TextView)getView().findViewById(R.id.courseTite);
         courseTitleText.setText(courseTitle);
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final String description = getDescription();
+                final String requirements = getRequirements();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView descr = (TextView)getView().findViewById(R.id.des);
+                        TextView req = (TextView)getView().findViewById(R.id.preqs);
+                        descr.setText(description);
+                        req.setText(requirements);
+
+                    }
+                });
+            }
+        }).start();
+
+        /*
         TextView description = (TextView)getView().findViewById(R.id.des);
         description.setText(getDescription());
 
         TextView requirements = (TextView)getView().findViewById(R.id.preqs);
         requirements.setText(getRequirements());
+        */
 
         Button chooseSections = (Button) getView().findViewById(R.id.chooseSections);
 
@@ -83,6 +103,7 @@ public class ClassFragment extends Fragment {
     }
 
     public String getDescription() {
+
         String url = "http://umich-schedule-api.herokuapp.com/v4/g" +
                 "et_course_description?term_code=" + termCode + "&school_code=" + schoolCode
                 + "&subject=" + subjectCode + "&catalog_num=" + catalog_number;

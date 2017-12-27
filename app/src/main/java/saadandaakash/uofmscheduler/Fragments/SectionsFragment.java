@@ -34,7 +34,6 @@ public class SectionsFragment extends ListFragment{
             schoolCode = null,
             subjectCode = null,
             catalog_number = null;
-    private ArrayList<Section> sections = new ArrayList<>();
 
     //You are not allowed to make constructors in Fragments, so this is what is typically done
     public static SectionsFragment newInstance(String schoolCode, String subjectCode, String catalog_number){
@@ -51,26 +50,33 @@ public class SectionsFragment extends ListFragment{
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
-        //This will get the sections and fill the sections arraylist with the correct data
-        getSections();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // Create custom adapter
+                final SectionsFragment.CustomAdapter adapter = new SectionsFragment.CustomAdapter(getActivity(), getSections());                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setListAdapter(adapter);
+                    }
+                });
 
-        //This will set our CustomAdapter
-        SectionsFragment.CustomAdapter adapter = new SectionsFragment.CustomAdapter(getActivity(), sections);
+            }
+        }).start();
 
-        //And the list will be made through that adapter
-        setListAdapter(adapter);
     }
 
     //EFFECTS: Will fill the ArrayList with the correct data about the sections
     //         It is up to you if you want to use an ArrayList or not. However, I recommend that
     //         you stick with ArrayList and make the type a triple or a pair if you want to store
     //         data with more than one attribute
-    private void getSections(){
+    private ArrayList<Section> getSections(){
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
 
+        ArrayList<Section> section_list = new ArrayList<>();
         String url = "http://umich-schedule-api.herokuapp.com/v4/get_sections?" +
                 "term_code=" + termCode +
                 "&school=" + schoolCode +
@@ -87,7 +93,7 @@ public class SectionsFragment extends ListFragment{
                         getJSONObject(0);
 
                 // create section object with info from JSON, add to list
-                sections.add(
+                section_list.add(
                         new Section(
                             infoObject.getString("ClassTopic"),
                             infoObject.getString("SectionType"),
@@ -105,6 +111,7 @@ public class SectionsFragment extends ListFragment{
             System.out.println("API ERROR: Course information not found");
             e.printStackTrace();
         }
+        return section_list;
     }
 
     private class CustomAdapter extends ArrayAdapter {
