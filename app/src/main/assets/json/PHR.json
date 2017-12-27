@@ -1,37 +1,22 @@
 [
-    {
-        "SubjectDescr": "Biostatistics",
-        "SubjectCode": "BIOSTAT",
-        "SubjectShortDescr": "Biostat"
-    },
-    {
-        "SubjectDescr": "Environmental Health Sciences",
-        "SubjectCode": "EHS",
-        "SubjectShortDescr": "EHS"
-    },
-    {
-        "SubjectDescr": "Epidemiology",
-        "SubjectCode": "EPID",
-        "SubjectShortDescr": "Epid"
-    },
-    {
-        "SubjectDescr": "Health Behavior & Health Educ",
-        "SubjectCode": "HBEHED",
-        "SubjectShortDescr": "H Beh-Ed"
-    },
-    {
-        "SubjectDescr": "Health Management And Policy",
-        "SubjectCode": "HMP",
-        "SubjectShortDescr": "HM&P"
-    },
-    {
-        "SubjectDescr": "Nutritional Sciences",
-        "SubjectCode": "NUTR",
-        "SubjectShortDescr": "Nutr Scien"
-    },
-    {
-        "SubjectDescr": "Public Health",
-        "SubjectCode": "PUBHLTH",
-        "SubjectShortDescr": "P H"
-    }
+  {
+    "SubjectShortDescr": "Med Chem",
+    "SubjectDescr": "Medicinal Chemistry",
+    "SubjectCode": "MEDCHEM"
+  },
+  {
+    "SubjectShortDescr": "Pharmsci",
+    "SubjectDescr": "Pharmaceutical Sciences",
+    "SubjectCode": "PHARMSCI"
+  },
+  {
+    "SubjectShortDescr": "Pharmacy",
+    "SubjectDescr": "Pharmacy",
+    "SubjectCode": "PHARMACY"
+  },
+  {
+    "SubjectShortDescr": "Socadmin",
+    "SubjectDescr": "Social & Administrative Sci",
+    "SubjectCode": "SOCADMIN"
+  }
 ]
