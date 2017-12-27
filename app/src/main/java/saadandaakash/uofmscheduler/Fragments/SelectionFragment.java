@@ -1,6 +1,7 @@
 package saadandaakash.uofmscheduler.Fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -116,6 +117,7 @@ public class SelectionFragment extends Fragment {
                             // check to make sure something was entered before switching fragments
                             if (schoolCode != null && !schoolCode.trim().isEmpty() &&
                                     subjectCode != null && !subjectCode.trim().isEmpty()) {
+
                                 CoursesFragment fragment = CoursesFragment.newInstance(schoolCode, subjectCode);
                                 Utility.hideKeyboard(getActivity());
 

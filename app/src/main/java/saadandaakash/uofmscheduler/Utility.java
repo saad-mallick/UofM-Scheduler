@@ -15,8 +15,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -76,7 +74,7 @@ public class Utility {
         }
         catch (JSONException j) {
             j.printStackTrace();
-            return new HashMap<>();
+            return new TreeMap<>();
         }
     }
 

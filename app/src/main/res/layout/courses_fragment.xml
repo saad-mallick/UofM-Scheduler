@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent" android:background="#FFFFFF">
 
+    <!-- TODO: top margin of course list is too small, needs to be moved down -->
+
     <saadandaakash.uofmscheduler.customTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

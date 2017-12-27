@@ -1,6 +1,7 @@
 package saadandaakash.uofmscheduler.Fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentManager;
@@ -45,13 +46,21 @@ public class CoursesFragment extends ListFragment {
     //EFFECTS: Sets up the list with the custom adapter
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        CustomAdapter adapter = new CustomAdapter(getActivity(), getCourses());
 
-        /*
-         * TODO: top margin of course list is too small, needs to be moved down
-         */
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final CustomAdapter adapter = new CustomAdapter(getActivity(), getCourses());
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        setListAdapter(adapter);
+                    }
+                });
 
-        setListAdapter(adapter);
+            }
+        }).start();
+
 
     }
 
