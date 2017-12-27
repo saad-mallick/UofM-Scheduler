@@ -107,14 +107,15 @@ public class CoursesFragment extends ListFragment {
 
             TextView courseName = (TextView) rowView.findViewById(R.id.name);
 
-            Course currentCourse = courses.get(position);
+            final Course currentCourse = courses.get(position);
             String printCourse = subjectCode + " " + currentCourse.catalogNumber + ": " +
                     currentCourse.courseName;
             courseName.setText(printCourse);
 
             View.OnClickListener clickListener = new View.OnClickListener() {
                 public void onClick(View v) {
-                    ClassFragment fragment = ClassFragment.newInstance("test");
+                    ClassFragment fragment = ClassFragment.newInstance(termCode, subjectCode,
+                            currentCourse.catalogNumber, currentCourse.courseName, schoolCode);
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.container, fragment)

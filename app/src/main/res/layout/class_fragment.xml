@@ -58,15 +58,25 @@
                 android:background = "@drawable/textview_border_dashed"
                 android:padding="10dp"
                 android:id="@+id/preqs"/>
-            <TextView
+            </RelativeLayout>
+
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/preqs"
-                android:text="Instructors:\n•Professor Andrew DeOrio\n•Professor James Juett\n•Professor Nichole Hamilton"
+                android:layout_below="@id/courseData"
+                android:layout_alignParentRight="true"
                 android:layout_margin="5dp"
-                android:background="@drawable/textview_border_dashed"
-                android:padding="10dp"/>
-            </RelativeLayout>
+                android:text="Choose Sections"
+                android:id="@+id/chooseSections"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/courseData"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="5dp"
+                android:text="Back"
+                android:id="@+id/back"/>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
