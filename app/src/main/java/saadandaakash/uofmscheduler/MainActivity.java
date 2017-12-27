@@ -10,16 +10,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.TypefaceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import saadandaakash.uofmscheduler.Fragments.SectionsFragment;
 import saadandaakash.uofmscheduler.Fragments.SelectionFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -106,16 +102,19 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.My_Courses) {
             // temporary to avoid crashing
+            return true;
             // TODO: make saved courses fragment
+            /*
             // testing sections fragment before courses fragment is complete
             try {
-                fragment = SectionsFragment.newInstance("ENG", "EECS", "280");
-                System.out.println("SECTIONS FRAGMENT CREATED");
+                fragment = ClassFragment.newInstance("EECS", "280");
+                System.out.println("CLASS FRAGMENT CREATED");
             }
             catch (Exception e) {
-                System.out.println("ERROR: SECTIONS FRAGMENT COULD NOT BE CREATED");
+                System.out.println("ERROR: CLASS FRAGMENT COULD NOT BE CREATED");
                 e.printStackTrace();
             }
+            */
         }
         else if (id == R.id.Settings) {
             // temporary to avoid crashing

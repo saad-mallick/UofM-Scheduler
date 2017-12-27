@@ -123,42 +123,6 @@ public class SelectionFragment extends Fragment {
                     }
             );
 
-            /*
-            // EFFECTS: when the focus moves from school field to subject field, populate
-            //          the subject adapter with the school department names
-            editSchool.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                public void onFocusChange(View view, boolean hasFocus) {
-                    if (hasFocus) {
-                        subject_adapter.clear();
-                        subject_adapter.notifyDataSetInvalidated();
-                    }
-                    if (!hasFocus) {
-                        subject_adapter.clear();
-                        subject_adapter.notifyDataSetInvalidated();
-
-                        String school = editSchool.getText().toString();
-                        schoolCode = schoolData.get(school);
-
-                        // check if the school entered is valid
-                        if (schoolCode != null) {
-                            try {
-                                ArrayList<String> data = updateAdapterList();
-                                subject_adapter.add_data(data);
-
-                                // reset adapter filter
-                                subject_adapter.getFilter().filter(editSubject.getText(), null);
-                                subject_adapter.notifyDataSetChanged();
-                            }
-                            catch (Exception e) {
-                                e.printStackTrace();
-                                subject_adapter.clear();
-                            }
-                        }
-                    }
-                }
-            });
-            */
-
         } catch (Exception e) {
             e.printStackTrace();
         }
