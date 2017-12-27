@@ -191,6 +191,14 @@ public class ClassFragment extends Fragment {
                         " (" + currentSection.sectionType + ")";
                 sectionTitle.setText(title);
 
+                if (currentSection.sectionType.equals("LEC")) {
+                    TextView creditsInfo = (TextView) rowView.findViewById(R.id.creditsInfo);
+                    String credits = "Credits: " + currentSection.creditHours;
+                    creditsInfo.setText(credits);
+                    creditsInfo.setVisibility(View.VISIBLE);
+                }
+
+
                 TextView meetingsInfo = (TextView) rowView.findViewById(R.id.meetingsInfo);
                 String meetings = currentSection.meetings.days + " " + currentSection.meetings.times;
                 meetingsInfo.setText(meetings);
@@ -262,19 +270,19 @@ public class ClassFragment extends Fragment {
 
         public View getClassView(){
             if(classView == null){
-                classView = inflater.inflate(R.layout.class_fragment_sectional_layout, null, false);
+                classView = inflater.inflate(R.layout.class_fragment_sectional_layout_left_align, null, false);
 
                 customTextView courseLabel = (customTextView)classView.findViewById(R.id.courseLabel);
                 String label = subjectCode + " " + catalog_number;
                 courseLabel.setText(label);
 
-                customTextView courseTitleText = (customTextView)classView.findViewById(R.id.courseTite);
+                customTextView courseTitleText = (customTextView)classView.findViewById(R.id.courseTitle);
                 courseTitleText.setText(courseTitle);
 
-                customTextView description = (customTextView)classView.findViewById(R.id.des);
+                customTextView description = (customTextView)classView.findViewById(R.id.description);
                 description.setText(courseDescription);
 
-                customTextView requirements = (customTextView)classView.findViewById(R.id.preqs);
+                customTextView requirements = (customTextView)classView.findViewById(R.id.prereqs);
                 requirements.setText(courseRequirements);
 
                 return classView;
