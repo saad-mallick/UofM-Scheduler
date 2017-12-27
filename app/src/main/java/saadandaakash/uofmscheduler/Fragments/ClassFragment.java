@@ -85,6 +85,7 @@ public class ClassFragment extends Fragment {
             return "";
         }
     }
+
     public String getRequirements(){
         String url = "http://umich-schedule-api.herokuapp.com/v4/" +
                 "get_additional_info?term_code=" + termCode + "&school_code=" + schoolCode
@@ -147,6 +148,7 @@ public class ClassFragment extends Fragment {
     private class CustomAdapter extends ArrayAdapter {
         ArrayList<Section> sections;
         Activity context;
+        private ViewHolder viewHolder;
 
         public CustomAdapter(Activity context, ArrayList<Section> sections){
             super(context, R.layout.courses_fragment_sectional_layout, sections);
@@ -154,6 +156,8 @@ public class ClassFragment extends Fragment {
             notifyDataSetChanged();
             this.sections = sections;
             this.context = context;
+            viewHolder = new ViewHolder(subjectCode, catalog_number, courseTitle,
+                    getDescription(), getRequirements(), context);
         }
 
         @Override
@@ -161,22 +165,7 @@ public class ClassFragment extends Fragment {
             // TODO: figure out what 'View Holder' pattern is
             LayoutInflater inflater = context.getLayoutInflater();
             if(position == 0){
-                View classView = inflater.inflate(R.layout.class_fragment_sectional_layout, null, false);
-
-                customTextView courseLabel = (customTextView)classView.findViewById(R.id.courseLabel);
-                String label = subjectCode + " " + catalog_number;
-                courseLabel.setText(label);
-
-                customTextView courseTitleText = (customTextView)classView.findViewById(R.id.courseTite);
-                courseTitleText.setText(courseTitle);
-
-                customTextView description = (customTextView)classView.findViewById(R.id.des);
-                description.setText(getDescription());
-
-                customTextView requirements = (customTextView)classView.findViewById(R.id.preqs);
-                requirements.setText(getRequirements());
-
-                return classView;
+                return viewHolder.getClassView();
             } else {
                 View rowView = inflater.inflate(R.layout.sections_fragment_layout, null, true);
 
@@ -236,4 +225,52 @@ public class ClassFragment extends Fragment {
 
     }
 
+    private static class ViewHolder{
+
+        String subjectCode;
+        String catalog_number;
+        String courseTitle;
+        String courseDescription;
+        String courseRequirements;
+
+        Activity context;
+        LayoutInflater inflater;
+
+        View classView = null;
+
+        public ViewHolder(String subjectCode, String catalog_number, String courseTitle,
+                          String courseDescription, String courseRequirements, Activity context){
+            this.subjectCode = subjectCode;
+            this.catalog_number = catalog_number;
+            this.courseTitle = courseTitle;
+            this.courseDescription = courseDescription;
+            this.courseRequirements = courseRequirements;
+            this.context = context;
+            inflater = context.getLayoutInflater();
+        }
+
+        public View getClassView(){
+            if(classView == null){
+                classView = inflater.inflate(R.layout.class_fragment_sectional_layout, null, false);
+
+                customTextView courseLabel = (customTextView)classView.findViewById(R.id.courseLabel);
+                String label = subjectCode + " " + catalog_number;
+                courseLabel.setText(label);
+
+                customTextView courseTitleText = (customTextView)classView.findViewById(R.id.courseTite);
+                courseTitleText.setText(courseTitle);
+
+                customTextView description = (customTextView)classView.findViewById(R.id.des);
+                description.setText(courseDescription);
+
+                customTextView requirements = (customTextView)classView.findViewById(R.id.preqs);
+                requirements.setText(courseRequirements);
+
+                return classView;
+            } else {
+                return classView;
+            }
+        }
+
+    }
 }
