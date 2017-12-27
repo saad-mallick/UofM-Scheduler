@@ -149,6 +149,8 @@ public class ClassFragment extends Fragment {
 
         public CustomAdapter(Activity context, ArrayList<Section> sections){
             super(context, R.layout.courses_fragment_sectional_layout, sections);
+            sections.add(new Section("", "", "", 0, 0, 0, "", ""));
+            notifyDataSetChanged();
             this.sections = sections;
             this.context = context;
         }
@@ -182,7 +184,7 @@ public class ClassFragment extends Fragment {
              * [Days] [Times]
              * [Available seats] / [Total seats]
              */
-                Section currentSection = sections.get(position);
+                Section currentSection = sections.get(position-1);
                 TextView sectionTitle = (TextView) rowView.findViewById(R.id.sectionTitle);
                 String title = "Section " + currentSection.sectionNumber +
                         " (" + currentSection.sectionType + ")";
