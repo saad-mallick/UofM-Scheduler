@@ -30,7 +30,7 @@ public class Utility {
         URL api_url = new URL(url);
 
         // Read and store the result line by line then return the entire string.
-        BufferedReader reader = new BufferedReader(new InputStreamReader(api_url.openStream()));
+        BufferedReader reader = new BufferedReader( new InputStreamReader(api_url.openStream()));
         StringBuilder info = new StringBuilder();
 
         String line;

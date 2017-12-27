@@ -82,22 +82,23 @@ public class SectionsFragment extends ListFragment{
             // go through course info array and find open sections
             for (int i = 0; i < infoFromAPI.length(); i++) {
                 JSONObject infoObject = infoFromAPI.getJSONObject(i);
-                Section section = new Section();
+                // TODO: Adapt this to allow for any size meetings array
+                JSONObject meetingObject = infoObject.getJSONArray("Meetings").
+                        getJSONObject(0);
 
-                // populate section information from JSON object
-                section.availableSeats = infoObject.getInt("AvailableSeats");
-                section.classTopic = infoObject.getString("ClassTopic");
-                section.creditHours = infoObject.getInt("CreditHours");
-                section.enrollmentTotal = infoObject.getInt("EnrollmentTotal");
-                section.sectionNumber = infoObject.getString("SectionNumber");
-                section.sectionType = infoObject.getString("SectionType");
-
-                JSONObject meetingObject = infoObject.getJSONArray("Meetings").getJSONObject(0);
-                section.meetings.days = meetingObject.getString("Days");
-                section.meetings.times = meetingObject.getString("Times");
-
-                sections.add(section);
-                System.out.println(section.toString());
+                // create section object with info from JSON, add to list
+                sections.add(
+                        new Section(
+                            infoObject.getString("ClassTopic"),
+                            infoObject.getString("SectionType"),
+                            infoObject.getString("SectionNumber"),
+                            infoObject.getInt("CreditHours"),
+                            infoObject.getInt("EnrollmentTotal"),
+                            infoObject.getInt("AvailableSeats"),
+                            meetingObject.getString("Days"),
+                            meetingObject.getString("Times")
+                        )
+                );
 
             }
         } catch (Exception e){
@@ -148,14 +149,33 @@ public class SectionsFragment extends ListFragment{
     }
 
     private class Section {
+
         private class Meetings {
             String days;
             String times;
+
+            public Meetings(String days, String times) {
+                this.days = days;
+                this.times = times;
+            }
         }
 
         private String classTopic, sectionType, sectionNumber;
         private int creditHours, enrollmentTotal, availableSeats;
-        private Meetings meetings = new Meetings();
+        private Meetings meetings;
+
+        public Section(String classTopic, String sectionType, String sectionNumber,
+                       int creditHours, int enrollmentTotal, int availableSeats,
+                       String days, String times) {
+            this.classTopic = classTopic;
+            this.sectionType = sectionType;
+            this.sectionNumber = sectionNumber;
+            this.creditHours = creditHours;
+            this.enrollmentTotal = enrollmentTotal;
+            this.availableSeats = availableSeats;
+
+            this.meetings = new Meetings(days, times);
+        }
 
     }
 }

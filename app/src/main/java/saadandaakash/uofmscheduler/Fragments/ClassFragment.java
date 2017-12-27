@@ -10,11 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-
 import saadandaakash.uofmscheduler.R;
 import saadandaakash.uofmscheduler.Utility;
 
@@ -29,22 +24,18 @@ public class ClassFragment extends Fragment {
     * */
 
     private String termCode;
-    private String school;
-
-    private String courseArea;
-    private String courseNumber;
+    private String schoolCode;
+    private String subjectCode;
+    private String catalog_number;
     private String courseTitle;
-    private String courseDescription;
-    private String courseRequirements;
-
 
     public static ClassFragment newInstance(String termCode, String courseArea, String courseNumber,
                                             String courseTitle, String school){
         ClassFragment fragment = new ClassFragment();
         fragment.termCode = termCode;
-        fragment.school = school;
-        fragment.courseArea = courseArea;
-        fragment.courseNumber = courseNumber;
+        fragment.schoolCode = school;
+        fragment.subjectCode = courseArea;
+        fragment.catalog_number = courseNumber;
         fragment.courseTitle = courseTitle;
         return fragment;
     }
@@ -61,34 +52,26 @@ public class ClassFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
-        getDescription();
-        getRequirements();
-
-        Typeface t = Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/Quicksand-Regular.otf");
 
         TextView courseLabel = (TextView)getView().findViewById(R.id.courseLabel);
-        courseLabel.setText(courseArea + " " + courseNumber);
-        courseLabel.setTypeface(t);
+        String label = subjectCode + " " + catalog_number;
+        courseLabel.setText(label);
 
-        TextView courseTitletv = (TextView)getView().findViewById(R.id.courseTite);
-        courseTitletv.setText(courseTitle);
-        courseTitletv.setTypeface(t);
+        TextView courseTitleText = (TextView)getView().findViewById(R.id.courseTite);
+        courseTitleText.setText(courseTitle);
 
-        TextView des = (TextView)getView().findViewById(R.id.des);
-        des.setText(courseDescription);
-        des.setTypeface(t);
+        TextView description = (TextView)getView().findViewById(R.id.des);
+        description.setText(getDescription());
 
-        TextView preqs = (TextView)getView().findViewById(R.id.preqs);
-        preqs.setText(courseRequirements);
-        preqs.setTypeface(t);
+        TextView requirements = (TextView)getView().findViewById(R.id.preqs);
+        requirements.setText(getRequirements());
 
         Button chooseSections = (Button) getView().findViewById(R.id.chooseSections);
 
         chooseSections.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SectionsFragment fragment = SectionsFragment.newInstance(school, courseArea, courseNumber);
+                SectionsFragment fragment = SectionsFragment.newInstance(schoolCode, subjectCode, catalog_number);
                 Utility.hideKeyboard(getActivity());
 
                 FragmentManager fragmentManager = getFragmentManager();
@@ -99,19 +82,29 @@ public class ClassFragment extends Fragment {
         });
     }
 
-    public void getDescription() {
+    public String getDescription() {
+        String url = "http://umich-schedule-api.herokuapp.com/v4/g" +
+                "et_course_description?term_code=" + termCode + "&school_code=" + schoolCode
+                + "&subject=" + subjectCode + "&catalog_num=" + catalog_number;
         try {
-            courseDescription = Utility.getStringFromURL("http://umich-schedule-api.herokuapp.com/v4/g" +
-                    "et_course_description?term_code=" + termCode + "&school_code=" + school
-                    + "&subject=" + courseArea + "&catalog_num=" + courseNumber);
-        } catch (Exception e){}
+            return Utility.getStringFromURL(url);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
     }
-    public void getRequirements(){
+    public String getRequirements(){
+        String url = "http://umich-schedule-api.herokuapp.com/v4/" +
+                "get_additional_info?term_code=" + termCode + "&school_code=" + schoolCode
+                + "&subject=" + subjectCode + "&catalog_num=" + catalog_number;
         try {
-            courseRequirements = Utility.getStringFromURL("http://umich-schedule-api.herokuapp.com/v4/" +
-                    "get_additional_info?term_code=" + termCode + "&school_code=" + school
-                    + "&subject=" + courseArea + "&catalog_num=" + courseNumber);
-        } catch (Exception e){}
+            return Utility.getStringFromURL(url);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return "";
+        }
     }
 
 }
