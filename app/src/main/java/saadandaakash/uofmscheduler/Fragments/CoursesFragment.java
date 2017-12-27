@@ -1,7 +1,6 @@
 package saadandaakash.uofmscheduler.Fragments;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import org.json.*;
