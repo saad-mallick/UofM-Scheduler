@@ -199,7 +199,6 @@ public class ClassFragment extends Fragment {
                         currentSection.enrollmentTotal;
                 enrollmentInfo.setText(enrollment);
 
-
                 return rowView;
             }
         }
