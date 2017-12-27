@@ -3,9 +3,11 @@ package saadandaakash.uofmscheduler.Fragments;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -80,6 +82,21 @@ public class ClassFragment extends Fragment {
         TextView preqs = (TextView)getView().findViewById(R.id.preqs);
         preqs.setText(courseRequirements);
         preqs.setTypeface(t);
+
+        Button chooseSections = (Button) getView().findViewById(R.id.chooseSections);
+
+        chooseSections.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SectionsFragment fragment = SectionsFragment.newInstance(school, courseArea, courseNumber);
+                Utility.hideKeyboard(getActivity());
+
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, fragment)
+                        .commit();
+            }
+        });
     }
 
     public void getDescription() {
