@@ -97,6 +97,7 @@ public class ClassFragment extends Fragment {
             return "";
         }
     }
+
     //EFFECTS: Will fill the ArrayList with the correct data about the sections
     //         It is up to you if you want to use an ArrayList or not. However, I recommend that
     //         you stick with ArrayList and make the type a triple or a pair if you want to store
