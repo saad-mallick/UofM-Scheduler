@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -51,7 +54,13 @@ public class SelectionFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
         try{
+            TextView enterSubjectMessage = (TextView)getView().findViewById(R.id.enterSubjectMessage);
+            enterSubjectMessage.setTextSize(10 * getResources().getDisplayMetrics().density);
+
+            TextView subjectName = (TextView)getView().findViewById(R.id.subjectName);
+            subjectName.setTextSize(10 * getResources().getDisplayMetrics().density);
             submitButton = (Button)getView().findViewById(R.id.submitCourseInfo);
+            submitButton.setTextSize(10 * getResources().getDisplayMetrics().density);
             editSubject = (AutoCompleteTextView)getView().findViewById(R.id.enterSubject);
 
 

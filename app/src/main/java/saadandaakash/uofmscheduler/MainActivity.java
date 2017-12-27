@@ -1,5 +1,6 @@
 package saadandaakash.uofmscheduler;
 
+import android.content.ClipData;
 import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -47,23 +48,27 @@ public class MainActivity extends AppCompatActivity
         // TODO: find a better font for menu/header stuff
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Quicksand-Bold.otf");
         nav_header_text.setTypeface(tf);
-
+        nav_header_text.setTextSize(10 * getResources().getDisplayMetrics().density);
 
         mainLayout = (FrameLayout) findViewById(R.id.container);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-            return;
-        } else {
-            if(getFragmentManager().getBackStackEntryCount() > 0){
-                getFragmentManager().popBackStack();
+        try {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START);
                 return;
+            } else {
+                if (getFragmentManager().getBackStackEntryCount() > 0) {
+                    getFragmentManager().popBackStack();
+                    return;
+                }
+                super.onBackPressed();
             }
-            super.onBackPressed();
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 

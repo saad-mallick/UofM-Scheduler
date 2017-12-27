@@ -116,6 +116,7 @@ public class CoursesFragment extends ListFragment {
             String printCourse = subjectCode + " " + currentCourse.catalogNumber + ": " +
                     currentCourse.courseName;
             courseName.setText(printCourse);
+            courseName.setTextSize(10 * getResources().getDisplayMetrics().density);
 
             View.OnClickListener clickListener = new View.OnClickListener() {
                 public void onClick(View v) {
