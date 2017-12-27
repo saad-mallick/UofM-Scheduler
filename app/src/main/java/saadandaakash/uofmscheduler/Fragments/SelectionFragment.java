@@ -4,6 +4,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import saadandaakash.uofmscheduler.Adapters.AutocompleteAdapter;
+import saadandaakash.uofmscheduler.ClearableAutoCompleteTextView;
 import saadandaakash.uofmscheduler.R;
 import saadandaakash.uofmscheduler.Utility;
 
@@ -34,7 +37,7 @@ public class SelectionFragment extends Fragment {
     private String catalogNum = null;
 
     public Button submitButton;
-    public AutoCompleteTextView editSubject;
+    public ClearableAutoCompleteTextView editSubject;
 
     private static Map<String, String> schoolData;
     private static TreeMap<String, String> subjectData = new TreeMap<>();
@@ -52,8 +55,7 @@ public class SelectionFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState){
         try{
             submitButton = (Button)getView().findViewById(R.id.submitCourseInfo);
-            editSubject = (AutoCompleteTextView)getView().findViewById(R.id.enterSubject);
-
+            editSubject = (ClearableAutoCompleteTextView) getView().findViewById(R.id.enterSubject);
 
             // set font for button and input fields
             Typeface t = Typeface.createFromAsset(getActivity().getAssets(),
@@ -122,6 +124,28 @@ public class SelectionFragment extends Fragment {
                         }
                     }
             );
+
+            // if there is text in the field, show the clear button
+            // if it is empty, hide the clear button
+            editSubject.hideClearButton();
+            editSubject.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    String text = editSubject.getText().toString();
+                    if (text.length() == 0) {
+                        editSubject.hideClearButton();
+                    }
+                    else {
+                        editSubject.showClearButton();
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {}
+            });
 
         } catch (Exception e) {
             e.printStackTrace();

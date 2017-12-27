@@ -24,8 +24,7 @@ public class ClearableAutoCompleteTextView extends AppCompatAutoCompleteTextView
 
         @Override
         public void onClear() {
-            ClearableAutoCompleteTextView et = ClearableAutoCompleteTextView.this;
-            et.setText("");
+            ClearableAutoCompleteTextView.this.setText("");
         }
     };
 
@@ -58,6 +57,11 @@ public class ClearableAutoCompleteTextView extends AppCompatAutoCompleteTextView
     }
 
     void init() {
+        // hide the clear button on initialization
+        this.hideClearButton();
+
+        this.setHeight(imgClearButton.getIntrinsicHeight() + getPaddingTop() + getPaddingBottom());
+
         // Set the bounds of the button
         this.setCompoundDrawablesWithIntrinsicBounds(null, null,
                 imgClearButton, null);
