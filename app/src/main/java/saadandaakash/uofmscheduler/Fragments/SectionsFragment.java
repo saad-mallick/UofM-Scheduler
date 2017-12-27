@@ -54,7 +54,9 @@ public class SectionsFragment extends ListFragment{
             @Override
             public void run() {
                 // Create custom adapter
-                final SectionsFragment.CustomAdapter adapter = new SectionsFragment.CustomAdapter(getActivity(), getSections());                getActivity().runOnUiThread(new Runnable() {
+                final SectionsFragment.CustomAdapter adapter =
+                        new SectionsFragment.CustomAdapter(getActivity(), getSections());
+                getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         setListAdapter(adapter);

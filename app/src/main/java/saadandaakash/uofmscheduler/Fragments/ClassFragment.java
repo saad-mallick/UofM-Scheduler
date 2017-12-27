@@ -63,12 +63,21 @@ public class ClassFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
 
-        getSections();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                sections = getSections();
+                final CustomAdapter adapter = new CustomAdapter(getActivity(), sections);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ListView list = (ListView)getView().findViewById(R.id.sectionsList);
+                        list.setAdapter(adapter);
+                    }
+                });
+            }
 
-        ListView list = (ListView)getView().findViewById(R.id.sectionsList);
-
-        CustomAdapter adapter = new CustomAdapter(getActivity(), sections);
-        list.setAdapter(adapter);
+        }).start();
 
     }
 
@@ -104,7 +113,9 @@ public class ClassFragment extends Fragment {
     //         It is up to you if you want to use an ArrayList or not. However, I recommend that
     //         you stick with ArrayList and make the type a triple or a pair if you want to store
     //         data with more than one attribute
-    private void getSections(){
+    private ArrayList<Section> getSections(){
+        ArrayList<Section> sections_list = new ArrayList<>();
+
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -126,7 +137,7 @@ public class ClassFragment extends Fragment {
                         getJSONObject(0);
 
                 // create section object with info from JSON, add to list
-                sections.add(
+                sections_list.add(
                         new Section(
                                 infoObject.getString("ClassTopic"),
                                 infoObject.getString("SectionType"),
@@ -144,6 +155,7 @@ public class ClassFragment extends Fragment {
             System.out.println("API ERROR: Course information not found");
             e.printStackTrace();
         }
+        return sections_list;
     }
 
     private class CustomAdapter extends ArrayAdapter {
