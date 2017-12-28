@@ -1,0 +1,80 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="saadandaakash.uofmscheduler.Fragments.SectionInfoFragment">
+
+    <RelativeLayout
+        android:id="@+id/mainTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="15dp"
+        android:padding="10dp">
+
+        <saadandaakash.uofmscheduler.customTextView
+            android:id="@+id/sectionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="5dp"
+
+
+            android:textSize="32sp" />
+
+        <saadandaakash.uofmscheduler.customTextView
+            android:id="@+id/sectionType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/sectionTitle"
+            android:layout_marginTop="5dp"
+
+
+            android:textSize="24sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/sectionInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/mainTitle"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="5dp"
+        android:padding="10dp">
+
+    <saadandaakash.uofmscheduler.customTextView
+        android:id="@+id/availableSeats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+
+        android:textSize="24sp"/>
+
+    <saadandaakash.uofmscheduler.customTextView
+        android:id="@+id/prereqs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/description"
+        android:layout_marginTop="5dp"
+
+        android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
