@@ -1,6 +1,7 @@
 package saadandaakash.uofmscheduler.Fragments;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -38,7 +40,7 @@ public class SectionInfoFragment extends Fragment {
 
     private final ArrayList<String> keys = new ArrayList<>(Arrays.asList(
             "SectionType", "CourseTitle", "AvailableSeats",
-            "EnrollmentTotal", "CourseDescr", "CreditHours"));
+            "EnrollmentTotal", "CourseDescr", "CreditHours", "ClassTopic"));
 
     public static SectionInfoFragment newInstance(String termCode, String subjectCode, String catalogNumber,
                                                   String sectionNumber) {
@@ -73,28 +75,81 @@ public class SectionInfoFragment extends Fragment {
                     @Override
                     public void run() {
 
+                        // [SUBJECT] [CATALOG NUM]: Section [SECTION NUM]
+                        // e.g. IB 101: Section 001
                         TextView sectionTitle = (TextView) getView().findViewById(R.id.sectionTitle);
                         String title = subjectCode + " " + catalogNumber +
                                 ": Section " + sectionNumber;
                         sectionTitle.setText(title);
 
-                        TextView courseName = (TextView) getView().findViewById(R.id.sectionType);
-                        courseName.setText(sectionDetails.get("SectionType"));
+                        // [CLASS TOPIC]
+                        // e.g. Possible Ways to get Penalized on the Extended Essay
+                        TextView classTopic = (TextView) getView().findViewById(R.id.classTopic);
+                        String topic = sectionDetails.get("ClassTopic");
+                        if (topic != null && !topic.equals("")) {
+                            classTopic.setText(topic);
+                        }
+                        else {
+                            topic = sectionDetails.get("CourseTitle");
+                            classTopic.setText(topic);
+                        }
 
-                        TextView meetingsHeader = (TextView) getView().findViewById(R.id.meetings_header);
-                        meetingsHeader.setText("Meetings");
+                        // [LEC/DIS/LAB/REC/SEM]
+                        // e.g. DIS
+                        TextView sectionType = (TextView) getView().findViewById(R.id.sectionType);
+                        sectionType.setText(sectionDetails.get("SectionType"));
 
+                        // Available Seats: [AVAILABLE] / [TOTAL]
+                        // e.g. Available Seats: 41 / 42
                         TextView availableSeats = (TextView) getView().findViewById(R.id.availableSeats);
                         String availableSeats_str = "Available Seats: " + sectionDetails.get("AvailableSeats") +
                                 " / " + sectionDetails.get("EnrollmentTotal");
                         availableSeats.setText(availableSeats_str);
 
+                        // Credits: [CREDITS]
+                        // e.g. Credits: 2
+                        final TextView courseDescriptionHeader = (TextView) getView().
+                                findViewById(R.id.courseDescriptionHeader);
+                        courseDescriptionHeader.setText("Course Description");
+                        courseDescriptionHeader.setCompoundDrawablesWithIntrinsicBounds(
+                                0, 0, R.drawable.expand, 0);
+
+                        final TextView courseDescription = (TextView) getView().findViewById(R.id.courseDescription);
+                        String description = sectionDetails.get("CourseDescr").
+                                replaceAll("\\u2019", "'");
+                        courseDescription.setText(description);
+
+                        courseDescriptionHeader.setOnClickListener(
+                                new View.OnClickListener() {
+                                    public void onClick(View view) {
+                                        if (courseDescription.getVisibility() == View.VISIBLE) {
+                                            courseDescription.setVisibility(View.GONE);
+                                            courseDescriptionHeader.setCompoundDrawablesWithIntrinsicBounds(
+                                                    0, 0, R.drawable.expand, 0);
+                                        }
+                                        else if (courseDescription.getVisibility() == View.GONE) {
+                                            courseDescription.setVisibility(View.VISIBLE);
+                                            courseDescriptionHeader.setCompoundDrawablesWithIntrinsicBounds(
+                                                    0, 0, R.drawable.collapse, 0);
+                                        }
+                                    }
+                                }
+                        );
+
+                        // Meetings
+                        TextView meetingsHeader = (TextView) getView().findViewById(R.id.meetings_header);
+                        meetingsHeader.setText("Meetings");
+
                         ListView meetingsList = (ListView) getView().findViewById(R.id.meetings);
                         meetingsList.setAdapter(adapter);
 
-                        /*
-                        TODO: Add rest of data to page
-                         */
+                        // Save Button
+                        Button saveButton = (Button) getView().findViewById(R.id.saveButton);
+                        saveButton.setTypeface(Typeface.createFromAsset(
+                                getActivity().getAssets(),
+                                "fonts/Quicksand-Regular.otf")
+                        );
+                        saveButton.setVisibility(View.VISIBLE);
                     }
                 });
             }
@@ -140,6 +195,11 @@ public class SectionInfoFragment extends Fragment {
                 }
 
                 // add new Meeting object to official arraylist
+                /* e.g. Days: Mo Tu We Th Fr
+                        Times: whenever we have math lol
+                        Instructors: Charlie Jones
+                        Location: DLL
+                 */
                 meetings.add(new Meeting(
                         meeting.getString("Days"),
                         meeting.getString("Times"),
@@ -227,55 +287,4 @@ public class SectionInfoFragment extends Fragment {
             return rowView;
         }
     }
-
-    /*
-    private static class ViewHolder {
-
-        String subjectCode;
-        String catalog_number;
-        String courseTitle;
-        String courseDescription;
-        String courseRequirements;
-
-        Activity context;
-        LayoutInflater inflater;
-
-        View classView = null;
-
-        public ViewHolder(String subjectCode, String catalog_number, String courseTitle,
-                          String courseDescription, String courseRequirements, Activity context) {
-            this.subjectCode = subjectCode;
-            this.catalog_number = catalog_number;
-            this.courseTitle = courseTitle;
-            this.courseDescription = courseDescription;
-            this.courseRequirements = courseRequirements;
-            this.context = context;
-            inflater = context.getLayoutInflater();
-        }
-
-        public View getClassView() {
-            if (classView == null) {
-                classView = inflater.inflate(R.layout.class_fragment_sectional_layout_left_align, null, false);
-
-                customTextView courseLabel = (customTextView) classView.findViewById(R.id.courseLabel);
-                String label = subjectCode + " " + catalog_number;
-                courseLabel.setText(label);
-
-                customTextView courseTitleText = (customTextView) classView.findViewById(R.id.courseTitle);
-                courseTitleText.setText(courseTitle);
-
-                customTextView description = (customTextView) classView.findViewById(R.id.description);
-                description.setText(courseDescription);
-
-                customTextView requirements = (customTextView) classView.findViewById(R.id.prereqs);
-                requirements.setText(courseRequirements);
-
-                return classView;
-            } else {
-                return classView;
-            }
-        }
-
-    }
-    */
 }

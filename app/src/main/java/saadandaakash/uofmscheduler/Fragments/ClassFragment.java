@@ -21,10 +21,6 @@ import saadandaakash.uofmscheduler.R;
 import saadandaakash.uofmscheduler.Utitilies.Utility;
 import saadandaakash.uofmscheduler.Utitilies.customTextView;
 
-/**
- * Created by Saad on 12/26/2017.
- */
-
 public class ClassFragment extends Fragment {
 
     private String termCode;
@@ -135,7 +131,8 @@ public class ClassFragment extends Fragment {
                 // create section object with info from JSON, add to list
                 sections_list.add(
                         new Section(
-                                infoObject.getString("ClassTopic"),
+                                infoObject.getString("ClassTopic")
+                                        .replaceAll("\\u2019", "'"),
                                 infoObject.getString("SectionType"),
                                 infoObject.getString("SectionNumber"),
                                 infoObject.getInt("CreditHours"),
@@ -282,7 +279,7 @@ public class ClassFragment extends Fragment {
             this.subjectCode = subjectCode;
             this.catalog_number = catalog_number;
             this.courseTitle = courseTitle;
-            this.courseDescription = courseDescription;
+            this.courseDescription = courseDescription.replaceAll("\\u2019", "'");
             this.courseRequirements = courseRequirements;
             this.context = context;
             inflater = context.getLayoutInflater();

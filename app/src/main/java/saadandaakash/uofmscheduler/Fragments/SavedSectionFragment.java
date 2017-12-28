@@ -54,8 +54,10 @@ public class SavedSectionFragment extends Fragment {
         ArrayList<Section> sections = new ArrayList<>();
         sections.add(new Section("EECS", "280", "001", "LEC",
                 "Mo We", "8:00-9:30"));
-        sections.add(new Section("BIOLOGY", "305", "032", "DIS",
+        sections.add(new Section("ENGLISH", "140", "001", "SEM",
                 "Mo We", "2:00-3:00"));
+        sections.add(new Section("ENGLISH", "140", "003", "SEM",
+                "Tu Th", "9:00-10:00"));
 
         SavedSectionAdapter adapter = new SavedSectionAdapter(getActivity(), sections);
         ListView sectionsList = (ListView) getView().findViewById(R.id.savedSectionsList);

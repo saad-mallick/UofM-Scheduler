@@ -1,99 +1,162 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="saadandaakash.uofmscheduler.Fragments.SectionInfoFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="saadandaakash.uofmscheduler.Fragments.SectionInfoFragment">
+    android:layout_height="wrap_content"
+    android:fillViewport="true">
 
-    <RelativeLayout
-        android:id="@+id/mainTitle"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:orientation="vertical">
 
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="15dp"
-        android:padding="10dp">
-
-        <saadandaakash.uofmscheduler.Utitilies.customTextView
-            android:id="@+id/sectionTitle"
+        <RelativeLayout
+            android:id="@+id/mainTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp">
 
-            android:textSize="32sp" />
+            <saadandaakash.uofmscheduler.Utitilies.customTextView
+                android:id="@+id/sectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-        <saadandaakash.uofmscheduler.Utitilies.customTextView
-            android:id="@+id/sectionType"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="5dp"
+
+                android:textSize="32sp" />
+
+            <saadandaakash.uofmscheduler.Utitilies.customTextView
+                android:id="@+id/classTopic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/sectionTitle"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+
+                android:textSize="24sp" />
+
+            <saadandaakash.uofmscheduler.Utitilies.customTextView
+                android:id="@+id/sectionType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/classTopic"
+                android:layout_marginTop="5dp"
+
+                android:textSize="24sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/sectionInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/sectionTitle"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp">
+
+            <saadandaakash.uofmscheduler.Utitilies.customTextView
+                android:id="@+id/availableSeats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+
+                android:textSize="24sp" />
+
+            <saadandaakash.uofmscheduler.Utitilies.customTextView
+                android:id="@+id/courseDescriptionHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/availableSeats"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+
+                android:gravity="center_vertical"
+                android:textSize="24sp" />
+
+            <saadandaakash.uofmscheduler.Utitilies.customTextView
+                android:id="@+id/courseDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/courseDescriptionHeader"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+
+                android:textSize="16sp"
+                android:visibility="gone" />
+
+            <saadandaakash.uofmscheduler.Utitilies.customTextView
+                android:id="@+id/meetings_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/courseDescription"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+
+                android:textSize="24sp" />
+
+            <ListView
+                android:id="@+id/meetings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/meetings_header"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+
+                android:divider="@android:color/transparent"
+                android:dividerHeight="5dp"
+
+                android:textSize="16sp" />
 
 
-            android:textSize="24sp" />
-    </RelativeLayout>
+        </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/sectionInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_below="@id/mainTitle"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="5dp"
-        android:padding="10dp">
-
-        <saadandaakash.uofmscheduler.Utitilies.customTextView
-            android:id="@+id/meetings_header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-
-            android:textSize="24sp" />
-
-        <ListView
-            android:id="@+id/meetings"
+        <Button
+            android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@id/meetings_header"
-            android:layout_marginTop="5dp"
+            android:layout_below="@id/sectionInfo"
             android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
 
-            android:divider="@android:color/transparent"
-            android:dividerHeight="5dp"
-
-            android:textSize="16sp"/>
-
-        <saadandaakash.uofmscheduler.Utitilies.customTextView
-            android:id="@+id/availableSeats"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_below="@id/meetings"
+            android:text="Save Section"
 
-            android:textSize="24sp"/>
-
-
-    </RelativeLayout>
-
-</RelativeLayout>
+            android:textSize="16sp"
+            android:visibility="invisible" />
+    </LinearLayout>
+</ScrollView>
