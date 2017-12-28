@@ -11,6 +11,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.TypefaceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,6 +54,20 @@ public class MainActivity extends AppCompatActivity
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Quicksand-Bold.otf");
         //nav_header_text.setTypeface(tf);
         //nav_header_text.setTextSize(10 * getResources().getDisplayMetrics().density);
+
+        // CHANGE MENU TEXT FONT
+        Menu nav_menu = navigationView.getMenu();
+        CustomTypefaceSpan custom_tf_span = new CustomTypefaceSpan(
+                Typeface.createFromAsset(getAssets(), "fonts/Quicksand-Regular.otf"));
+
+        for (int i = 0; i < nav_menu.size(); i++) {
+            MenuItem item = nav_menu.getItem(i);
+            SpannableStringBuilder text = new SpannableStringBuilder(item.getTitle());
+            text.setSpan(custom_tf_span, 0, text.length(), 0);
+            text.setSpan(new RelativeSizeSpan(1.5f), 0, text.length(), 0);
+            item.setTitle(text);
+
+        }
 
         mainLayout = (FrameLayout) findViewById(R.id.container);
     }

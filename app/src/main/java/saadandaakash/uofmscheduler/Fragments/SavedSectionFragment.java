@@ -97,7 +97,7 @@ public class SavedSectionFragment extends Fragment {
             TextView header = (TextView) rowView.findViewById(R.id.sectionTitle);
             String title = current_section.subjectCode +
                     " " + current_section.catalogNumber +
-                    " Section " + current_section.catalogNumber +
+                    " Section " + current_section.sectionNumber +
                     " (" + current_section.sectionType + ")";
             header.setText(title);
 

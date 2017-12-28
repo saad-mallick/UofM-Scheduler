@@ -178,7 +178,7 @@ public class SectionInfoFragment extends Fragment {
         //private RecyclerView.ViewHolder viewHolder;
 
         public MeetingListAdapter(Activity context, ArrayList<Meeting> meetings) {
-            super(context, R.layout.courses_fragment_sectional_layout, meetings);
+            super(context, R.layout.section_info_layout, meetings);
             this.meetings = meetings;
             this.context = context;
             //viewHolder = new RecyclerView.ViewHolder(subjectCode, catalog_number, courseTitle,
