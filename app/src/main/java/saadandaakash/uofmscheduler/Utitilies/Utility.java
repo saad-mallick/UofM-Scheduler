@@ -10,9 +10,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.Map;
@@ -23,6 +26,8 @@ import java.util.TreeMap;
  */
 
 public class Utility {
+
+    public static String SAVEFILE = "savedSections.json";
 
     public static String getStringFromURL(String url) throws IOException, SocketTimeoutException {
         URL api_url = new URL(url);
@@ -90,5 +95,46 @@ public class Utility {
         if(v != null) inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
     }
 
+    public static void writeToFile(Context context, String json, String filename) {
+        FileOutputStream os = null;
+
+        try {
+            os = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            os.write(json.getBytes());
+            os.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String readFromFile(Context context, String filename) {
+        FileInputStream is = null;
+
+        try {
+            is = context.openFileInput(filename);
+
+            if (is != null) {
+                InputStreamReader isReader = new InputStreamReader(is);
+                BufferedReader reader = new BufferedReader(isReader);
+
+                StringBuilder info = new StringBuilder();
+
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    info.append(line.trim());
+                }
+                reader.close();
+
+                return info.toString();
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
 
 }
