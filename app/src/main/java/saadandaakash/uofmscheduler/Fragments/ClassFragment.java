@@ -18,8 +18,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import saadandaakash.uofmscheduler.R;
-import saadandaakash.uofmscheduler.Utility;
-import saadandaakash.uofmscheduler.customTextView;
+import saadandaakash.uofmscheduler.Utitilies.Utility;
+import saadandaakash.uofmscheduler.Utitilies.customTextView;
 
 /**
  * Created by Saad on 12/26/2017.

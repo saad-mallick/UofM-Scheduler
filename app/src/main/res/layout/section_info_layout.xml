@@ -15,7 +15,7 @@
         android:layout_marginTop="15dp"
         android:padding="10dp">
 
-        <saadandaakash.uofmscheduler.customTextView
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:id="@+id/sectionTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
 
             android:textSize="32sp" />
 
-        <saadandaakash.uofmscheduler.customTextView
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:id="@+id/sectionType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         android:layout_marginTop="5dp"
         android:padding="10dp">
 
-        <saadandaakash.uofmscheduler.customTextView
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:id="@+id/meetings_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
 
             android:textSize="16sp"/>
 
-        <saadandaakash.uofmscheduler.customTextView
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:id="@+id/availableSeats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

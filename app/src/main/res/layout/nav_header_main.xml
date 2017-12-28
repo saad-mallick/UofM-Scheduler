@@ -21,7 +21,7 @@
         android:paddingTop="24dp"
         android:baselineAlignBottom="true"/>
 
-    <saadandaakash.uofmscheduler.customTextView
+    <saadandaakash.uofmscheduler.Utitilies.customTextView
         android:id="@+id/nav_header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

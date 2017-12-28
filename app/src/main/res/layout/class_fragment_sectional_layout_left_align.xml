@@ -15,7 +15,7 @@
         android:layout_marginTop="15dp"
         android:padding="10dp">
 
-        <saadandaakash.uofmscheduler.customTextView
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:id="@+id/courseLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:text="[COURSE LABEL HERE]"
             android:textSize="32sp" />
 
-        <saadandaakash.uofmscheduler.customTextView
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:id="@+id/courseTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
         android:layout_marginTop="5dp"
         android:padding="10dp">
 
-        <saadandaakash.uofmscheduler.customTextView
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
 
             android:textSize="18sp"/>
 
-        <saadandaakash.uofmscheduler.customTextView
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:id="@+id/prereqs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

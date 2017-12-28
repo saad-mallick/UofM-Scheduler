@@ -1,4 +1,4 @@
-package saadandaakash.uofmscheduler;
+ package saadandaakash.uofmscheduler.Utitilies;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -7,7 +7,9 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-/**
+import saadandaakash.uofmscheduler.R;
+
+ /**
  * sub class of {@link android.widget.AutoCompleteTextView} that includes a clear (dismiss / close) button with
  * a OnClearListener to handle the event of clicking the button
  * based on code from {http://www.gubed.net/clearableautocompletetextview}

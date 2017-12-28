@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import org.json.*;
 
 import saadandaakash.uofmscheduler.R;
-import saadandaakash.uofmscheduler.Utility;
+import saadandaakash.uofmscheduler.Utitilies.Utility;
 
 /**
  * Created by Saad on 12/22/2017.
@@ -121,7 +121,7 @@ public class CoursesFragment extends ListFragment {
             String printCourse = subjectCode + " " + currentCourse.catalogNumber + ": " +
                     currentCourse.courseName;
             courseName.setText(printCourse);
-            courseName.setTextSize(10 * getResources().getDisplayMetrics().density);
+            //courseName.setTextSize(10 * getResources().getDisplayMetrics().density);
 
             View.OnClickListener clickListener = new View.OnClickListener() {
                 public void onClick(View v) {

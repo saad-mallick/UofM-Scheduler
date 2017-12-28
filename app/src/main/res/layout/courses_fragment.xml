@@ -4,7 +4,7 @@
 
     <!-- TODO: top margin of course list is too small, needs to be moved down -->
 
-    <saadandaakash.uofmscheduler.customTextView
+    <saadandaakash.uofmscheduler.Utitilies.customTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"

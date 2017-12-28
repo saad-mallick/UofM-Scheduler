@@ -11,7 +11,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
         android:id="@+id/mainTitle">
-        <saadandaakash.uofmscheduler.customTextView
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
             android:textSize="20dp"
             android:text="[COURSE LABEL HERE]"
             android:id="@+id/courseLabel" />
-        <saadandaakash.uofmscheduler.customTextView
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:layout_centerHorizontal="true"
             android:layout_below="@id/courseLabel"
             android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/mainTitle"
         android:id="@+id/courseData">
-        <saadandaakash.uofmscheduler.customTextView
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -43,7 +43,7 @@
             android:padding="10dp"
             android:id="@+id/description"
             android:text="Description:\nTechniques and algorithm development and effective programming, top-down analysis, structured programming, testing, and program correctness. Program language syntax and static and runtime semantics. Scope, procedure instantiation, recursion, abstract data types, and parameter passing methods. Structured data types, pointers, linked data structures, stacks, queues, arrays, records, and trees."/>
-        <saadandaakash.uofmscheduler.customTextView
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/description"

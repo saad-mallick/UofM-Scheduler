@@ -1,7 +1,9 @@
 package saadandaakash.uofmscheduler.Fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import android.support.v4.app.Fragment;
+
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -19,7 +24,14 @@ import saadandaakash.uofmscheduler.R;
  */
 
 
-public class SavedSectionFragment extends android.support.v4.app.Fragment {
+public class SavedSectionFragment extends Fragment {
+
+    //This is the .txt file that will store out information
+    private static final String FILENAME = "SavedInformation.txt";
+
+    //Index 1 of this list will correspond to the line 1 of the file. When we delete line 1 of
+    //sections, we will also remove it from the file too.
+    private ArrayList<String> sections;
 
     public static SavedSectionFragment newInstance() {
         SavedSectionFragment fragment = new SavedSectionFragment();
@@ -80,7 +92,7 @@ public class SavedSectionFragment extends android.support.v4.app.Fragment {
             /*
             TODO: Go through list of sections and display the relevant info
              */
-            Section current_section = savedSections.get(position);
+            final Section current_section = savedSections.get(position);
 
             TextView header = (TextView) rowView.findViewById(R.id.sectionTitle);
             String title = current_section.subjectCode +
@@ -98,8 +110,31 @@ public class SavedSectionFragment extends android.support.v4.app.Fragment {
             TODO: Set onClickListener to go to that section details page for each saved section
              */
 
+            View.OnClickListener clickListener = new View.OnClickListener() {
+                public void onClick(View v) {
+                    SectionInfoFragment fragment = SectionInfoFragment.newInstance("2170",
+                            current_section.subjectCode, current_section.catalogNumber,
+                            current_section.sectionNumber);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, fragment)
+                            .addToBackStack("SECTIONINFO FRAGMENT")
+                            .commit();
+                }
+            };
+            rowView.setOnClickListener(clickListener);
 
             return rowView;
+        }
+    }
+
+    public static void save(String string, Activity currentActivity){
+        try {
+            FileOutputStream fos = currentActivity.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            fos.write(string.getBytes());
+            fos.close();
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
