@@ -1,11 +1,17 @@
 package saadandaakash.uofmscheduler.Fragments;
 
+import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -30,14 +36,14 @@ public class SectionInfoFragment extends Fragment {
     private String sectionNumber;
 
     private Map<String, String> sectionDetails;
-    private ArrayList<Meeting> meetings;
+    private ArrayList<Meeting> meetings = new ArrayList<>();
 
     private final ArrayList<String> keys = new ArrayList<>(Arrays.asList(
             "SectionType", "CourseTitle", "AvailableSeats",
-            "EnrollmentTotal", "CourseDescr", "CreditHours" ));
+            "EnrollmentTotal", "CourseDescr", "CreditHours"));
 
     public static SectionInfoFragment newInstance(String termCode, String subjectCode, String catalogNumber,
-                                            String sectionNumber) {
+                                                  String sectionNumber) {
         SectionInfoFragment fragment = new SectionInfoFragment();
         fragment.termCode = termCode;
         fragment.subjectCode = subjectCode;
@@ -63,6 +69,8 @@ public class SectionInfoFragment extends Fragment {
             @Override
             public void run() {
                 sectionDetails = getSectionDetails();
+                final MeetingListAdapter adapter = new MeetingListAdapter(getActivity(), meetings);
+
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -75,10 +83,16 @@ public class SectionInfoFragment extends Fragment {
                         TextView courseName = (TextView) getView().findViewById(R.id.sectionType);
                         courseName.setText(sectionDetails.get("SectionType"));
 
+                        TextView meetingsHeader = (TextView) getView().findViewById(R.id.meetings_header);
+                        meetingsHeader.setText("Meetings");
+
                         TextView availableSeats = (TextView) getView().findViewById(R.id.availableSeats);
                         String availableSeats_str = "Available Seats: " + sectionDetails.get("AvailableSeats") +
                                 " / " + sectionDetails.get("EnrollmentTotal");
                         availableSeats.setText(availableSeats_str);
+
+                        ListView meetingsList = (ListView) getView().findViewById(R.id.meetings);
+                        meetingsList.setAdapter(adapter);
 
                         /*
                         TODO: Add rest of data to page
@@ -120,14 +134,15 @@ public class SectionInfoFragment extends Fragment {
                 JSONObject meeting = meetingsArray.getJSONObject(i);
 
                 // get instructors array for each meeting
-                JSONArray instructorsArray = meeting.getJSONArray("Instructors");
+                // keeps instructors separate in case we need them individually later
+                JSONArray instructorsArray = meeting.getJSONArray("Instructor");
                 String[] instructors = new String[instructorsArray.length()];
                 for (int j = 0; j < instructorsArray.length(); j++) {
                     instructors[j] = instructorsArray.getString(j);
                 }
 
                 // add new Meeting object to official arraylist
-                meetings.add( new Meeting(
+                meetings.add(new Meeting(
                         meeting.getString("Days"),
                         meeting.getString("Times"),
                         instructors,
@@ -144,6 +159,7 @@ public class SectionInfoFragment extends Fragment {
         return sectionInfo;
     }
 
+    // Meeting class holds basic meeting info
     private class Meeting {
         private String days, times;
         private String[] instructors;
@@ -157,98 +173,62 @@ public class SectionInfoFragment extends Fragment {
         }
     }
 
-    /*
-    private class CustomAdapter extends ArrayAdapter {
-        ArrayList<Section> sections;
+    // Adapter for list view that will display meetings
+    private class MeetingListAdapter extends ArrayAdapter {
+        ArrayList<Meeting> meetings;
         Activity context;
-        private ViewHolder viewHolder;
+        //private RecyclerView.ViewHolder viewHolder;
 
-        public CustomAdapter(Activity context, ArrayList<Section> sections) {
-            super(context, R.layout.courses_fragment_sectional_layout, sections);
-            sections.add(new Section("", "", "", 0, 0, 0, "", ""));
-            notifyDataSetChanged();
-            this.sections = sections;
+        public MeetingListAdapter(Activity context, ArrayList<Meeting> meetings) {
+            super(context, R.layout.courses_fragment_sectional_layout, meetings);
+            this.meetings = meetings;
             this.context = context;
-            viewHolder = new ViewHolder(subjectCode, catalog_number, courseTitle,
-                    getDescription(), getRequirements(), context);
+            //viewHolder = new RecyclerView.ViewHolder(subjectCode, catalog_number, courseTitle,
+            //        getDescription(), getRequirements(), context);
         }
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
             LayoutInflater inflater = context.getLayoutInflater();
-            if (position == 0) {
-                return viewHolder.getClassView();
+            View rowView = inflater.inflate(R.layout.meeting_details, null, true);
+
+            // makes every other meeting light gray background to distinguish
+            if (position % 2 == 0) {
+                rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
             }
-            else {
-                View rowView = inflater.inflate(R.layout.sections_fragment_layout, null, true);
 
-                /*
-                 * Section [Num] ([LEC/LAB/DIS/REC])
-                 * Credits: [Credits]
-                 * [Days] [Times]
-                 * [Available seats] / [Total seats]
-                 *//*
-                Section currentSection = sections.get(position - 1);
-                TextView sectionTitle = (TextView) rowView.findViewById(R.id.sectionTitle);
-                String title = "Section " + currentSection.sectionNumber +
-                        " (" + currentSection.sectionType + ")";
-                sectionTitle.setText(title);
+            /*
+                Days: [Days]
+                Times: [Times]
+                Instructor(s): [Instructors]
+                Location: [Location]
+            */
+            Meeting currentMeeting = meetings.get(position);
 
-                // only display credits if type is same as "main" (first) section
-                if (currentSection.sectionType.equals(sections.get(0).sectionType)) {
-                    TextView creditsInfo = (TextView) rowView.findViewById(R.id.creditsInfo);
-                    String credits = "Credits: " + currentSection.creditHours;
-                    creditsInfo.setText(credits);
-                    creditsInfo.setVisibility(View.VISIBLE);
-                }
+            // display days
+            TextView display_days = (TextView) rowView.findViewById(R.id.days);
+            String days = "Days:  " + currentMeeting.days;
+            display_days.setText(days);
 
-                // display meetings times and days
-                TextView meetingsInfo = (TextView) rowView.findViewById(R.id.meetingsInfo);
-                String meetings = currentSection.meetings.days + " " + currentSection.meetings.times;
-                meetingsInfo.setText(meetings);
+            // display times
+            TextView display_times = (TextView) rowView.findViewById(R.id.times);
+            String times = "Times: " + currentMeeting.times;
+            display_times.setText(times);
 
-                // display open seats and total
-                TextView enrollmentInfo = (TextView) rowView.findViewById(R.id.enrollmentInfo);
-                String enrollment = "Available Seats: " + currentSection.availableSeats + " / " +
-                        currentSection.enrollmentTotal;
-                enrollmentInfo.setText(enrollment);
+            // display instructors
+            TextView display_instructors = (TextView) rowView.findViewById(R.id.instructors);
+            // join instructors array into form Instructors: [Instructor 1], [Instructor 2], ...
+            String instructors = "Instructors: " + TextUtils.join(", ", currentMeeting.instructors);
+            display_instructors.setText(instructors);
 
-                return rowView;
-            }
-        }
-    }*/
+            // display location
+            TextView display_location = (TextView) rowView.findViewById(R.id.location);
+            String location = "Location: " + currentMeeting.location;
+            display_location.setText(location);
 
-    /*
-    private class SectionInfo {
-
-        private class Meetings {
-            String days;
-            String times;
-
-            public Meetings(String days, String times) {
-                this.days = days;
-                this.times = times;
-            }
-        }
-
-        private String classTopic, sectionType, sectionNumber;
-        private int creditHours, enrollmentTotal, availableSeats;
-        private Meetings meetings;
-
-        public SectionDetails(String classTopic, String sectionType, String sectionNumber,
-                       int creditHours, int enrollmentTotal, int availableSeats,
-                       String days, String times) {
-            this.classTopic = classTopic;
-            this.sectionType = sectionType;
-            this.sectionNumber = sectionNumber;
-            this.creditHours = creditHours;
-            this.enrollmentTotal = enrollmentTotal;
-            this.availableSeats = availableSeats;
-
-            this.meetings = new Meetings(days, times);
+            return rowView;
         }
     }
-    */
 
     /*
     private static class ViewHolder {

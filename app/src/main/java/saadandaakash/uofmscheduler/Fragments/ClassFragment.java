@@ -176,7 +176,14 @@ public class ClassFragment extends Fragment {
                 return viewHolder.getClassView();
             }
             else {
+
+
                 View rowView = inflater.inflate(R.layout.sections_fragment_layout, null, true);
+
+                // Alternate background colors
+                if (position % 2 == 1) {
+                    rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
+                }
 
                 /*
                  * Section [Num] ([LEC/LAB/DIS/REC])

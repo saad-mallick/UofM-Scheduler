@@ -110,6 +110,11 @@ public class CoursesFragment extends ListFragment {
             LayoutInflater inflater = context.getLayoutInflater();
             View rowView = inflater.inflate(R.layout.courses_fragment_sectional_layout, null,true);
 
+            // Alternates background color
+            if (position % 2 == 0) {
+                rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
+            }
+
             TextView courseName = (TextView) rowView.findViewById(R.id.name);
 
             final Course currentCourse = courses.get(position);
