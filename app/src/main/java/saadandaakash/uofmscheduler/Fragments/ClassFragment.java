@@ -1,10 +1,10 @@
 package saadandaakash.uofmscheduler.Fragments;
 
 import android.app.Activity;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,31 +26,27 @@ import saadandaakash.uofmscheduler.customTextView;
  */
 
 public class ClassFragment extends Fragment {
-    /*
-    * TODO: Add a back button, so users can navigate back to the original list
-    *
-    * */
 
     private String termCode;
     private String schoolCode;
     private String subjectCode;
-    private String catalog_number;
+    private String catalogNumber;
     private String courseTitle;
     private ArrayList<Section> sections = new ArrayList<>();
 
-    public static ClassFragment newInstance(String termCode, String courseArea, String courseNumber,
-                                            String courseTitle){
+    public static ClassFragment newInstance(String termCode, String subjectCode, String catalogNumber,
+                                            String courseTitle) {
         ClassFragment fragment = new ClassFragment();
         fragment.termCode = termCode;
-        fragment.subjectCode = courseArea;
-        fragment.catalog_number = courseNumber;
+        fragment.subjectCode = subjectCode;
+        fragment.catalogNumber = catalogNumber;
         fragment.courseTitle = courseTitle;
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
+                             Bundle savedInstanceState) {
         //Inflate the layout into the specified container
         //True if you can inflate the layout and then attach it directly to the root of the
         //container
@@ -59,7 +55,7 @@ public class ClassFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState){
+    public void onViewCreated(View view, Bundle savedInstanceState) {
 
         new Thread(new Runnable() {
             @Override
@@ -69,10 +65,13 @@ public class ClassFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        ListView list = (ListView)getView().findViewById(R.id.sectionsList);
+
+                        ListView list = (ListView) getView().findViewById(R.id.sectionsList);
                         list.setAdapter(adapter);
+
                     }
                 });
+
             }
 
         }).start();
@@ -80,28 +79,26 @@ public class ClassFragment extends Fragment {
     }
 
     public String getDescription() {
-        String url = "http://umich-schedule-api.herokuapp.com/v4/g" +
-                "et_course_description?term_code=" + termCode
-                + "&subject=" + subjectCode + "&catalog_num="
-                + catalog_number;
+        String url = "http://umich-schedule-api.herokuapp.com/v4/" +
+                "get_course_description?term_code=" + termCode
+                + "&subject=" + subjectCode +
+                "&catalog_num=" + catalogNumber;
         try {
             return Utility.getStringFromURL(url);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
     }
 
-    public String getRequirements(){
+    public String getRequirements() {
         String url = "http://umich-schedule-api.herokuapp.com/v4/" +
                 "get_additional_info?term_code=" + termCode
-                + "&subject=" + subjectCode + "&catalog_num="
-                + catalog_number;
+                + "&subject=" + subjectCode +
+                "&catalog_num=" + catalogNumber;
         try {
             return Utility.getStringFromURL(url);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
@@ -111,7 +108,7 @@ public class ClassFragment extends Fragment {
     //         It is up to you if you want to use an ArrayList or not. However, I recommend that
     //         you stick with ArrayList and make the type a triple or a pair if you want to store
     //         data with more than one attribute
-    private ArrayList<Section> getSections(){
+    private ArrayList<Section> getSections() {
         ArrayList<Section> sections_list = new ArrayList<>();
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -123,13 +120,14 @@ public class ClassFragment extends Fragment {
                 "term_code=" + termCode +
                 "&school=" + schoolCode +
                 "&subject=" + subjectCode +
-                "&catalog_num=" + catalog_number;
+                "&catalog_num=" + catalogNumber;
 
         try {
             JSONArray infoFromAPI = Utility.getJSONArray(url);
             // go through course info array and find open sections
             for (int i = 0; i < infoFromAPI.length(); i++) {
                 JSONObject infoObject = infoFromAPI.getJSONObject(i);
+
                 // TODO: Adapt this to allow for any size meetings array
                 JSONObject meetingObject = infoObject.getJSONArray("Meetings").
                         getJSONObject(0);
@@ -149,7 +147,7 @@ public class ClassFragment extends Fragment {
                 );
 
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("API ERROR: Course information not found");
             e.printStackTrace();
         }
@@ -161,56 +159,75 @@ public class ClassFragment extends Fragment {
         Activity context;
         private ViewHolder viewHolder;
 
-        public CustomAdapter(Activity context, ArrayList<Section> sections){
+        public CustomAdapter(Activity context, ArrayList<Section> sections) {
             super(context, R.layout.courses_fragment_sectional_layout, sections);
             sections.add(new Section("", "", "", 0, 0, 0, "", ""));
             notifyDataSetChanged();
             this.sections = sections;
             this.context = context;
-            viewHolder = new ViewHolder(subjectCode, catalog_number, courseTitle,
+            viewHolder = new ViewHolder(subjectCode, catalogNumber, courseTitle,
                     getDescription(), getRequirements(), context);
         }
 
         @Override
-        public View getView(int position, View view, ViewGroup parent){
-            // TODO: figure out what 'View Holder' pattern is
+        public View getView(int position, View view, ViewGroup parent) {
             LayoutInflater inflater = context.getLayoutInflater();
-            if(position == 0){
+            if (position == 0) {
                 return viewHolder.getClassView();
-            } else {
+            }
+            else {
+
+
                 View rowView = inflater.inflate(R.layout.sections_fragment_layout, null, true);
 
-            /*
-             * Section [Num] ([LEC/LAB/DIS])
-             * [Days] [Times]
-             * [Available seats] / [Total seats]
-             */
-                Section currentSection = sections.get(position-1);
+                // Alternate background colors
+                if (position % 2 == 1) {
+                    rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
+                }
+
+                /*
+                 * Section [Num] ([LEC/LAB/DIS/REC])
+                 * Credits: [Credits]
+                 * [Days] [Times]
+                 * [Available seats] / [Total seats]
+                 */
+                final Section currentSection = sections.get(position - 1);
                 TextView sectionTitle = (TextView) rowView.findViewById(R.id.sectionTitle);
                 String title = "Section " + currentSection.sectionNumber +
                         " (" + currentSection.sectionType + ")";
                 sectionTitle.setText(title);
-                sectionTitle.setTextSize(10 * getResources().getDisplayMetrics().density);
 
-                if (currentSection.sectionType.equals("LEC")) {
+                // only display credits if type is same as "main" (first) section
+                if (currentSection.sectionType.equals(sections.get(0).sectionType)) {
                     TextView creditsInfo = (TextView) rowView.findViewById(R.id.creditsInfo);
                     String credits = "Credits: " + currentSection.creditHours;
                     creditsInfo.setText(credits);
                     creditsInfo.setVisibility(View.VISIBLE);
-                    creditsInfo.setTextSize(7 * getResources().getDisplayMetrics().density);
                 }
 
-
+                // display meetings times and days
                 TextView meetingsInfo = (TextView) rowView.findViewById(R.id.meetingsInfo);
                 String meetings = currentSection.meetings.days + " " + currentSection.meetings.times;
                 meetingsInfo.setText(meetings);
-                meetingsInfo.setTextSize(7 * getResources().getDisplayMetrics().density);
 
+                // display open seats and total
                 TextView enrollmentInfo = (TextView) rowView.findViewById(R.id.enrollmentInfo);
                 String enrollment = "Available Seats: " + currentSection.availableSeats + " / " +
                         currentSection.enrollmentTotal;
                 enrollmentInfo.setText(enrollment);
-                enrollmentInfo.setTextSize(7 * getResources().getDisplayMetrics().density);
+
+                View.OnClickListener clickListener = new View.OnClickListener() {
+                    public void onClick(View v) {
+                        SectionInfoFragment fragment = SectionInfoFragment.newInstance(termCode, subjectCode,
+                                catalogNumber, currentSection.sectionNumber);
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction()
+                                .replace(R.id.container, fragment)
+                                .addToBackStack("CLASS FRAGMENT")
+                                .commit();
+                    }
+                };
+                rowView.setOnClickListener(clickListener);
 
                 return rowView;
             }
@@ -245,10 +262,9 @@ public class ClassFragment extends Fragment {
 
             this.meetings = new Meetings(days, times);
         }
-
     }
 
-    private class ViewHolder{
+    private static class ViewHolder {
 
         String subjectCode;
         String catalog_number;
@@ -262,7 +278,7 @@ public class ClassFragment extends Fragment {
         View classView = null;
 
         public ViewHolder(String subjectCode, String catalog_number, String courseTitle,
-                          String courseDescription, String courseRequirements, Activity context){
+                          String courseDescription, String courseRequirements, Activity context) {
             this.subjectCode = subjectCode;
             this.catalog_number = catalog_number;
             this.courseTitle = courseTitle;
@@ -272,26 +288,22 @@ public class ClassFragment extends Fragment {
             inflater = context.getLayoutInflater();
         }
 
-        public View getClassView(){
-            if(classView == null){
+        public View getClassView() {
+            if (classView == null) {
                 classView = inflater.inflate(R.layout.class_fragment_sectional_layout_left_align, null, false);
 
-                customTextView courseLabel = (customTextView)classView.findViewById(R.id.courseLabel);
+                customTextView courseLabel = (customTextView) classView.findViewById(R.id.courseLabel);
                 String label = subjectCode + " " + catalog_number;
                 courseLabel.setText(label);
-                courseLabel.setTextSize(18 * getResources().getDisplayMetrics().density);
 
-                customTextView courseTitleText = (customTextView)classView.findViewById(R.id.courseTitle);
+                customTextView courseTitleText = (customTextView) classView.findViewById(R.id.courseTitle);
                 courseTitleText.setText(courseTitle);
-                courseTitleText.setTextSize(11 * getResources().getDisplayMetrics().density);
 
-                customTextView description = (customTextView)classView.findViewById(R.id.description);
+                customTextView description = (customTextView) classView.findViewById(R.id.description);
                 description.setText(courseDescription);
-                description.setTextSize(7 * getResources().getDisplayMetrics().density);
 
-                customTextView requirements = (customTextView)classView.findViewById(R.id.prereqs);
+                customTextView requirements = (customTextView) classView.findViewById(R.id.prereqs);
                 requirements.setText(courseRequirements);
-                requirements.setTextSize(7 * getResources().getDisplayMetrics().density);
 
                 return classView;
             } else {

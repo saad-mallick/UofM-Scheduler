@@ -110,23 +110,39 @@ public class SelectionFragment extends Fragment {
                     new View.OnClickListener() {
                         public void onClick(View view) {
 
-                            // get school and subject values
-                            subjectCode = editSubject.getText().toString();
-                            subjectCode = subjectCode.substring(0, subjectCode.indexOf(' ')).toUpperCase();
+                            try {
+                                // get subject field
+                                subjectCode = editSubject.getText().toString();
 
-                            System.out.println("SUBJECT: " + subjectCode);
+                                // check to make sure field is not empty and in right format
+                                if (!subjectCode.trim().isEmpty()) {
 
-                            // check to make sure something was entered before switching fragments
-                            if (subjectCode != null && !subjectCode.trim().isEmpty()) {
+                                    // get the actual code from the whole string
+                                    if (subjectCode.contains(" ")) {
+                                        subjectCode = subjectCode.substring(0, subjectCode.indexOf(" "));
+                                    }
 
-                                CoursesFragment fragment = CoursesFragment.newInstance(subjectCode);
-                                Utility.hideKeyboard(getActivity());
+                                    // convert whatever was entered to uppercase
+                                    subjectCode = subjectCode.toUpperCase();
 
-                                FragmentManager fragmentManager = getFragmentManager();
-                                fragmentManager.beginTransaction()
-                                        .replace(R.id.container, fragment)
-                                        .addToBackStack("SELECTION FRAGMENT")
-                                        .commit();
+                                    System.out.println("SUBJECT: " + subjectCode);
+
+                                    // check to make sure subject code is valid by looking for value in map
+                                    if (subjectData.get(subjectCode) != null) {
+
+                                        CoursesFragment fragment = CoursesFragment.newInstance(subjectCode);
+                                        Utility.hideKeyboard(getActivity());
+
+                                        FragmentManager fragmentManager = getFragmentManager();
+                                        fragmentManager.beginTransaction()
+                                                .replace(R.id.container, fragment)
+                                                .addToBackStack("SELECTION FRAGMENT")
+                                                .commit();
+                                    }
+                                }
+                            }
+                            catch (NullPointerException n) {
+                                n.printStackTrace();
                             }
                         }
                     }

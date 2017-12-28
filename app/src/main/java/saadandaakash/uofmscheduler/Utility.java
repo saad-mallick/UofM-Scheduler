@@ -45,6 +45,11 @@ public class Utility {
         return new JSONArray(info);
     }
 
+    public static JSONObject getJSONObject(String url) throws JSONException, IOException {
+        String info = getStringFromURL(url);
+        return new JSONObject(info);
+    }
+
     public static Map<String, String> readMapFromFile(Activity activity, String filename, String key_str, String value_str) {
         try {
             // read from json into JSONArray

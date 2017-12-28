@@ -65,9 +65,13 @@ public class AutocompleteAdapter extends ArrayAdapter {
                 // check to make sure that entry is not just whitespace
                 if (charSequence != null && !charSequence.toString().trim().isEmpty()) {
                     for (String i : data) {
-                        if (charSequence.toString().toLowerCase()
-                                .equals(i.substring(0, charSequence.length()).toLowerCase())) {
-                            resultingData.add(i);
+                        // prevent comparison if the entered input is
+                        // longer than the string to compare to
+                        if (charSequence.length() < i.length()) {
+                            if (charSequence.toString().toLowerCase()
+                                    .equals(i.substring(0, charSequence.length()).toLowerCase())) {
+                                resultingData.add(i);
+                            }
                         }
                     }
                 }
