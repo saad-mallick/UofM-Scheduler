@@ -26,10 +26,6 @@ import saadandaakash.uofmscheduler.customTextView;
  */
 
 public class ClassFragment extends Fragment {
-    /*
-    * TODO: Add a back button, so users can navigate back to the original list
-    *
-    * */
 
     private String termCode;
     private String schoolCode;
@@ -69,10 +65,13 @@ public class ClassFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         ListView list = (ListView) getView().findViewById(R.id.sectionsList);
                         list.setAdapter(adapter);
+
                     }
                 });
+
             }
 
         }).start();
@@ -128,6 +127,7 @@ public class ClassFragment extends Fragment {
             // go through course info array and find open sections
             for (int i = 0; i < infoFromAPI.length(); i++) {
                 JSONObject infoObject = infoFromAPI.getJSONObject(i);
+
                 // TODO: Adapt this to allow for any size meetings array
                 JSONObject meetingObject = infoObject.getJSONArray("Meetings").
                         getJSONObject(0);

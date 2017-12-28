@@ -75,7 +75,7 @@ public class CoursesFragment extends ListFragment {
         ArrayList<Course> courses = new ArrayList<>();
         try {
             JSONArray infoFromAPI = Utility.getJSONArray(url);
-            // go through course info array and find open sections
+            // go through course info array and save course data as Course object
             for (int i = 0; i < infoFromAPI.length(); i++) {
                 JSONObject infoObject = infoFromAPI.getJSONObject(i);
                 courses.add(new Course(infoObject.getString("CourseTitle"),
@@ -115,7 +115,7 @@ public class CoursesFragment extends ListFragment {
                 rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
             }
 
-            TextView courseName = (TextView) rowView.findViewById(R.id.name);
+            TextView courseName = (TextView) rowView.findViewById(R.id.course);
 
             final Course currentCourse = courses.get(position);
             String printCourse = subjectCode + " " + currentCourse.catalogNumber + ": " +
