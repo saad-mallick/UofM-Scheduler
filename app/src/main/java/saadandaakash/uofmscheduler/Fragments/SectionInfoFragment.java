@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -24,10 +26,6 @@ import java.util.Map;
 
 import saadandaakash.uofmscheduler.R;
 import saadandaakash.uofmscheduler.Utitilies.Utility;
-
-/**
- * Created by Saad on 12/26/2017.
- */
 
 public class SectionInfoFragment extends Fragment {
     private String termCode;
@@ -69,7 +67,6 @@ public class SectionInfoFragment extends Fragment {
             @Override
             public void run() {
                 sectionDetails = getSectionDetails();
-                final MeetingListAdapter adapter = new MeetingListAdapter(getActivity(), meetings);
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -88,8 +85,7 @@ public class SectionInfoFragment extends Fragment {
                         String topic = sectionDetails.get("ClassTopic");
                         if (topic != null && !topic.equals("")) {
                             classTopic.setText(topic);
-                        }
-                        else {
+                        } else {
                             topic = sectionDetails.get("CourseTitle");
                             classTopic.setText(topic);
                         }
@@ -126,8 +122,7 @@ public class SectionInfoFragment extends Fragment {
                                             courseDescription.setVisibility(View.GONE);
                                             courseDescriptionHeader.setCompoundDrawablesWithIntrinsicBounds(
                                                     0, 0, R.drawable.expand, 0);
-                                        }
-                                        else if (courseDescription.getVisibility() == View.GONE) {
+                                        } else if (courseDescription.getVisibility() == View.GONE) {
                                             courseDescription.setVisibility(View.VISIBLE);
                                             courseDescriptionHeader.setCompoundDrawablesWithIntrinsicBounds(
                                                     0, 0, R.drawable.collapse, 0);
@@ -137,11 +132,56 @@ public class SectionInfoFragment extends Fragment {
                         );
 
                         // Meetings
+                        // We can't use a ListView in a ScrollView, so instead we are going to
+                        // start with an empty linear layout, and keep creating new views per meeting
+                        // object and add them to the linear layout
+                        LinearLayout layout = (LinearLayout) getView().findViewById(R.id.meetings);
+
                         TextView meetingsHeader = (TextView) getView().findViewById(R.id.meetings_header);
                         meetingsHeader.setText("Meetings");
 
-                        ListView meetingsList = (ListView) getView().findViewById(R.id.meetings);
-                        meetingsList.setAdapter(adapter);
+                        // go through each meeting object and create a new view with the
+                        // fields filled in
+                        for (int position = 0; position < meetings.size(); position++) {
+                            LayoutInflater inflater = getActivity().getLayoutInflater();
+                            View rowView = inflater.inflate(R.layout.meeting_details, null, true);
+
+                            // Alternate background colors
+                            if (position % 2 == 0) {
+                                rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
+                            }
+                            /*
+                                Days: [Days]
+                                Times: [Times]
+                                Instructor(s): [Instructors]
+                                Location: [Location]
+                            */
+                            Meeting currentMeeting = meetings.get(position);
+
+                            // display days
+                            TextView display_days = (TextView) rowView.findViewById(R.id.days);
+                            String days = "Days:  " + currentMeeting.days;
+                            display_days.setText(days);
+
+                            // display times
+                            TextView display_times = (TextView) rowView.findViewById(R.id.times);
+                            String times = "Times: " + currentMeeting.times;
+                            display_times.setText(times);
+
+                            // display instructors
+                            TextView display_instructors = (TextView) rowView.findViewById(R.id.instructors);
+                            // join instructors array into form Instructors: [Instructor 1], [Instructor 2], ...
+                            String instructors = "Instructors: " + TextUtils.join(", ", currentMeeting.instructors);
+                            display_instructors.setText(instructors);
+
+                            // display location
+                            TextView display_location = (TextView) rowView.findViewById(R.id.location);
+                            String location = "Location: " + currentMeeting.location;
+                            display_location.setText(location);
+
+                            // add the newly created view to the end of the linear layout
+                            layout.addView(rowView);
+                        }
 
                         // Save Button
                         Button saveButton = (Button) getView().findViewById(R.id.saveButton);
@@ -149,6 +189,7 @@ public class SectionInfoFragment extends Fragment {
                                 getActivity().getAssets(),
                                 "fonts/Quicksand-Regular.otf")
                         );
+                        // this is so the button doesn't show up before the other info
                         saveButton.setVisibility(View.VISIBLE);
                     }
                 });
@@ -231,60 +272,4 @@ public class SectionInfoFragment extends Fragment {
         }
     }
 
-    // Adapter for list view that will display meetings
-    private class MeetingListAdapter extends ArrayAdapter {
-        ArrayList<Meeting> meetings;
-        Activity context;
-        //private RecyclerView.ViewHolder viewHolder;
-
-        public MeetingListAdapter(Activity context, ArrayList<Meeting> meetings) {
-            super(context, R.layout.section_info_layout, meetings);
-            this.meetings = meetings;
-            this.context = context;
-            //viewHolder = new RecyclerView.ViewHolder(subjectCode, catalog_number, courseTitle,
-            //        getDescription(), getRequirements(), context);
-        }
-
-        @Override
-        public View getView(int position, View view, ViewGroup parent) {
-            LayoutInflater inflater = context.getLayoutInflater();
-            View rowView = inflater.inflate(R.layout.meeting_details, null, true);
-
-            // makes every other meeting light gray background to distinguish
-            if (position % 2 == 0) {
-                rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
-            }
-
-            /*
-                Days: [Days]
-                Times: [Times]
-                Instructor(s): [Instructors]
-                Location: [Location]
-            */
-            Meeting currentMeeting = meetings.get(position);
-
-            // display days
-            TextView display_days = (TextView) rowView.findViewById(R.id.days);
-            String days = "Days:  " + currentMeeting.days;
-            display_days.setText(days);
-
-            // display times
-            TextView display_times = (TextView) rowView.findViewById(R.id.times);
-            String times = "Times: " + currentMeeting.times;
-            display_times.setText(times);
-
-            // display instructors
-            TextView display_instructors = (TextView) rowView.findViewById(R.id.instructors);
-            // join instructors array into form Instructors: [Instructor 1], [Instructor 2], ...
-            String instructors = "Instructors: " + TextUtils.join(", ", currentMeeting.instructors);
-            display_instructors.setText(instructors);
-
-            // display location
-            TextView display_location = (TextView) rowView.findViewById(R.id.location);
-            String location = "Location: " + currentMeeting.location;
-            display_location.setText(location);
-
-            return rowView;
-        }
-    }
 }

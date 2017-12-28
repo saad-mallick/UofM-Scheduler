@@ -3,6 +3,7 @@ package saadandaakash.uofmscheduler.Fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import android.support.v4.app.Fragment;
-
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import saadandaakash.uofmscheduler.R;
 
@@ -57,6 +55,8 @@ public class SavedSectionFragment extends Fragment {
         sections.add(new Section("ENGLISH", "140", "001", "SEM",
                 "Mo We", "2:00-3:00"));
         sections.add(new Section("ENGLISH", "140", "003", "SEM",
+                "Tu Th", "9:00-10:00"));
+        sections.add(new Section("EECS", "215", "001", "LEC",
                 "Tu Th", "9:00-10:00"));
 
         SavedSectionAdapter adapter = new SavedSectionAdapter(getActivity(), sections);
