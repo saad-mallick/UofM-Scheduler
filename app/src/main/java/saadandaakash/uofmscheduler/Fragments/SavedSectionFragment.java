@@ -16,10 +16,17 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import saadandaakash.uofmscheduler.R;
+import saadandaakash.uofmscheduler.Utitilies.Utility;
 
 /**
  * Created by Aakash on 12/28/2017.
@@ -28,15 +35,18 @@ import saadandaakash.uofmscheduler.R;
 
 public class SavedSectionFragment extends Fragment {
 
-    //This is the .txt file that will store out information
-    private static final String FILENAME = "SavedInformation.txt";
-
-    //Index 1 of this list will correspond to the line 1 of the file. When we delete line 1 of
-    //sections, we will also remove it from the file too.
-    private ArrayList<String> sections;
+    public static ArrayList<Section> savedSections = null;
+    public static ArrayList<String> sectionKeys;
 
     public static SavedSectionFragment newInstance() {
         SavedSectionFragment fragment = new SavedSectionFragment();
+        sectionKeys = new ArrayList<String>();
+        sectionKeys.add("subjectCode");
+        sectionKeys.add("catalogNumber");
+        sectionKeys.add("sectionNumber");
+        sectionKeys.add("sectionType");
+        sectionKeys.add("days");
+        sectionKeys.add("times");
         return fragment;
     }
 
@@ -50,20 +60,60 @@ public class SavedSectionFragment extends Fragment {
         return inflater.inflate(R.layout.saved_sections_fragment, container, false);
     }
 
+    public void saveSection(String subjectCode, String catalogNumber, String sectionNumber,
+                            String sectionType, String days, String times, Activity activity){
+        if(savedSections == null){
+            savedSections = new ArrayList<Section>();
+        }
+
+        Section savedSection = new Section(subjectCode, catalogNumber, sectionNumber,
+                sectionType, days, times);
+        savedSections.add(savedSection);
+        updateFile(activity);
+    }
+
+    public void updateFile(Activity activity){
+        try {
+            JSONArray jsonArray = new JSONArray();
+            for (Section s : savedSections) {
+                JSONObject object = new JSONObject();
+                ArrayList<String> data = s.getItems();
+                for (int i = 0; i < sectionKeys.size(); i++) {
+                    object.put(sectionKeys.get(i), data.get(i));
+                }
+                jsonArray.put(object);
+            }
+            Utility.writeToFile(activity, jsonArray.toString(), Utility.FILENAME);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void loadFile(){
+        if(savedSections == null) {
+            savedSections = new ArrayList<>();
+            try {
+                String jsonArrayString = Utility.readFromFile(getActivity(), Utility.FILENAME);
+                JSONArray jsonArray = new JSONArray(jsonArrayString);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    Section addSection = new Section(object.getString("subjectCode"), object.getString("catalogNumber"),
+                            object.getString("sectionNumber"), object.getString("sectionType"), object.getString("days"),
+                            object.getString("times"));
+                    savedSections.add(addSection);
+                }
+            } catch (Exception e) {}
+        }
+
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        loadFile();
+        //SavedSectionAdapter adapter = new SavedSectionAdapter(getActivity(), savedSections);
+        //ListView sectionsList = (ListView) getView().findViewById(R.id.savedSectionsList);
 
-        ArrayList<Section> sections = new ArrayList<>();
-        sections.add(new Section("EECS", "280", "001", "LEC",
-                "Mo We", "8:00-9:30"));
-        sections.add(new Section("ENGLISH", "140", "001", "SEM",
-                "Mo We", "2:00-3:00"));
-        sections.add(new Section("ENGLISH", "140", "003", "SEM",
-                "Tu Th", "9:00-10:00"));
-        sections.add(new Section("EECS", "215", "001", "LEC",
-                "Tu Th", "9:00-10:00"));
-
-        RecyclerAdapter adapter = new RecyclerAdapter(getActivity(), sections);
+        RecyclerAdapter adapter = new RecyclerAdapter(getActivity(), savedSections);
 
         final RecyclerView sectionsList = (RecyclerView) getView().findViewById(R.id.savedSectionsList);
         sectionsList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -193,6 +243,9 @@ public class SavedSectionFragment extends Fragment {
                 rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
             }
 
+            /*
+            TODO: Go through list of sections and display the relevant info
+             */
             final Section current_section = savedSections.get(position);
 
             TextView header = (TextView) rowView.findViewById(R.id.sectionTitle);
@@ -206,6 +259,10 @@ public class SavedSectionFragment extends Fragment {
             String meetingDisplay = current_section.meeting.days +
                     " " + current_section.meeting.times;
             meetingInfo.setText(meetingDisplay);
+
+            /*
+            TODO: Set onClickListener to go to that section details page for each saved section
+             */
 
             View.OnClickListener clickListener = new View.OnClickListener() {
                 public void onClick(View v) {
@@ -222,17 +279,6 @@ public class SavedSectionFragment extends Fragment {
             rowView.setOnClickListener(clickListener);
 
             return rowView;
-        }
-    }
-
-
-    public static void save(String string, Activity currentActivity){
-        try {
-            FileOutputStream fos = currentActivity.openFileOutput(FILENAME, Context.MODE_PRIVATE);
-            fos.write(string.getBytes());
-            fos.close();
-        } catch (Exception e){
-            e.printStackTrace();
         }
     }
 
@@ -259,6 +305,17 @@ public class SavedSectionFragment extends Fragment {
             this.sectionType = sectionType;
 
             this.meeting = new Meeting(days, times);
+        }
+
+        public ArrayList<String> getItems(){
+            ArrayList<String> items = new ArrayList<String>();
+            items.add(subjectCode);
+            items.add(catalogNumber);
+            items.add(sectionNumber);
+            items.add(sectionType);
+            items.add(meeting.days);
+            items.add(meeting.times);
+            return items;
         }
     }
 }

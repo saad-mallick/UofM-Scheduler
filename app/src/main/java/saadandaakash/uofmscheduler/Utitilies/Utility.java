@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -27,7 +28,7 @@ import java.util.TreeMap;
 
 public class Utility {
 
-    public static String SAVEFILE = "savedSections.json";
+    public static final String FILENAME = "savedSections.txt";
 
     public static String getStringFromURL(String url) throws IOException, SocketTimeoutException {
         URL api_url = new URL(url);
@@ -99,6 +100,7 @@ public class Utility {
         FileOutputStream os = null;
 
         try {
+            System.out.println(context);
             os = context.openFileOutput(filename, Context.MODE_PRIVATE);
             os.write(json.getBytes());
             os.close();

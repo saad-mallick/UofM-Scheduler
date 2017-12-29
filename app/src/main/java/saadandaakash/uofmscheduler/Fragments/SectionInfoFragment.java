@@ -294,19 +294,15 @@ public class SectionInfoFragment extends Fragment {
                 new View.OnClickListener() {
                     public void onClick(View view) {
                         try {
-                            JSONObject json = new JSONObject();
-                            json.put("SubjectCode", subjectCode);
-                            json.put("CatalogNumber", catalogNumber);
-                            json.put("SectionNumber", sectionNumber);
-
-                            String json_str = json.toString();
-
-                            Utility.writeToFile(getActivity(), json_str, Utility.SAVEFILE);
-                            System.out.println("Course saved successfully");
-                        }
-                        catch(JSONException j) {
-                            j.printStackTrace();
-                            System.out.println("COURSE COULD NOT BE SAVED");
+                            SavedSectionFragment sectionFragment = SavedSectionFragment.newInstance();
+                            String addtimes = "";
+                            String addDays = "";
+                            for(Meeting m: meetings){
+                                addtimes = addtimes + m.times + "\n";
+                                addDays = addDays + m.days;
+                            }
+                            sectionFragment.saveSection(subjectCode, catalogNumber, sectionNumber,
+                                    sectionDetails.get("SectionType"), addDays, addtimes, getActivity());
                         }
                         catch (Exception e) {
                             e.printStackTrace();
