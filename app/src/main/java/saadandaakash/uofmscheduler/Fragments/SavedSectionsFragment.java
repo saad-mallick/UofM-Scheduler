@@ -3,6 +3,7 @@ package saadandaakash.uofmscheduler.Fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -281,30 +282,28 @@ public class SavedSectionsFragment extends Fragment {
             savedSections = new ArrayList<>();
             try {
                 // get the JSONArray of saved sections
-                if(isAdded()) {
-                    String jsonArrayString = Utility.readFromFile(getActivity(), Utility.FILENAME);
-                    JSONArray jsonArray = new JSONArray(jsonArrayString);
+                String jsonArrayString = Utility.readFromFile(getActivity(), Utility.FILENAME);
+                JSONArray jsonArray = new JSONArray(jsonArrayString);
 
-                    // read data from the JSONArray into section objects
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject sectionObject = jsonArray.getJSONObject(i);
+                // read data from the JSONArray into section objects
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject sectionObject = jsonArray.getJSONObject(i);
 
-                        JSONArray meetingsArray = sectionObject.getJSONArray("Meetings");
-                        ArrayList<Section.Meeting> meetings = new ArrayList<>();
-                        for (int j = 0; j < meetingsArray.length(); j++) {
-                            JSONObject meetingObject = meetingsArray.getJSONObject(j);
-                            meetings.add(new Section.Meeting(meetingObject));
-                        }
-
-                        Section addSection = new Section(
-                                sectionObject.getString("SubjectCode"),
-                                sectionObject.getString("CatalogNumber"),
-                                sectionObject.getString("SectionNumber"),
-                                sectionObject.getString("SectionType"),
-                                meetings);
-
-                        savedSections.add(addSection);
+                    JSONArray meetingsArray = sectionObject.getJSONArray("Meetings");
+                    ArrayList<Section.Meeting> meetings = new ArrayList<>();
+                    for (int j = 0; j < meetingsArray.length(); j++) {
+                        JSONObject meetingObject = meetingsArray.getJSONObject(j);
+                        meetings.add(new Section.Meeting(meetingObject));
                     }
+
+                    Section addSection = new Section(
+                            sectionObject.getString("SubjectCode"),
+                            sectionObject.getString("CatalogNumber"),
+                            sectionObject.getString("SectionNumber"),
+                            sectionObject.getString("SectionType"),
+                            meetings);
+
+                    savedSections.add(addSection);
                 }
             } catch (Exception e) {}
         }
