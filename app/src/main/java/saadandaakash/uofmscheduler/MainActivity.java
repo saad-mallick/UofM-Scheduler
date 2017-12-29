@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity
 
         // Make nav header text bold
         View headerLayout = navigationView.getHeaderView(0);
-        TextView nav_header_text = (TextView) headerLayout.findViewById(R.id.nav_header_text);
 
         // TODO: find a better font for menu/header stuff
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Quicksand-Bold.otf");

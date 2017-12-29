@@ -26,17 +26,9 @@ import saadandaakash.uofmscheduler.Utitilies.Utility;
 public class SavedSectionsFragment extends Fragment {
 
     public static ArrayList<Section> savedSections = null;
-    public static ArrayList<String> sectionKeys;
 
     public static SavedSectionsFragment newInstance() {
         SavedSectionsFragment fragment = new SavedSectionsFragment();
-        sectionKeys = new ArrayList<String>();
-        sectionKeys.add("subjectCode");
-        sectionKeys.add("catalogNumber");
-        sectionKeys.add("sectionNumber");
-        sectionKeys.add("sectionType");
-        sectionKeys.add("days");
-        sectionKeys.add("times");
         return fragment;
     }
 
@@ -65,6 +57,12 @@ public class SavedSectionsFragment extends Fragment {
         sectionsList.setLayoutManager(new LinearLayoutManager(getContext()));
         sectionsList.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        updateFile(getActivity());
     }
 
     private class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
@@ -163,7 +161,7 @@ public class SavedSectionsFragment extends Fragment {
         @Override
         public void onItemDismiss(int position) {
             savedSections.remove(position);
-            updateFile(getActivity());
+            //updateFile(getActivity());
             notifyItemRemoved(position);
         }
 
@@ -179,7 +177,7 @@ public class SavedSectionsFragment extends Fragment {
                     Collections.swap(savedSections, i, i - 1);
                 }
             }
-            updateFile(getActivity());
+            //updateFile(getActivity());
             notifyItemMoved(fromPosition, toPosition);
             return true;
         }
@@ -233,7 +231,7 @@ public class SavedSectionsFragment extends Fragment {
         // check to make sure the section isn't already in the list before saving
         if (!savedSections.contains(section)) {
             savedSections.add(section);
-            updateFile(activity);
+            //updateFile(activity);
         }
     }
 
