@@ -143,13 +143,15 @@ public class Utility {
     }
 
     public static ProgressDialog createProgressDialog(Activity activity) {
-        final ProgressDialog dialog = ProgressDialog.show(
-                activity, null, null, true, false );
-        dialog.getWindow().setBackgroundDrawable( new ColorDrawable( Color.TRANSPARENT ) );
-        dialog.setContentView( R.layout.progress_bar );
-        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        if(activity != null) {
+            final ProgressDialog dialog = ProgressDialog.show(
+                    activity, null, null, true, false);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setContentView(R.layout.progress_bar);
+            dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-        return dialog;
+            return dialog;
+        } else return null;
     }
 
 }
