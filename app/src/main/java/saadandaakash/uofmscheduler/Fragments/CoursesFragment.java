@@ -55,8 +55,6 @@ public class CoursesFragment extends ListFragment {
 
             }
         }).start();
-
-
     }
 
     //EFFECTS: Fills the courses array list with correct data

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 
+import saadandaakash.uofmscheduler.Adapters.ItemTouchHelperAdapter;
 import saadandaakash.uofmscheduler.R;
 import saadandaakash.uofmscheduler.Utitilies.Utility;
 
@@ -110,26 +113,23 @@ public class SavedSectionFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         loadFile();
-        //SavedSectionAdapter adapter = new SavedSectionAdapter(getActivity(), savedSections);
-        //ListView sectionsList = (ListView) getView().findViewById(R.id.savedSectionsList);
 
         RecyclerAdapter adapter = new RecyclerAdapter(getActivity(), savedSections);
 
         final RecyclerView sectionsList = (RecyclerView) getView().findViewById(R.id.savedSectionsList);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(sectionsList);
+
         sectionsList.setLayoutManager(new LinearLayoutManager(getContext()));
         sectionsList.setAdapter(adapter);
 
-        /*
-        ListView sectionsList = (ListView) getView().findViewById(R.id.savedSectionsList);
-        sectionsList.setAdapter(new SavedSectionAdapter(getActivity(), sections));
-        */
-        /*
-        TODO: Read info from saved course file into adapter, set adapter to list
-         */
-
     }
 
-    private class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+    private class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
+            implements ItemTouchHelperAdapter {
+
         private ArrayList<Section> savedSections;
         private Activity context;
         RecyclerView parentRecyclerView;
@@ -218,6 +218,29 @@ public class SavedSectionFragment extends Fragment {
         public int getItemCount() {
             return savedSections.size();
         }
+
+        @Override
+        public void onItemDismiss(int position) {
+            savedSections.remove(position);
+            updateFile(getActivity());
+            notifyItemRemoved(position);
+        }
+
+        @Override
+        public boolean onItemMove(int fromPosition, int toPosition) {
+            if (fromPosition < toPosition) {
+                for (int i = fromPosition; i < toPosition; i++) {
+                    Collections.swap(savedSections, i, i + 1);
+                }
+            } else {
+                for (int i = fromPosition; i > toPosition; i--) {
+                    Collections.swap(savedSections, i, i - 1);
+                }
+            }
+            notifyItemMoved(fromPosition, toPosition);
+            return true;
+        }
+
     }
 
 
@@ -316,6 +339,46 @@ public class SavedSectionFragment extends Fragment {
             items.add(meeting.days);
             items.add(meeting.times);
             return items;
+        }
+    }
+
+    private class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
+        private final ItemTouchHelperAdapter adapter;
+
+        public SimpleItemTouchHelperCallback(ItemTouchHelperAdapter adapter) {
+            this.adapter = adapter;
+        }
+
+        @Override
+        public boolean isLongPressDragEnabled() {
+            return true;
+        }
+
+        @Override
+        public boolean isItemViewSwipeEnabled() {
+            return true;
+        }
+
+        @Override
+        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            int dragFlags = ItemTouchHelper.UP | ItemTouchHelper.DOWN;
+            int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+            return makeMovementFlags(dragFlags, swipeFlags);
+        }
+
+
+        @Override
+        public boolean onMove(RecyclerView recyclerView,
+                              RecyclerView.ViewHolder viewHolder,
+                              RecyclerView.ViewHolder target) {
+            adapter.onItemMove(viewHolder.getAdapterPosition(),
+                    target.getAdapterPosition());
+            return true;
+        }
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder,
+                             int direction) {
+            adapter.onItemDismiss(viewHolder.getAdapterPosition());
         }
     }
 }
