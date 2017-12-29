@@ -46,12 +46,14 @@ public class CoursesFragment extends ListFragment {
             @Override
             public void run() {
                 final CustomAdapter adapter = new CustomAdapter(getActivity(), getCourses());
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setListAdapter(adapter);
-                    }
-                });
+                try {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setListAdapter(adapter);
+                        }
+                    });
+                } catch (Exception e){}
 
             }
         }).start();
