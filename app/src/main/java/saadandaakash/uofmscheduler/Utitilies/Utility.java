@@ -142,7 +142,7 @@ public class Utility {
 
     public static void swapFragment(int container, Fragment fragment, FragmentManager fragmentManager){
         fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
+                .replace(container, fragment)
                 .addToBackStack(Integer.toString(fragment.getId()))
                 .commit();
     }
