@@ -23,11 +23,6 @@ import saadandaakash.uofmscheduler.R;
 import saadandaakash.uofmscheduler.Utitilies.Section;
 import saadandaakash.uofmscheduler.Utitilies.Utility;
 
-/**
- * Created by Aakash on 12/28/2017.
- */
-
-
 public class SavedSectionsFragment extends Fragment {
 
     public static ArrayList<Section> savedSections = null;

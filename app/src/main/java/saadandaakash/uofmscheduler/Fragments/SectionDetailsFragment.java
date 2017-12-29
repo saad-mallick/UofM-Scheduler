@@ -1,6 +1,9 @@
 package saadandaakash.uofmscheduler.Fragments;
 
+import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
@@ -8,8 +11,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -36,6 +41,7 @@ public class SectionDetailsFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,7 +53,10 @@ public class SectionDetailsFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        final ProgressDialog dialog = Utility.createProgressDialog(getActivity());
 
         new Thread(new Runnable() {
             @Override
@@ -66,6 +75,7 @@ public class SectionDetailsFragment extends Fragment {
 
                     }
                 });
+                dialog.dismiss();
             }
 
         }).start();
@@ -93,6 +103,8 @@ public class SectionDetailsFragment extends Fragment {
             section.classTopic = section_details.getString("ClassTopic");
             section.courseDescr = section_details.getString("CourseDescr");
             section.courseTitle = section_details.getString("CourseTitle");
+            section.availableSeats = section_details.getString("AvailableSeats");
+            section.enrollmentCapacity = section_details.getString("EnrollmentCapacity");
 
             // get meeting array from JSON object
             JSONArray meetingsArray = section_details.getJSONArray("Meetings");
@@ -109,7 +121,6 @@ public class SectionDetailsFragment extends Fragment {
             e.printStackTrace();
         }
     }
-
 
     // REQUIRES: sectionDetails has been initialized
     // EFFECTS: displays subject code, catalog number, section number, class topic,

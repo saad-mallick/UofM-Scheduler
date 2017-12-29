@@ -1,4 +1,4 @@
-package saadandaakash.uofmscheduler;
+package saadandaakash.uofmscheduler.Utitilies;
 
 import android.graphics.Paint;
 import android.graphics.Typeface;

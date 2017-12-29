@@ -1,6 +1,7 @@
 package saadandaakash.uofmscheduler.Fragments;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentManager;
@@ -18,10 +19,6 @@ import java.util.ArrayList;
 
 import saadandaakash.uofmscheduler.R;
 import saadandaakash.uofmscheduler.Utitilies.Utility;
-
-/**
- * Created by Saad on 12/22/2017.
- */
 
 public class CourseListFragment extends ListFragment {
 
@@ -41,6 +38,8 @@ public class CourseListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
+        final ProgressDialog dialog = Utility.createProgressDialog(getActivity());
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -52,6 +51,7 @@ public class CourseListFragment extends ListFragment {
                             setListAdapter(adapter);
                         }
                     });
+                    dialog.dismiss();
                 } catch (Exception e){}
 
             }

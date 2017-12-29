@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import saadandaakash.uofmscheduler.Fragments.SavedSectionsFragment;
 import saadandaakash.uofmscheduler.Fragments.SelectSubjectFragment;
+import saadandaakash.uofmscheduler.Utitilies.CustomTypefaceSpan;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,7 +35,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // TODO: make navigation menu start below notification bar
+        // remove action bar text
+        setTitle("");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

@@ -1,8 +1,12 @@
 package saadandaakash.uofmscheduler.Utitilies;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import org.json.JSONArray;
@@ -21,6 +25,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+
+import saadandaakash.uofmscheduler.R;
 
 public class Utility {
 
@@ -134,6 +140,16 @@ public class Utility {
 
         return null;
 
+    }
+
+    public static ProgressDialog createProgressDialog(Activity activity) {
+        final ProgressDialog dialog = ProgressDialog.show(
+                activity, null, null, true, false );
+        dialog.getWindow().setBackgroundDrawable( new ColorDrawable( Color.TRANSPARENT ) );
+        dialog.setContentView( R.layout.progress_bar );
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
+        return dialog;
     }
 
 }
