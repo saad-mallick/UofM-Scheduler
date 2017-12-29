@@ -1,7 +1,6 @@
 package saadandaakash.uofmscheduler.Fragments;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +18,10 @@ import java.util.ArrayList;
 
 import saadandaakash.uofmscheduler.R;
 import saadandaakash.uofmscheduler.Utitilies.Utility;
+
+/**
+ * Created by Saad on 12/22/2017.
+ */
 
 public class CourseListFragment extends ListFragment {
 
@@ -38,21 +41,18 @@ public class CourseListFragment extends ListFragment {
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
 
-        final ProgressDialog dialog = Utility.createProgressDialog(getActivity());
-
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final CustomAdapter adapter = new CustomAdapter(getActivity(), getCourses());
-                try {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setListAdapter(adapter);
-                        }
-                    });
-                    dialog.dismiss();
-                } catch (Exception e){}
+                if(isAdded()) {
+                    final CustomAdapter adapter = new CustomAdapter(getActivity(), getCourses());
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setListAdapter(adapter);
+                            }
+                        });
+                }
 
             }
         }).start();
@@ -127,11 +127,7 @@ public class CourseListFragment extends ListFragment {
                             subjectCode,
                             currentCourse.catalogNumber,
                             currentCourse.courseName);
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.container, fragment)
-                            .addToBackStack("COURSES FRAGMENT")
-                            .commit();
+                    Utility.swapFragment(R.id.container, fragment, getFragmentManager());
                 }
             };
             rowView.setOnClickListener(clickListener);

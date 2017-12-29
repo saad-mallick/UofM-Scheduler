@@ -1,7 +1,6 @@
 package saadandaakash.uofmscheduler.Fragments;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
@@ -53,23 +52,22 @@ public class SectionListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
-        final ProgressDialog dialog = Utility.createProgressDialog(getActivity());
-
         new Thread(new Runnable() {
             @Override
             public void run() {
                 sections = getSections();
-                final CustomAdapter adapter = new CustomAdapter(getActivity(), sections);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                if(isAdded()) {
+                    final CustomAdapter adapter = new CustomAdapter(getActivity(), sections);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        ListView list = (ListView) getView().findViewById(R.id.sectionsList);
-                        list.setAdapter(adapter);
+                            ListView list = (ListView) getView().findViewById(R.id.sectionsList);
+                            list.setAdapter(adapter);
 
-                    }
-                });
-                dialog.dismiss();
+                        }
+                    });
+                }
 
             }
 

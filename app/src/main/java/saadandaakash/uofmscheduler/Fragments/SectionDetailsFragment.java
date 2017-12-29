@@ -1,9 +1,6 @@
 package saadandaakash.uofmscheduler.Fragments;
 
-import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.Fragment;
@@ -11,10 +8,8 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -41,7 +36,6 @@ public class SectionDetailsFragment extends Fragment {
         return fragment;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,10 +47,7 @@ public class SectionDetailsFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        final ProgressDialog dialog = Utility.createProgressDialog(getActivity());
+    public void onViewCreated(View view, Bundle savedInstanceState) {
 
         new Thread(new Runnable() {
             @Override
@@ -64,18 +55,19 @@ public class SectionDetailsFragment extends Fragment {
                 // update section with additional details
                 getSectionDetails();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                if(isAdded()) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        displayHeader();
-                        displayCourseDescription();
-                        displayMeetings();
-                        displaySaveButton();
+                            displayHeader();
+                            displayCourseDescription();
+                            displayMeetings();
+                            displaySaveButton();
 
-                    }
-                });
-                dialog.dismiss();
+                        }
+                    });
+                }
             }
 
         }).start();
@@ -103,8 +95,6 @@ public class SectionDetailsFragment extends Fragment {
             section.classTopic = section_details.getString("ClassTopic");
             section.courseDescr = section_details.getString("CourseDescr");
             section.courseTitle = section_details.getString("CourseTitle");
-            section.availableSeats = section_details.getString("AvailableSeats");
-            section.enrollmentCapacity = section_details.getString("EnrollmentCapacity");
 
             // get meeting array from JSON object
             JSONArray meetingsArray = section_details.getJSONArray("Meetings");
@@ -121,6 +111,7 @@ public class SectionDetailsFragment extends Fragment {
             e.printStackTrace();
         }
     }
+
 
     // REQUIRES: sectionDetails has been initialized
     // EFFECTS: displays subject code, catalog number, section number, class topic,
@@ -203,13 +194,15 @@ public class SectionDetailsFragment extends Fragment {
         // go through each meeting object and create a new view with the
         // fields filled in
         for (int position = 0; position < section.meetings.size(); position++) {
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View rowView = inflater.inflate(R.layout.meeting_details, null, true);
+            if(isAdded()) {
+                LayoutInflater inflater = getActivity().getLayoutInflater();
 
-            // Alternate background colors
-            if (position % 2 == 0) {
-                rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
-            }
+                View rowView = inflater.inflate(R.layout.meeting_details, null, true);
+
+                // Alternate background colors
+                if (position % 2 == 0) {
+                    rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
+                }
 
             /*
                 Days: [Days]
@@ -217,31 +210,32 @@ public class SectionDetailsFragment extends Fragment {
                 Instructor(s): [Instructors]
                 Location: [Location]
             */
-            Section.Meeting currentMeeting = section.meetings.get(position);
+                Section.Meeting currentMeeting = section.meetings.get(position);
 
-            // display days
-            TextView display_days = (TextView) rowView.findViewById(R.id.days);
-            String days = "Days:  " + currentMeeting.days;
-            display_days.setText(days);
+                // display days
+                TextView display_days = (TextView) rowView.findViewById(R.id.days);
+                String days = "Days:  " + currentMeeting.days;
+                display_days.setText(days);
 
-            // display times
-            TextView display_times = (TextView) rowView.findViewById(R.id.times);
-            String times = "Times: " + currentMeeting.times;
-            display_times.setText(times);
+                // display times
+                TextView display_times = (TextView) rowView.findViewById(R.id.times);
+                String times = "Times: " + currentMeeting.times;
+                display_times.setText(times);
 
-            // display instructors
-            TextView display_instructors = (TextView) rowView.findViewById(R.id.instructors);
-            // join instructors array into form Instructors: [Instructor 1], [Instructor 2], ...
-            String instructors = "Instructors: " + TextUtils.join(", ", currentMeeting.instructors);
-            display_instructors.setText(instructors);
+                // display instructors
+                TextView display_instructors = (TextView) rowView.findViewById(R.id.instructors);
+                // join instructors array into form Instructors: [Instructor 1], [Instructor 2], ...
+                String instructors = "Instructors: " + TextUtils.join(", ", currentMeeting.instructors);
+                display_instructors.setText(instructors);
 
-            // display location
-            TextView display_location = (TextView) rowView.findViewById(R.id.location);
-            String location = "Location: " + currentMeeting.location;
-            display_location.setText(location);
+                // display location
+                TextView display_location = (TextView) rowView.findViewById(R.id.location);
+                String location = "Location: " + currentMeeting.location;
+                display_location.setText(location);
 
-            // add the newly created view to the end of the linear layout
-            layout.addView(rowView);
+                // add the newly created view to the end of the linear layout
+                layout.addView(rowView);
+            }
         }
     }
 
@@ -250,27 +244,28 @@ public class SectionDetailsFragment extends Fragment {
     private void displaySaveButton() {
         // Save Button
         Button saveButton = (Button) getView().findViewById(R.id.saveButton);
-        saveButton.setTypeface(Typeface.createFromAsset(
-                getActivity().getAssets(),
-                "fonts/Quicksand-Regular.otf")
-        );
-        // this is so the button doesn't show up before the other info
-        saveButton.setVisibility(View.VISIBLE);
+        if(isAdded()) {
+            saveButton.setTypeface(Typeface.createFromAsset(
+                    getActivity().getAssets(),
+                    "fonts/Quicksand-Regular.otf")
+            );
+            // this is so the button doesn't show up before the other info
+            saveButton.setVisibility(View.VISIBLE);
 
-        saveButton.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        try {
-                            SavedSectionsFragment sectionFragment = SavedSectionsFragment.newInstance();
-                            sectionFragment.saveSection(section, getActivity());
-                        }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                            System.out.println("OTHER ERROR OCCURRED");
-                        }
+            saveButton.setOnClickListener(
+                    new View.OnClickListener() {
+                        public void onClick(View view) {
+                            try {
+                                SavedSectionsFragment sectionFragment = SavedSectionsFragment.newInstance();
+                                sectionFragment.saveSection(section, getActivity());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                System.out.println("OTHER ERROR OCCURRED");
+                            }
 
+                        }
                     }
-                }
-        );
+            );
+        }
     }
 }
