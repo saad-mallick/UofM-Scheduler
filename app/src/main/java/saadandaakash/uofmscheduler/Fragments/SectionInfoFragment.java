@@ -35,7 +35,7 @@ public class SectionInfoFragment extends Fragment {
 
     private final ArrayList<String> keys = new ArrayList<>(Arrays.asList(
             "SectionType", "CourseTitle", "AvailableSeats",
-            "EnrollmentTotal", "CourseDescr", "CreditHours", "ClassTopic"));
+            "EnrollmentCapacity", "CourseDescr", "CreditHours", "ClassTopic"));
 
     public static SectionInfoFragment newInstance(String termCode, String subjectCode, String catalogNumber,
                                                   String sectionNumber) {
@@ -186,7 +186,7 @@ public class SectionInfoFragment extends Fragment {
         // e.g. Available Seats: 41 / 42
         TextView availableSeats = (TextView) getView().findViewById(R.id.availableSeats);
         String availableSeats_str = "Available Seats: " + sectionDetails.get("AvailableSeats") +
-                " / " + sectionDetails.get("EnrollmentTotal");
+                " / " + sectionDetails.get("EnrollmentCapacity");
         availableSeats.setText(availableSeats_str);
     }
 

@@ -5,10 +5,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,16 +54,124 @@ public class SavedSectionFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
 
         ArrayList<Section> sections = new ArrayList<>();
+        sections.add(new Section("EECS", "280", "001", "LEC",
+                "Mo We", "8:00-9:30"));
+        sections.add(new Section("ENGLISH", "140", "001", "SEM",
+                "Mo We", "2:00-3:00"));
+        sections.add(new Section("ENGLISH", "140", "003", "SEM",
+                "Tu Th", "9:00-10:00"));
+        sections.add(new Section("EECS", "215", "001", "LEC",
+                "Tu Th", "9:00-10:00"));
 
-        
+        RecyclerAdapter adapter = new RecyclerAdapter(getActivity(), sections);
 
-        SavedSectionAdapter adapter = new SavedSectionAdapter(getActivity(), sections);
-        ListView sectionsList = (ListView) getView().findViewById(R.id.savedSectionsList);
+        final RecyclerView sectionsList = (RecyclerView) getView().findViewById(R.id.savedSectionsList);
+        sectionsList.setLayoutManager(new LinearLayoutManager(getContext()));
         sectionsList.setAdapter(adapter);
+
+        /*
+        ListView sectionsList = (ListView) getView().findViewById(R.id.savedSectionsList);
+        sectionsList.setAdapter(new SavedSectionAdapter(getActivity(), sections));
+        */
+        /*
+        TODO: Read info from saved course file into adapter, set adapter to list
+         */
 
     }
 
-    // Adapter for list view that will display meetings
+    private class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+        private ArrayList<Section> savedSections;
+        private Activity context;
+        RecyclerView parentRecyclerView;
+
+        public RecyclerAdapter(Activity context, ArrayList<Section> savedSections) {
+            this.context = context;
+            this.savedSections = savedSections;
+        }
+
+        // Create new views (invoked by the layout manager)
+        @Override
+        public RecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                       int viewType) {
+            // create a new view
+            View itemLayoutView = context.getLayoutInflater().
+                    inflate(R.layout.saved_sections, parent, false);
+
+            // create ViewHolder
+            ViewHolder viewHolder = new ViewHolder(itemLayoutView);
+            return viewHolder;
+        }
+
+        // Replace the contents of a view (invoked by the layout manager)
+        @Override
+        public void onBindViewHolder(ViewHolder viewHolder, int position) {
+
+            // - get data from your view at this position
+            final Section current_section = savedSections.get(position);
+
+            // makes every other meeting light gray background to distinguish
+            if (position % 2 == 0) {
+                viewHolder.rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
+            }
+
+            // - replace the contents of the view with that view
+            String title = current_section.subjectCode +
+                    " " + current_section.catalogNumber +
+                    " Section " + current_section.sectionNumber +
+                    " (" + current_section.sectionType + ")";
+            viewHolder.header.setText(title);
+
+            String meetingDisplay = current_section.meeting.days +
+                    " " + current_section.meeting.times;
+            viewHolder.meetingInfo.setText(meetingDisplay);
+
+            View.OnClickListener clickListener = new View.OnClickListener() {
+                public void onClick(View v) {
+                    SectionInfoFragment fragment = SectionInfoFragment.newInstance("2170",
+                            current_section.subjectCode, current_section.catalogNumber,
+                            current_section.sectionNumber);
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, fragment)
+                            .addToBackStack("SECTIONINFO FRAGMENT")
+                            .commit();
+                }
+            };
+            viewHolder.rowView.setOnClickListener(clickListener);
+
+        }
+
+        @Override
+        public void onAttachedToRecyclerView(RecyclerView parentRecyclerView) {
+            super.onAttachedToRecyclerView(parentRecyclerView);
+
+            this.parentRecyclerView = parentRecyclerView;
+        }
+
+        // inner class to hold a reference to each item of RecyclerView
+        public class ViewHolder extends RecyclerView.ViewHolder {
+
+            public View rowView;
+            public TextView header, meetingInfo;
+
+            public ViewHolder(View rowView) {
+                super(rowView);
+                this.rowView = rowView;
+                header = (TextView) rowView.findViewById(R.id.sectionTitle);
+                meetingInfo = (TextView) rowView.findViewById(R.id.meetingInfo);
+
+            }
+        }
+
+        // Return the size of your itemsData (invoked by the layout manager)
+        @Override
+        public int getItemCount() {
+            return savedSections.size();
+        }
+    }
+
+
+    // Adapter for list view that will display section info
     private class SavedSectionAdapter extends ArrayAdapter {
         ArrayList<Section> savedSections;
         Activity context;
@@ -81,9 +193,6 @@ public class SavedSectionFragment extends Fragment {
                 rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
             }
 
-            /*
-            TODO: Go through list of sections and display the relevant info
-             */
             final Section current_section = savedSections.get(position);
 
             TextView header = (TextView) rowView.findViewById(R.id.sectionTitle);
@@ -97,10 +206,6 @@ public class SavedSectionFragment extends Fragment {
             String meetingDisplay = current_section.meeting.days +
                     " " + current_section.meeting.times;
             meetingInfo.setText(meetingDisplay);
-
-            /*
-            TODO: Set onClickListener to go to that section details page for each saved section
-             */
 
             View.OnClickListener clickListener = new View.OnClickListener() {
                 public void onClick(View v) {
@@ -119,6 +224,7 @@ public class SavedSectionFragment extends Fragment {
             return rowView;
         }
     }
+
 
     public static void save(String string, Activity currentActivity){
         try {

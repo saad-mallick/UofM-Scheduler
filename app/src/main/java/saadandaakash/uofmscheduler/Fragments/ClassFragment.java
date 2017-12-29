@@ -136,7 +136,7 @@ public class ClassFragment extends Fragment {
                                 infoObject.getString("SectionType"),
                                 infoObject.getString("SectionNumber"),
                                 infoObject.getInt("CreditHours"),
-                                infoObject.getInt("EnrollmentTotal"),
+                                infoObject.getInt("EnrollmentCapacity"),
                                 infoObject.getInt("AvailableSeats"),
                                 meetingObject.getString("Days"),
                                 meetingObject.getString("Times")
@@ -163,7 +163,8 @@ public class ClassFragment extends Fragment {
             this.sections = sections;
             this.context = context;
             viewHolder = new ViewHolder(subjectCode, catalogNumber, courseTitle,
-                    getDescription(), getRequirements(), context);
+                    getDescription().replaceAll("\\u2019", "'"),
+                    getRequirements().replaceAll("\\u2019", "'"), context);
         }
 
         @Override
@@ -210,7 +211,7 @@ public class ClassFragment extends Fragment {
                 // display open seats and total
                 TextView enrollmentInfo = (TextView) rowView.findViewById(R.id.enrollmentInfo);
                 String enrollment = "Available Seats: " + currentSection.availableSeats + " / " +
-                        currentSection.enrollmentTotal;
+                        currentSection.enrollmentCapacity;
                 enrollmentInfo.setText(enrollment);
 
                 View.OnClickListener clickListener = new View.OnClickListener() {
@@ -244,17 +245,17 @@ public class ClassFragment extends Fragment {
         }
 
         private String classTopic, sectionType, sectionNumber;
-        private int creditHours, enrollmentTotal, availableSeats;
+        private int creditHours, enrollmentCapacity, availableSeats;
         private Meetings meetings;
 
         public Section(String classTopic, String sectionType, String sectionNumber,
-                       int creditHours, int enrollmentTotal, int availableSeats,
+                       int creditHours, int enrollmentCapacity, int availableSeats,
                        String days, String times) {
             this.classTopic = classTopic;
             this.sectionType = sectionType;
             this.sectionNumber = sectionNumber;
             this.creditHours = creditHours;
-            this.enrollmentTotal = enrollmentTotal;
+            this.enrollmentCapacity = enrollmentCapacity;
             this.availableSeats = availableSeats;
 
             this.meetings = new Meetings(days, times);
@@ -280,7 +281,7 @@ public class ClassFragment extends Fragment {
             this.catalog_number = catalog_number;
             this.courseTitle = courseTitle;
             this.courseDescription = courseDescription.replaceAll("\\u2019", "'");
-            this.courseRequirements = courseRequirements;
+            this.courseRequirements = courseRequirements.replaceAll("\\u2019", "'");
             this.context = context;
             inflater = context.getLayoutInflater();
         }
