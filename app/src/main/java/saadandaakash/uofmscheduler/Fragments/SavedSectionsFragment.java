@@ -10,6 +10,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -44,10 +45,12 @@ public class SavedSectionsFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         loadFile();
 
-        RecyclerAdapter adapter = new RecyclerAdapter(getActivity(), savedSections);
-
+        // set up and populate the recycler view for the saved courses list
+        final RecyclerAdapter adapter = new RecyclerAdapter(getActivity(), savedSections);
         final RecyclerView sectionsList = (RecyclerView) getView().findViewById(R.id.savedSectionsList);
 
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adapter);
@@ -56,6 +59,17 @@ public class SavedSectionsFragment extends Fragment {
 
         sectionsList.setLayoutManager(new LinearLayoutManager(getContext()));
         sectionsList.setAdapter(adapter);
+
+        // make the sort icon sort the list when clicked
+        ImageView sortIcon = (ImageView) getView().findViewById(R.id.sortIcon);
+        sortIcon.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                if (savedSections != null) {
+                    Collections.sort(savedSections, new Section());
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
 
     }
 
@@ -100,6 +114,9 @@ public class SavedSectionsFragment extends Fragment {
             // makes every other meeting light gray background to distinguish
             if (position % 2 == 0) {
                 viewHolder.rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
+            }
+            else {
+                viewHolder.rowView.setBackgroundColor(getResources().getColor(R.color.transparent));
             }
 
             // - replace the contents of the view with that view
