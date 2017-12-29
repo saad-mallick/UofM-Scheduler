@@ -28,13 +28,13 @@ import saadandaakash.uofmscheduler.Utitilies.Utility;
  */
 
 
-public class SavedSectionFragment extends Fragment {
+public class SavedSectionsFragment extends Fragment {
 
     public static ArrayList<Section> savedSections = null;
     public static ArrayList<String> sectionKeys;
 
-    public static SavedSectionFragment newInstance() {
-        SavedSectionFragment fragment = new SavedSectionFragment();
+    public static SavedSectionsFragment newInstance() {
+        SavedSectionsFragment fragment = new SavedSectionsFragment();
         sectionKeys = new ArrayList<String>();
         sectionKeys.add("subjectCode");
         sectionKeys.add("catalogNumber");
@@ -90,7 +90,7 @@ public class SavedSectionFragment extends Fragment {
                                                        int viewType) {
             // create a new view
             View itemLayoutView = context.getLayoutInflater().
-                    inflate(R.layout.saved_sections, parent, false);
+                    inflate(R.layout.saved_sections_row, parent, false);
 
             // create ViewHolder
             ViewHolder viewHolder = new ViewHolder(itemLayoutView);
@@ -124,7 +124,7 @@ public class SavedSectionFragment extends Fragment {
 
             View.OnClickListener clickListener = new View.OnClickListener() {
                 public void onClick(View v) {
-                    SectionInfoFragment fragment = SectionInfoFragment.newInstance(current_section);
+                    SectionDetailsFragment fragment = SectionDetailsFragment.newInstance(current_section);
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.container, fragment)

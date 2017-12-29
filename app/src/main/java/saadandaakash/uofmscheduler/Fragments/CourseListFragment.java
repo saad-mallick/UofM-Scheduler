@@ -23,15 +23,15 @@ import saadandaakash.uofmscheduler.Utitilies.Utility;
  * Created by Saad on 12/22/2017.
  */
 
-public class CoursesFragment extends ListFragment {
+public class CourseListFragment extends ListFragment {
 
     private String subjectCode;
 
     //REQUIRES: A valid school code and subject code
-    //EFFECTS: Creates a new instance of CoursesFragment with the correct schoolCode and subjectCode
+    //EFFECTS: Creates a new instance of CourseListFragment with the correct schoolCode and subjectCode
     //         and returns it. Use instead of constructor
-    public static CoursesFragment newInstance(String subjectCode){
-        CoursesFragment coursesFragment = new CoursesFragment();
+    public static CourseListFragment newInstance(String subjectCode){
+        CourseListFragment coursesFragment = new CourseListFragment();
         coursesFragment.subjectCode = subjectCode;
         return coursesFragment;
     }
@@ -88,7 +88,7 @@ public class CoursesFragment extends ListFragment {
     }
 
     //This CustomAdapter will store information about the school code and the subject code
-    //and display them. The layout is specified in courses_fragment_sectional_layout
+    //and display them. The layout is specified in courses_list_row
     //I chose to make this a custom adapter in case we decide to add images or add things like
     //"fills X LSA preq" or something along those lines
     private class CustomAdapter extends ArrayAdapter {
@@ -97,7 +97,7 @@ public class CoursesFragment extends ListFragment {
         private final ArrayList<Course> courses;
 
         public CustomAdapter(Activity context, ArrayList<Course> courses) {
-            super(context, R.layout.courses_fragment_sectional_layout, courses);
+            super(context, R.layout.courses_list_row, courses);
 
             this.context = context;
             this.courses = courses;
@@ -106,7 +106,7 @@ public class CoursesFragment extends ListFragment {
         @Override
         public View getView(int position, View view, ViewGroup parent){
             LayoutInflater inflater = context.getLayoutInflater();
-            View rowView = inflater.inflate(R.layout.courses_fragment_sectional_layout, null,true);
+            View rowView = inflater.inflate(R.layout.courses_list_row, null,true);
 
             // Alternates background color
             if (position % 2 == 0) {
@@ -123,7 +123,7 @@ public class CoursesFragment extends ListFragment {
 
             View.OnClickListener clickListener = new View.OnClickListener() {
                 public void onClick(View v) {
-                    ClassFragment fragment = ClassFragment.newInstance(
+                    SectionListFragment fragment = SectionListFragment.newInstance(
                             subjectCode,
                             currentCourse.catalogNumber,
                             currentCourse.courseName);

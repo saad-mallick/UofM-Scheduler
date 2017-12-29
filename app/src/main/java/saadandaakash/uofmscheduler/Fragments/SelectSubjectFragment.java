@@ -25,7 +25,7 @@ import saadandaakash.uofmscheduler.Utitilies.Utility;
  * Follow the directions below on how to change between fragments
  */
 
-public class SelectionFragment extends Fragment {
+public class SelectSubjectFragment extends Fragment {
 
     private String termCode = "2170";
     private String schoolCode = null;
@@ -126,7 +126,7 @@ public class SelectionFragment extends Fragment {
                                     // check to make sure subject code is valid by looking for value in map
                                     if (subjectData.get(subjectCode) != null) {
 
-                                        CoursesFragment fragment = CoursesFragment.newInstance(subjectCode);
+                                        CourseListFragment fragment = CourseListFragment.newInstance(subjectCode);
                                         Utility.hideKeyboard(getActivity());
 
                                         FragmentManager fragmentManager = getFragmentManager();

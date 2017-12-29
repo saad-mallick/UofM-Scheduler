@@ -13,20 +13,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import saadandaakash.uofmscheduler.R;
 import saadandaakash.uofmscheduler.Utitilies.Section;
 import saadandaakash.uofmscheduler.Utitilies.Utility;
 
-public class SectionInfoFragment extends Fragment {
+public class SectionDetailsFragment extends Fragment {
 
     private Section section;
 
@@ -34,8 +30,8 @@ public class SectionInfoFragment extends Fragment {
             "SectionType", "CourseTitle", "AvailableSeats",
             "EnrollmentCapacity", "CourseDescr", "CreditHours", "ClassTopic"));
 
-    public static SectionInfoFragment newInstance(Section section) {
-        SectionInfoFragment fragment = new SectionInfoFragment();
+    public static SectionDetailsFragment newInstance(Section section) {
+        SectionDetailsFragment fragment = new SectionDetailsFragment();
         fragment.section = section;
         return fragment;
     }
@@ -254,7 +250,7 @@ public class SectionInfoFragment extends Fragment {
                 new View.OnClickListener() {
                     public void onClick(View view) {
                         try {
-                            SavedSectionFragment sectionFragment = SavedSectionFragment.newInstance();
+                            SavedSectionsFragment sectionFragment = SavedSectionsFragment.newInstance();
                             sectionFragment.saveSection(section, getActivity());
                         }
                         catch (Exception e) {

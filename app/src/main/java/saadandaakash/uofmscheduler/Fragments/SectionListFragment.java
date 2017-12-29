@@ -15,7 +15,6 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import saadandaakash.uofmscheduler.R;
@@ -23,7 +22,7 @@ import saadandaakash.uofmscheduler.Utitilies.Section;
 import saadandaakash.uofmscheduler.Utitilies.Utility;
 import saadandaakash.uofmscheduler.Utitilies.customTextView;
 
-public class ClassFragment extends Fragment {
+public class SectionListFragment extends Fragment {
 
     private String schoolCode;
     private String subjectCode;
@@ -31,9 +30,9 @@ public class ClassFragment extends Fragment {
     private String courseTitle;
     private ArrayList<Section> sections = new ArrayList<>();
 
-    public static ClassFragment newInstance(String subjectCode, String catalogNumber,
-                                            String courseTitle) {
-        ClassFragment fragment = new ClassFragment();
+    public static SectionListFragment newInstance(String subjectCode, String catalogNumber,
+                                                  String courseTitle) {
+        SectionListFragment fragment = new SectionListFragment();
         fragment.subjectCode = subjectCode;
         fragment.catalogNumber = catalogNumber;
         fragment.courseTitle = courseTitle;
@@ -47,7 +46,7 @@ public class ClassFragment extends Fragment {
         //True if you can inflate the layout and then attach it directly to the root of the
         //container
         //False if you want to inflate the layout and then return that View
-        return inflater.inflate(R.layout.class_fragment, container, false);
+        return inflater.inflate(R.layout.section_list_layout, container, false);
     }
 
     @Override
@@ -160,7 +159,7 @@ public class ClassFragment extends Fragment {
         private ViewHolder viewHolder;
 
         public CustomAdapter(Activity context, ArrayList<Section> sections) {
-            super(context, R.layout.courses_fragment_sectional_layout, sections);
+            super(context, R.layout.courses_list_row, sections);
             sections.add(new Section());
             notifyDataSetChanged();
 
@@ -219,7 +218,7 @@ public class ClassFragment extends Fragment {
 
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     public void onClick(View v) {
-                        SectionInfoFragment fragment = SectionInfoFragment.newInstance(currentSection);
+                        SectionDetailsFragment fragment = SectionDetailsFragment.newInstance(currentSection);
                         FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.container, fragment)
@@ -260,7 +259,7 @@ public class ClassFragment extends Fragment {
 
         public View getClassView() {
             if (classView == null) {
-                classView = inflater.inflate(R.layout.class_fragment_sectional_layout_left_align, null, false);
+                classView = inflater.inflate(R.layout.section_list_row_left_align, null, false);
 
                 customTextView courseLabel = (customTextView) classView.findViewById(R.id.courseLabel);
                 String label = subjectCode + " " + catalog_number;

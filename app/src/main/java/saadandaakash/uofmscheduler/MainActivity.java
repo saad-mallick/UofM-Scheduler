@@ -1,6 +1,5 @@
 package saadandaakash.uofmscheduler;
 
-import android.content.ClipData;
 import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,18 +10,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
-import android.text.style.TypefaceSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import saadandaakash.uofmscheduler.Fragments.SavedSectionFragment;
-import saadandaakash.uofmscheduler.Fragments.SelectionFragment;
+import saadandaakash.uofmscheduler.Fragments.SavedSectionsFragment;
+import saadandaakash.uofmscheduler.Fragments.SelectSubjectFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -123,12 +120,12 @@ public class MainActivity extends AppCompatActivity
 
         Fragment fragment = null;
         if (id == R.id.Select_Courses) {
-            fragment = new SelectionFragment();
+            fragment = new SelectSubjectFragment();
         }
         else if (id == R.id.My_Courses) {
             // temporary to avoid crashing
             try {
-                fragment = SavedSectionFragment.newInstance();
+                fragment = SavedSectionsFragment.newInstance();
             }
             catch (Exception e) {
                 System.out.println("ERROR: FRAGMENT COULD NOT BE CREATED");
