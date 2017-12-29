@@ -29,6 +29,7 @@ import java.util.TreeMap;
 public class Utility {
 
     public static final String FILENAME = "savedSections.txt";
+    public static final String TERMCODE = "2170";
 
     public static String getStringFromURL(String url) throws IOException, SocketTimeoutException {
         URL api_url = new URL(url);

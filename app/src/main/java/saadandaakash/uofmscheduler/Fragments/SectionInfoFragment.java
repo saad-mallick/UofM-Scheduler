@@ -15,6 +15,7 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,28 +23,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import saadandaakash.uofmscheduler.R;
+import saadandaakash.uofmscheduler.Utitilies.Section;
 import saadandaakash.uofmscheduler.Utitilies.Utility;
 
 public class SectionInfoFragment extends Fragment {
-    private String termCode;
-    private String subjectCode;
-    private String catalogNumber;
-    private String sectionNumber;
 
-    private Map<String, String> sectionDetails;
-    private ArrayList<Meeting> meetings = new ArrayList<>();
+    private Section section;
 
     private final ArrayList<String> keys = new ArrayList<>(Arrays.asList(
             "SectionType", "CourseTitle", "AvailableSeats",
             "EnrollmentCapacity", "CourseDescr", "CreditHours", "ClassTopic"));
 
-    public static SectionInfoFragment newInstance(String termCode, String subjectCode, String catalogNumber,
-                                                  String sectionNumber) {
+    public static SectionInfoFragment newInstance(Section section) {
         SectionInfoFragment fragment = new SectionInfoFragment();
-        fragment.termCode = termCode;
-        fragment.subjectCode = subjectCode;
-        fragment.catalogNumber = catalogNumber;
-        fragment.sectionNumber = sectionNumber;
+        fragment.section = section;
         return fragment;
     }
 
@@ -63,7 +56,8 @@ public class SectionInfoFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                sectionDetails = getSectionDetails();
+                // update section with additional details
+                getSectionDetails();
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -81,8 +75,10 @@ public class SectionInfoFragment extends Fragment {
         }).start();
     }
 
-    private Map<String, String> getSectionDetails() {
-        Map<String, String> sectionInfo = new HashMap<>();
+    // REQUIRES: section is initialized
+    // MODIFIES: section
+    // EFFECTS: adds additional parameters to section, including updated meeting list
+    private void getSectionDetails() {
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -90,70 +86,34 @@ public class SectionInfoFragment extends Fragment {
         }
 
         String url = "http://umich-schedule-api.herokuapp.com/v4/get_section_details?" +
-                "term_code=" + termCode +
-                "&subject=" + subjectCode +
-                "&catalog_num=" + catalogNumber +
-                "&section_num=" + sectionNumber;
+                "term_code=" + Utility.TERMCODE +
+                "&subject=" + section.subjectCode +
+                "&catalog_num=" + section.catalogNumber +
+                "&section_num=" + section.sectionNumber;
 
         try {
-            JSONObject section_info_json = Utility.getJSONObject(url);
+            JSONObject section_details = Utility.getJSONObject(url);
 
-            // get normal information (keys in arraylist)
-            for (String key : keys) {
-                sectionInfo.put(key, section_info_json.getString(key));
-            }
+            section.classTopic = section_details.getString("ClassTopic");
+            section.courseDescr = section_details.getString("CourseDescr");
+            section.courseTitle = section_details.getString("CourseTitle");
 
             // get meeting array from JSON object
-            JSONArray meetingsArray = section_info_json.getJSONArray("Meetings");
+            JSONArray meetingsArray = section_details.getJSONArray("Meetings");
+            ArrayList<Section.Meeting> meetings_additional_info = new ArrayList<>();
 
-            // go through each meeting in array
             for (int i = 0; i < meetingsArray.length(); i++) {
                 JSONObject meeting = meetingsArray.getJSONObject(i);
-
-                // get instructors array for each meeting
-                // keeps instructors separate in case we need them individually later
-                JSONArray instructorsArray = meeting.getJSONArray("Instructor");
-                String[] instructors = new String[instructorsArray.length()];
-                for (int j = 0; j < instructorsArray.length(); j++) {
-                    instructors[j] = instructorsArray.getString(j);
-                }
-
-                // add new Meeting object to official arraylist
-                /* e.g. Days: Mo Tu We Th Fr
-                        Times: whenever we have math lol
-                        Instructors: Charlie Jones
-                        Location: DLL
-                 */
-                meetings.add(new Meeting(
-                        meeting.getString("Days"),
-                        meeting.getString("Times"),
-                        instructors,
-                        meeting.getString("Location")
-
-                ));
+                meetings_additional_info.add(new Section.Meeting(meeting));
             }
-
+            section.meetings = meetings_additional_info;
 
         } catch (Exception e) {
             System.out.println("API ERROR: Course information not found");
             e.printStackTrace();
         }
-        return sectionInfo;
     }
 
-    // Meeting class holds basic meeting info
-    private class Meeting {
-        private String days, times;
-        private String[] instructors;
-        private String location;
-
-        public Meeting(String days, String times, String[] instructors, String location) {
-            this.days = days;
-            this.times = times;
-            this.instructors = instructors;
-            this.location = location;
-        }
-    }
 
     // REQUIRES: sectionDetails has been initialized
     // EFFECTS: displays subject code, catalog number, section number, class topic,
@@ -162,31 +122,31 @@ public class SectionInfoFragment extends Fragment {
         // [SUBJECT] [CATALOG NUM]: Section [SECTION NUM]
         // e.g. IB 101: Section 001
         TextView sectionTitle = (TextView) getView().findViewById(R.id.sectionTitle);
-        String title = subjectCode + " " + catalogNumber +
-                ": Section " + sectionNumber;
+        String title = section.subjectCode + " " + section.catalogNumber +
+                ": Section " + section.sectionNumber;
         sectionTitle.setText(title);
 
         // [CLASS TOPIC]
         // e.g. Possible Ways to get Penalized on the Extended Essay
         TextView classTopic = (TextView) getView().findViewById(R.id.classTopic);
-        String topic = sectionDetails.get("ClassTopic");
+        String topic = section.classTopic;
         if (topic != null && !topic.equals("")) {
             classTopic.setText(topic);
         } else {
-            topic = sectionDetails.get("CourseTitle");
+            topic = section.courseTitle;
             classTopic.setText(topic);
         }
 
         // [LEC/DIS/LAB/REC/SEM]
         // e.g. DIS
         TextView sectionType = (TextView) getView().findViewById(R.id.sectionType);
-        sectionType.setText(sectionDetails.get("SectionType"));
+        sectionType.setText(section.sectionType);
 
         // Available Seats: [AVAILABLE] / [TOTAL]
         // e.g. Available Seats: 41 / 42
         TextView availableSeats = (TextView) getView().findViewById(R.id.availableSeats);
-        String availableSeats_str = "Available Seats: " + sectionDetails.get("AvailableSeats") +
-                " / " + sectionDetails.get("EnrollmentCapacity");
+        String availableSeats_str = "Available Seats: " + section.availableSeats +
+                " / " + section.enrollmentCapacity;
         availableSeats.setText(availableSeats_str);
     }
 
@@ -201,8 +161,7 @@ public class SectionInfoFragment extends Fragment {
                 0, 0, R.drawable.expand, 0);
 
         final TextView courseDescription = (TextView) getView().findViewById(R.id.courseDescription);
-        String description = sectionDetails.get("CourseDescr").
-                replaceAll("\\u2019", "'");
+        String description = section.courseDescr.replaceAll("\\u2019", "'");
         courseDescription.setText(description);
 
         courseDescriptionHeader.setOnClickListener(
@@ -236,7 +195,7 @@ public class SectionInfoFragment extends Fragment {
 
         // go through each meeting object and create a new view with the
         // fields filled in
-        for (int position = 0; position < meetings.size(); position++) {
+        for (int position = 0; position < section.meetings.size(); position++) {
             LayoutInflater inflater = getActivity().getLayoutInflater();
             View rowView = inflater.inflate(R.layout.meeting_details, null, true);
 
@@ -244,13 +203,14 @@ public class SectionInfoFragment extends Fragment {
             if (position % 2 == 0) {
                 rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
             }
-                            /*
-                                Days: [Days]
-                                Times: [Times]
-                                Instructor(s): [Instructors]
-                                Location: [Location]
-                            */
-            Meeting currentMeeting = meetings.get(position);
+
+            /*
+                Days: [Days]
+                Times: [Times]
+                Instructor(s): [Instructors]
+                Location: [Location]
+            */
+            Section.Meeting currentMeeting = section.meetings.get(position);
 
             // display days
             TextView display_days = (TextView) rowView.findViewById(R.id.days);
@@ -295,14 +255,7 @@ public class SectionInfoFragment extends Fragment {
                     public void onClick(View view) {
                         try {
                             SavedSectionFragment sectionFragment = SavedSectionFragment.newInstance();
-                            String addtimes = "";
-                            String addDays = "";
-                            for(Meeting m: meetings){
-                                addtimes = addtimes + m.times + "\n";
-                                addDays = addDays + m.days;
-                            }
-                            sectionFragment.saveSection(subjectCode, catalogNumber, sectionNumber,
-                                    sectionDetails.get("SectionType"), addDays, addtimes, getActivity());
+                            sectionFragment.saveSection(section, getActivity());
                         }
                         catch (Exception e) {
                             e.printStackTrace();

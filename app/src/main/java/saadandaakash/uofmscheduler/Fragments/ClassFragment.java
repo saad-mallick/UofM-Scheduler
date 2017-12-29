@@ -15,25 +15,25 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import saadandaakash.uofmscheduler.R;
+import saadandaakash.uofmscheduler.Utitilies.Section;
 import saadandaakash.uofmscheduler.Utitilies.Utility;
 import saadandaakash.uofmscheduler.Utitilies.customTextView;
 
 public class ClassFragment extends Fragment {
 
-    private String termCode;
     private String schoolCode;
     private String subjectCode;
     private String catalogNumber;
     private String courseTitle;
     private ArrayList<Section> sections = new ArrayList<>();
 
-    public static ClassFragment newInstance(String termCode, String subjectCode, String catalogNumber,
+    public static ClassFragment newInstance(String subjectCode, String catalogNumber,
                                             String courseTitle) {
         ClassFragment fragment = new ClassFragment();
-        fragment.termCode = termCode;
         fragment.subjectCode = subjectCode;
         fragment.catalogNumber = catalogNumber;
         fragment.courseTitle = courseTitle;
@@ -76,7 +76,7 @@ public class ClassFragment extends Fragment {
 
     public String getDescription() {
         String url = "http://umich-schedule-api.herokuapp.com/v4/" +
-                "get_course_description?term_code=" + termCode
+                "get_course_description?term_code=" + Utility.TERMCODE
                 + "&subject=" + subjectCode +
                 "&catalog_num=" + catalogNumber;
         try {
@@ -89,7 +89,7 @@ public class ClassFragment extends Fragment {
 
     public String getRequirements() {
         String url = "http://umich-schedule-api.herokuapp.com/v4/" +
-                "get_additional_info?term_code=" + termCode
+                "get_additional_info?term_code=" + Utility.TERMCODE
                 + "&subject=" + subjectCode +
                 "&catalog_num=" + catalogNumber;
         try {
@@ -113,7 +113,7 @@ public class ClassFragment extends Fragment {
         }
 
         String url = "http://umich-schedule-api.herokuapp.com/v4/get_sections?" +
-                "term_code=" + termCode +
+                "term_code=" + Utility.TERMCODE +
                 "&school=" + schoolCode +
                 "&subject=" + subjectCode +
                 "&catalog_num=" + catalogNumber;
@@ -124,24 +124,27 @@ public class ClassFragment extends Fragment {
             for (int i = 0; i < infoFromAPI.length(); i++) {
                 JSONObject infoObject = infoFromAPI.getJSONObject(i);
 
-                // TODO: Adapt this to allow for any size meetings array
-                JSONObject meetingObject = infoObject.getJSONArray("Meetings").
-                        getJSONObject(0);
+                ArrayList<Section.Meeting> meetings = new ArrayList<>();
+                JSONArray meetingArray = infoObject.getJSONArray("Meetings");
+                for (int j = 0; j < meetingArray.length(); j++) {
+                    JSONObject meetingObject = meetingArray.getJSONObject(j);
+                    meetings.add(new Section.Meeting(
+                            meetingObject.getString("Days"),
+                            meetingObject.getString("Times")
+                    ));
+                }
 
                 // create section object with info from JSON, add to list
-                sections_list.add(
-                        new Section(
-                                infoObject.getString("ClassTopic")
-                                        .replaceAll("\\u2019", "'"),
-                                infoObject.getString("SectionType"),
+                Section newSection = new Section(
+                                subjectCode, catalogNumber,
                                 infoObject.getString("SectionNumber"),
-                                infoObject.getInt("CreditHours"),
-                                infoObject.getInt("EnrollmentCapacity"),
-                                infoObject.getInt("AvailableSeats"),
-                                meetingObject.getString("Days"),
-                                meetingObject.getString("Times")
-                        )
-                );
+                                infoObject.getString("SectionType"),
+                                meetings );
+                newSection.creditHours = infoObject.getString("CreditHours");
+                newSection.availableSeats = infoObject.getString("AvailableSeats");
+                newSection.enrollmentCapacity = infoObject.getString("EnrollmentCapacity");
+
+                sections_list.add(newSection);
 
             }
         } catch (Exception e) {
@@ -158,13 +161,13 @@ public class ClassFragment extends Fragment {
 
         public CustomAdapter(Activity context, ArrayList<Section> sections) {
             super(context, R.layout.courses_fragment_sectional_layout, sections);
-            sections.add(new Section("", "", "", 0, 0, 0, "", ""));
+            sections.add(new Section());
             notifyDataSetChanged();
+
             this.sections = sections;
             this.context = context;
             viewHolder = new ViewHolder(subjectCode, catalogNumber, courseTitle,
-                    getDescription().replaceAll("\\u2019", "'"),
-                    getRequirements().replaceAll("\\u2019", "'"), context);
+                    getDescription(), getRequirements(), context);
         }
 
         @Override
@@ -205,7 +208,7 @@ public class ClassFragment extends Fragment {
 
                 // display meetings times and days
                 TextView meetingsInfo = (TextView) rowView.findViewById(R.id.meetingsInfo);
-                String meetings = currentSection.meetings.days + " " + currentSection.meetings.times;
+                String meetings = currentSection.getMeetings();
                 meetingsInfo.setText(meetings);
 
                 // display open seats and total
@@ -216,8 +219,7 @@ public class ClassFragment extends Fragment {
 
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     public void onClick(View v) {
-                        SectionInfoFragment fragment = SectionInfoFragment.newInstance(termCode, subjectCode,
-                                catalogNumber, currentSection.sectionNumber);
+                        SectionInfoFragment fragment = SectionInfoFragment.newInstance(currentSection);
                         FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.beginTransaction()
                                 .replace(R.id.container, fragment)
@@ -229,36 +231,6 @@ public class ClassFragment extends Fragment {
 
                 return rowView;
             }
-        }
-    }
-
-    private class Section {
-
-        private class Meetings {
-            String days;
-            String times;
-
-            public Meetings(String days, String times) {
-                this.days = days;
-                this.times = times;
-            }
-        }
-
-        private String classTopic, sectionType, sectionNumber;
-        private int creditHours, enrollmentCapacity, availableSeats;
-        private Meetings meetings;
-
-        public Section(String classTopic, String sectionType, String sectionNumber,
-                       int creditHours, int enrollmentCapacity, int availableSeats,
-                       String days, String times) {
-            this.classTopic = classTopic;
-            this.sectionType = sectionType;
-            this.sectionNumber = sectionNumber;
-            this.creditHours = creditHours;
-            this.enrollmentCapacity = enrollmentCapacity;
-            this.availableSeats = availableSeats;
-
-            this.meetings = new Meetings(days, times);
         }
     }
 
@@ -280,8 +252,8 @@ public class ClassFragment extends Fragment {
             this.subjectCode = subjectCode;
             this.catalog_number = catalog_number;
             this.courseTitle = courseTitle;
-            this.courseDescription = courseDescription.replaceAll("\\u2019", "'");
-            this.courseRequirements = courseRequirements.replaceAll("\\u2019", "'");
+            this.courseDescription = courseDescription;
+            this.courseRequirements = courseRequirements;
             this.context = context;
             inflater = context.getLayoutInflater();
         }

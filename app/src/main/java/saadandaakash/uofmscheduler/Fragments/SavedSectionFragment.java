@@ -29,6 +29,7 @@ import java.util.Collections;
 
 import saadandaakash.uofmscheduler.Adapters.ItemTouchHelperAdapter;
 import saadandaakash.uofmscheduler.R;
+import saadandaakash.uofmscheduler.Utitilies.Section;
 import saadandaakash.uofmscheduler.Utitilies.Utility;
 
 /**
@@ -61,53 +62,6 @@ public class SavedSectionFragment extends Fragment {
         //container
         //False if you want to inflate the layout and then return that View
         return inflater.inflate(R.layout.saved_sections_fragment, container, false);
-    }
-
-    public void saveSection(String subjectCode, String catalogNumber, String sectionNumber,
-                            String sectionType, String days, String times, Activity activity){
-        if(savedSections == null){
-            savedSections = new ArrayList<Section>();
-        }
-
-        Section savedSection = new Section(subjectCode, catalogNumber, sectionNumber,
-                sectionType, days, times);
-        savedSections.add(savedSection);
-        updateFile(activity);
-    }
-
-    public void updateFile(Activity activity){
-        try {
-            JSONArray jsonArray = new JSONArray();
-            for (Section s : savedSections) {
-                JSONObject object = new JSONObject();
-                ArrayList<String> data = s.getItems();
-                for (int i = 0; i < sectionKeys.size(); i++) {
-                    object.put(sectionKeys.get(i), data.get(i));
-                }
-                jsonArray.put(object);
-            }
-            Utility.writeToFile(activity, jsonArray.toString(), Utility.FILENAME);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public void loadFile(){
-        if(savedSections == null) {
-            savedSections = new ArrayList<>();
-            try {
-                String jsonArrayString = Utility.readFromFile(getActivity(), Utility.FILENAME);
-                JSONArray jsonArray = new JSONArray(jsonArrayString);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    Section addSection = new Section(object.getString("subjectCode"), object.getString("catalogNumber"),
-                            object.getString("sectionNumber"), object.getString("sectionType"), object.getString("days"),
-                            object.getString("times"));
-                    savedSections.add(addSection);
-                }
-            } catch (Exception e) {}
-        }
-
     }
 
     @Override
@@ -171,15 +125,12 @@ public class SavedSectionFragment extends Fragment {
                     " (" + current_section.sectionType + ")";
             viewHolder.header.setText(title);
 
-            String meetingDisplay = current_section.meeting.days +
-                    " " + current_section.meeting.times;
+            String meetingDisplay = current_section.getMeetings();
             viewHolder.meetingInfo.setText(meetingDisplay);
 
             View.OnClickListener clickListener = new View.OnClickListener() {
                 public void onClick(View v) {
-                    SectionInfoFragment fragment = SectionInfoFragment.newInstance("2170",
-                            current_section.subjectCode, current_section.catalogNumber,
-                            current_section.sectionNumber);
+                    SectionInfoFragment fragment = SectionInfoFragment.newInstance(current_section);
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.container, fragment)
@@ -228,6 +179,7 @@ public class SavedSectionFragment extends Fragment {
 
         @Override
         public boolean onItemMove(int fromPosition, int toPosition) {
+            System.out.println("MOVING ITEM FROM " + fromPosition + " TO " + toPosition);
             if (fromPosition < toPosition) {
                 for (int i = fromPosition; i < toPosition; i++) {
                     Collections.swap(savedSections, i, i + 1);
@@ -241,105 +193,6 @@ public class SavedSectionFragment extends Fragment {
             return true;
         }
 
-    }
-
-
-    // Adapter for list view that will display section info
-    private class SavedSectionAdapter extends ArrayAdapter {
-        ArrayList<Section> savedSections;
-        Activity context;
-        //private RecyclerView.ViewHolder viewHolder;
-
-        public SavedSectionAdapter(Activity context, ArrayList<Section> savedSections) {
-            super(context, R.layout.saved_sections_fragment, savedSections);
-            this.savedSections = savedSections;
-            this.context = context;
-        }
-
-        @Override
-        public View getView(int position, View view, ViewGroup parent) {
-            LayoutInflater inflater = context.getLayoutInflater();
-            View rowView = inflater.inflate(R.layout.saved_sections, null, true);
-
-            // makes every other meeting light gray background to distinguish
-            if (position % 2 == 0) {
-                rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
-            }
-
-            /*
-            TODO: Go through list of sections and display the relevant info
-             */
-            final Section current_section = savedSections.get(position);
-
-            TextView header = (TextView) rowView.findViewById(R.id.sectionTitle);
-            String title = current_section.subjectCode +
-                    " " + current_section.catalogNumber +
-                    " Section " + current_section.sectionNumber +
-                    " (" + current_section.sectionType + ")";
-            header.setText(title);
-
-            TextView meetingInfo = (TextView) rowView.findViewById(R.id.meetingInfo);
-            String meetingDisplay = current_section.meeting.days +
-                    " " + current_section.meeting.times;
-            meetingInfo.setText(meetingDisplay);
-
-            /*
-            TODO: Set onClickListener to go to that section details page for each saved section
-             */
-
-            View.OnClickListener clickListener = new View.OnClickListener() {
-                public void onClick(View v) {
-                    SectionInfoFragment fragment = SectionInfoFragment.newInstance("2170",
-                            current_section.subjectCode, current_section.catalogNumber,
-                            current_section.sectionNumber);
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.container, fragment)
-                            .addToBackStack("SECTIONINFO FRAGMENT")
-                            .commit();
-                }
-            };
-            rowView.setOnClickListener(clickListener);
-
-            return rowView;
-        }
-    }
-
-    private class Section {
-
-        // Meeting class holds basic meeting info
-        private class Meeting {
-            private String days, times;
-
-            public Meeting(String days, String times) {
-                this.days = days;
-                this.times = times;
-            }
-        }
-
-        private String subjectCode, catalogNumber, sectionNumber, sectionType;
-        private Meeting meeting;
-
-        public Section(String subjectCode, String catalogNumber, String sectionNumber, String sectionType,
-                       String days, String times) {
-            this.subjectCode = subjectCode;
-            this.catalogNumber = catalogNumber;
-            this.sectionNumber = sectionNumber;
-            this.sectionType = sectionType;
-
-            this.meeting = new Meeting(days, times);
-        }
-
-        public ArrayList<String> getItems(){
-            ArrayList<String> items = new ArrayList<String>();
-            items.add(subjectCode);
-            items.add(catalogNumber);
-            items.add(sectionNumber);
-            items.add(sectionType);
-            items.add(meeting.days);
-            items.add(meeting.times);
-            return items;
-        }
     }
 
     private class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
@@ -381,4 +234,79 @@ public class SavedSectionFragment extends Fragment {
             adapter.onItemDismiss(viewHolder.getAdapterPosition());
         }
     }
+
+    public void saveSection(Section section, Activity activity){
+        if(savedSections == null){
+            savedSections = new ArrayList<>();
+        }
+        // check to make sure the section isn't already in the list before saving
+        if (!savedSections.contains(section)) {
+            savedSections.add(section);
+            updateFile(activity);
+        }
+    }
+
+    public void updateFile(Activity activity){
+        try {
+            JSONArray jsonArray = new JSONArray();
+            for (Section section : savedSections) {
+                JSONObject object = new JSONObject();
+
+                object.put("SubjectCode", section.subjectCode);
+                object.put("CatalogNumber", section.catalogNumber);
+                object.put("SectionNumber", section.sectionNumber);
+                object.put("SectionType", section.sectionType);
+
+                JSONArray meetingsArray = new JSONArray();
+                for (Section.Meeting meeting : section.meetings) {
+                    JSONObject meetingJSON = meeting.getJSONFromMeeting();
+                    if (meetingJSON != null) {
+                        meetingsArray.put(meetingJSON);
+                    }
+                }
+                object.put("Meetings", meetingsArray);
+
+                jsonArray.put(object);
+            }
+
+            Utility.writeToFile(activity, jsonArray.toString(), Utility.FILENAME);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void loadFile(){
+        if(savedSections == null) {
+            savedSections = new ArrayList<>();
+            try {
+                // get the JSONArray of saved sections
+                String jsonArrayString = Utility.readFromFile(getActivity(), Utility.FILENAME);
+                JSONArray jsonArray = new JSONArray(jsonArrayString);
+
+                // read data from the JSONArray into section objects
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject sectionObject = jsonArray.getJSONObject(i);
+
+                    JSONArray meetingsArray = sectionObject.getJSONArray("Meetings");
+                    ArrayList<Section.Meeting> meetings = new ArrayList<>();
+                    for (int j = 0; j < meetingsArray.length(); j++) {
+                        JSONObject meetingObject = meetingsArray.getJSONObject(j);
+                        meetings.add(new Section.Meeting(meetingObject));
+                    }
+
+                    Section addSection = new Section(
+                            sectionObject.getString("SubjectCode"),
+                            sectionObject.getString("CatalogNumber"),
+                            sectionObject.getString("SectionNumber"),
+                            sectionObject.getString("SectionType"),
+                            meetings);
+
+                    savedSections.add(addSection);
+                }
+            } catch (Exception e) {}
+        }
+
+    }
+
 }
