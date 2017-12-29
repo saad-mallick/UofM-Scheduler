@@ -44,7 +44,7 @@ public class CourseListFragment extends ListFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                if(isAdded()) {
+                try {
                     final CustomAdapter adapter = new CustomAdapter(getActivity(), getCourses());
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -52,7 +52,7 @@ public class CourseListFragment extends ListFragment {
                                 setListAdapter(adapter);
                             }
                         });
-                }
+                } catch (Exception e){}
 
             }
         }).start();

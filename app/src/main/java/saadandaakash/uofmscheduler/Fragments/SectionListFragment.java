@@ -56,7 +56,7 @@ public class SectionListFragment extends Fragment {
             @Override
             public void run() {
                 sections = getSections();
-                if(isAdded()) {
+                try {
                     final CustomAdapter adapter = new CustomAdapter(getActivity(), sections);
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
@@ -67,7 +67,7 @@ public class SectionListFragment extends Fragment {
 
                         }
                     });
-                }
+                } catch(Exception e){}
 
             }
 

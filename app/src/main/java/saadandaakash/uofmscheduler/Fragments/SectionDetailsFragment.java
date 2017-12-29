@@ -55,7 +55,7 @@ public class SectionDetailsFragment extends Fragment {
                 // update section with additional details
                 getSectionDetails();
 
-                if(isAdded()) {
+                try {
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -67,7 +67,7 @@ public class SectionDetailsFragment extends Fragment {
 
                         }
                     });
-                }
+                } catch (Exception e){}
             }
 
         }).start();
