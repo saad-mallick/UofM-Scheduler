@@ -52,9 +52,12 @@ public class Time {
 
         for(Meeting firstSectionsMeeting : firstMeetings){
             for(Meeting secondSectionsMeeting : secondMeetings){
-                Time firstSectionTime = new Time(firstSectionsMeeting.times.substring());
+                //Time firstSectionTime = new Time(firstSectionsMeeting.times.substring());
             }
         }
+
+        //for now
+        return false;
     }
 
     //REQUIRES: A valid Meeting Object

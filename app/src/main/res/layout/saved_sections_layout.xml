@@ -5,21 +5,42 @@
     android:layout_height="wrap_content"
     tools:context="saadandaakash.uofmscheduler.Fragments.SavedSectionsFragment">
 
-    <saadandaakash.uofmscheduler.Utitilies.customTextView
-        android:id="@+id/savedSectionsHeader"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/savedSectionsHeader"
 
         android:padding="5dp"
-        android:textSize="32sp"
-        android:text="Saved Courses"
-
         android:layout_marginTop="15dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"/>
+        android:layout_marginEnd="10dp">
+
+        <saadandaakash.uofmscheduler.Utitilies.customTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/title"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+
+            android:textSize="32sp"
+            android:text="Saved Courses" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sortIcon"
+            android:scaleX="-1"
+            android:src="@drawable/sort"
+
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
