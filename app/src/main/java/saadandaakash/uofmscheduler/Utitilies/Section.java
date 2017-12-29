@@ -7,8 +7,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
-public class Section {
+public class Section implements Comparator<Section>{
 
     // Meeting class holds basic meeting info
     public static class Meeting {
@@ -94,5 +95,19 @@ public class Section {
             }
         }
         return TextUtils.join(", ", instructors_string);
+    }
+
+    public int compare(Section s1, Section s2) {
+
+        // first check the subject names
+        if (s1.subjectCode.compareTo(s2.subjectCode) != 0) {
+            return s1.subjectCode.compareTo(s2.subjectCode);
+        }
+        // if equal, compare course number
+        if (Integer.parseInt(s1.catalogNumber) - Integer.parseInt(s2.catalogNumber) != 0) {
+            return Integer.parseInt(s1.catalogNumber) - Integer.parseInt(s2.catalogNumber);
+        }
+        // if equal, compare section number
+        return Integer.parseInt(s1.sectionNumber) - Integer.parseInt(s2.sectionNumber);
     }
 }

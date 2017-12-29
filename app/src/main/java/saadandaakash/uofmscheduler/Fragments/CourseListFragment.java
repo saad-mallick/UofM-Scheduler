@@ -40,6 +40,9 @@ public class CourseListFragment extends ListFragment {
 
         final ProgressDialog dialog = Utility.createProgressDialog(getActivity());
 
+        // use this to suppress the default loaded for list fragments
+        setListShown(true);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
