@@ -8,16 +8,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sectionTitle"
+
         android:textSize="24sp"
+
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"/>
 
     <saadandaakash.uofmscheduler.Utitilies.customTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/meetingInfo"
+
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+
+        android:textSize="16sp"/>
+
+    <saadandaakash.uofmscheduler.Utitilies.customTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/instructors"
+
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+
+        android:textSize="16sp"/>
 
 
 

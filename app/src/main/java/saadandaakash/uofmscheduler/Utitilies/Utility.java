@@ -22,13 +22,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
-/**
- * Created by Aakash on 12/26/2017.
- */
-
 public class Utility {
 
-    public static final String FILENAME = "savedSections.txt";
+    public static final String FILENAME = "savedSections.json";
     public static final String TERMCODE = "2170";
 
     public static String getStringFromURL(String url) throws IOException, SocketTimeoutException {

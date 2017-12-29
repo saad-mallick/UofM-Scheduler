@@ -47,7 +47,7 @@ public class Section {
                 object.put("Days", days);
                 object.put("Times", times);
                 object.put("Location", location);
-                object.put("Instructors", new JSONArray(instructors));
+                object.put("Instructor", new JSONArray(instructors));
                 return object;
             }
             catch (JSONException e) {

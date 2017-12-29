@@ -13,18 +13,30 @@
         android:padding="5dp"
         android:textSize="32sp"
         android:text="Saved Courses"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"/>
+
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/savedSectionsList"
+
         android:overScrollMode="never"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
 
         android:layout_below="@id/savedSectionsHeader"
-        android:padding="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"/>
+
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp"/>
 
 </RelativeLayout>

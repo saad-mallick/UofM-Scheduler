@@ -23,23 +23,29 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/enterSubjectMessage"
         android:orientation="horizontal"
-        android:padding="5dp"
-        android:textSize="12sp">
+        android:padding="5dp">
 
         <saadandaakash.uofmscheduler.Utitilies.customTextView
             android:id="@+id/subjectName"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+
+            android:gravity="center_vertical"
             android:layout_weight="0.3"
-            android:text="@string/subject" />
+
+            android:text="@string/subject"
+            android:textSize="16sp"/>
 
         <saadandaakash.uofmscheduler.Utitilies.ClearableAutoCompleteTextView
             android:id="@+id/enterSubject"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+
+            android:gravity="center_vertical"
             android:layout_weight="0.7"
-            android:dropDownHeight="150dp"
-            android:imeOptions="actionDone" />
+
+            android:imeOptions="actionDone"
+            android:textSize="16sp"/>
 
     </LinearLayout>
 

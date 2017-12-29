@@ -56,7 +56,7 @@ public class SelectionFragment extends Fragment {
             //TextView subjectName = (TextView)getView().findViewById(R.id.subjectName);
             //subjectName.setTextSize(10 * getResources().getDisplayMetrics().density);
             submitButton = (Button)getView().findViewById(R.id.submitCourseInfo);
-            submitButton.setTextSize(10 * getResources().getDisplayMetrics().density);
+            //submitButton.setTextSize(10 * getResources().getDisplayMetrics().density);
             editSubject = (AutoCompleteTextView)getView().findViewById(R.id.enterSubject);
 
 

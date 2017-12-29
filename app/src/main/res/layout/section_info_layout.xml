@@ -15,10 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp">
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="5dp">
 
             <saadandaakash.uofmscheduler.Utitilies.customTextView
                 android:id="@+id/sectionTitle"
@@ -67,6 +69,8 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="5dp">
 
             <saadandaakash.uofmscheduler.Utitilies.customTextView
@@ -151,6 +155,8 @@
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginTop="5dp"
 
             android:text="Save Section"

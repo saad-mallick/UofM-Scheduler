@@ -1,7 +1,6 @@
 package saadandaakash.uofmscheduler.Fragments;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,19 +10,11 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -61,7 +52,7 @@ public class SavedSectionFragment extends Fragment {
         //True if you can inflate the layout and then attach it directly to the root of the
         //container
         //False if you want to inflate the layout and then return that View
-        return inflater.inflate(R.layout.saved_sections_fragment, container, false);
+        return inflater.inflate(R.layout.saved_sections_layout, container, false);
     }
 
     @Override
@@ -128,6 +119,9 @@ public class SavedSectionFragment extends Fragment {
             String meetingDisplay = current_section.getMeetings();
             viewHolder.meetingInfo.setText(meetingDisplay);
 
+            String instructors = current_section.getInstructors();
+            viewHolder.instructors.setText(instructors);
+
             View.OnClickListener clickListener = new View.OnClickListener() {
                 public void onClick(View v) {
                     SectionInfoFragment fragment = SectionInfoFragment.newInstance(current_section);
@@ -153,13 +147,14 @@ public class SavedSectionFragment extends Fragment {
         public class ViewHolder extends RecyclerView.ViewHolder {
 
             public View rowView;
-            public TextView header, meetingInfo;
+            public TextView header, meetingInfo, instructors;
 
             public ViewHolder(View rowView) {
                 super(rowView);
                 this.rowView = rowView;
                 header = (TextView) rowView.findViewById(R.id.sectionTitle);
                 meetingInfo = (TextView) rowView.findViewById(R.id.meetingInfo);
+                instructors = (TextView) rowView.findViewById(R.id.instructors);
 
             }
         }
@@ -189,6 +184,7 @@ public class SavedSectionFragment extends Fragment {
                     Collections.swap(savedSections, i, i - 1);
                 }
             }
+            updateFile(getActivity());
             notifyItemMoved(fromPosition, toPosition);
             return true;
         }
@@ -259,6 +255,7 @@ public class SavedSectionFragment extends Fragment {
 
                 JSONArray meetingsArray = new JSONArray();
                 for (Section.Meeting meeting : section.meetings) {
+                    System.out.println(meeting.instructors.toString());
                     JSONObject meetingJSON = meeting.getJSONFromMeeting();
                     if (meetingJSON != null) {
                         meetingsArray.put(meetingJSON);
