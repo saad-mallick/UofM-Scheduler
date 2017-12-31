@@ -9,6 +9,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
@@ -16,10 +17,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import saadandaakash.uofmscheduler.Fragments.SavedSectionsFragment;
 import saadandaakash.uofmscheduler.Fragments.SelectSubjectFragment;
+import saadandaakash.uofmscheduler.Fragments.SettingsFragment;
 import saadandaakash.uofmscheduler.Utitilies.CustomTypefaceSpan;
 
 public class MainActivity extends AppCompatActivity
@@ -49,7 +53,6 @@ public class MainActivity extends AppCompatActivity
         // Make nav header text bold
         View headerLayout = navigationView.getHeaderView(0);
 
-        // TODO: find a better font for menu/header stuff
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Quicksand-Bold.otf");
         //nav_header_text.setTypeface(tf);
         //nav_header_text.setTextSize(10 * getResources().getDisplayMetrics().density);
@@ -119,12 +122,14 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.greeting);
+
         Fragment fragment = null;
+
         if (id == R.id.Select_Courses) {
             fragment = new SelectSubjectFragment();
         }
         else if (id == R.id.My_Courses) {
-            // temporary to avoid crashing
             try {
                 fragment = SavedSectionsFragment.newInstance();
             }
@@ -135,10 +140,11 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.Settings) {
-            // temporary to avoid crashing
-            // TODO: make settings fragment
-            return true;
+            fragment = SettingsFragment.newInstance();
         }
+
+        // hide the M and welcome message
+        layout.setVisibility(View.GONE);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()

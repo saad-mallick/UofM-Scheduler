@@ -291,6 +291,8 @@ public class SavedSectionsFragment extends Fragment {
                 String jsonArrayString = Utility.readFromFile(getActivity(), Utility.FILENAME);
                 JSONArray jsonArray = new JSONArray(jsonArrayString);
 
+                System.out.println(jsonArray.toString(4));
+
                 // read data from the JSONArray into section objects
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject sectionObject = jsonArray.getJSONObject(i);

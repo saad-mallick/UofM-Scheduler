@@ -25,8 +25,7 @@
         android:id="@+id/nav_header_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:textSize="28sp"
         android:paddingTop="8dp"
         android:text="@string/navigation_drawer_header"/>
 </LinearLayout>

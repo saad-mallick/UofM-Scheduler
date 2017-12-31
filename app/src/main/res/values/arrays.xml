@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="entries">
+        <item>"Publisher"</item>
+        <item>"Eclipse"</item>
+    </string-array>
+
+    <string-array name="entryValues">
+        <item>"Publisher"</item>
+        <item>"Eclipse"</item>
+    </string-array>
+
+</resources>

@@ -106,10 +106,14 @@ public class Utility {
             os = context.openFileOutput(filename, Context.MODE_PRIVATE);
             os.write(json.getBytes());
             os.close();
+
+            JSONArray array = new JSONArray(json);
+            System.out.println(array.toString(4));
         }
         catch (IOException e) {
             e.printStackTrace();
         }
+        catch (Exception e) {}
     }
 
     public static String readFromFile(Context context, String filename) {
