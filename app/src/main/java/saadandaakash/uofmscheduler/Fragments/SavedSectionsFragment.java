@@ -246,10 +246,12 @@ public class SavedSectionsFragment extends Fragment {
             savedSections = new ArrayList<>();
         }
         // check to make sure the section isn't already in the list before saving
-        if (!savedSections.contains(section)) {
-            savedSections.add(section);
-            //updateFile(activity);
+        for (Section s : savedSections) {
+            if (s.compare(s, section) == 0) {
+                return;
+            }
         }
+        savedSections.add(section);
     }
 
     public void updateFile(Activity activity){
