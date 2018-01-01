@@ -16,10 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import saadandaakash.uofmscheduler.Fragments.SavedSectionsFragment;
 import saadandaakash.uofmscheduler.Fragments.SelectSubjectFragment;
+import saadandaakash.uofmscheduler.Fragments.SettingsFragment;
 import saadandaakash.uofmscheduler.Utitilies.CustomTypefaceSpan;
 
 public class MainActivity extends AppCompatActivity
@@ -135,9 +137,7 @@ public class MainActivity extends AppCompatActivity
 
         }
         else if (id == R.id.Settings) {
-            // temporary to avoid crashing
-            // TODO: make settings fragment
-            return true;
+            fragment = SettingsFragment.newInstance();
         }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -145,6 +145,10 @@ public class MainActivity extends AppCompatActivity
                 .replace(R.id.container, fragment)
                 .addToBackStack(Integer.toString(fragment.getId()))
                 .commit();
+
+        // hide the welcome text
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.greeting);
+        layout.setVisibility(View.GONE);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

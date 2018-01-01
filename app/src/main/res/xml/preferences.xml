@@ -1,0 +1,33 @@
+<android.support.v7.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <android.support.v7.preference.PreferenceCategory
+        android:title="App Preferences">
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="key1"
+            android:title="Show time conflicts when browsing sections"
+            android:defaultValue="true" />
+
+        <android.support.v7.preference.SwitchPreferenceCompat
+            android:key="key1"
+            android:title="Check for openings in saved sections"
+            android:summary="If selected, the app will automatically check for openings every hour and send you a notification if a saved section is open"
+            android:defaultValue="true" />
+
+        <android.support.v7.preference.EditTextPreference
+            android:key="key2"
+            android:title="Favorite IDE?"
+            android:dialogMessage="What is your favorite IDE?"
+            android:defaultValue="Publisher" />
+
+        <android.support.v7.preference.CheckBoxPreference
+            android:key="key3"
+            android:title="Checkbox Preference"
+            android:defaultValue="false"/>
+
+    </android.support.v7.preference.PreferenceCategory>
+
+</android.support.v7.preference.PreferenceScreen>
