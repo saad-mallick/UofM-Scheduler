@@ -1,15 +1,14 @@
 package saadandaakash.uofmscheduler;
 
 import android.graphics.Typeface;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
@@ -17,9 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import saadandaakash.uofmscheduler.Fragments.SavedSectionsFragment;
 import saadandaakash.uofmscheduler.Fragments.SelectSubjectFragment;
@@ -122,8 +119,6 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.greeting);
-
         Fragment fragment = null;
 
         if (id == R.id.Select_Courses) {
@@ -143,14 +138,15 @@ public class MainActivity extends AppCompatActivity
             fragment = SettingsFragment.newInstance();
         }
 
-        // hide the M and welcome message
-        layout.setVisibility(View.GONE);
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .addToBackStack(Integer.toString(fragment.getId()))
                 .commit();
+
+        // hide the welcome text
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.greeting);
+        layout.setVisibility(View.GONE);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

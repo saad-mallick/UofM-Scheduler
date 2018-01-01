@@ -64,18 +64,20 @@ public class SectionDetailsFragment extends Fragment {
                 // update section with additional details
                 getSectionDetails();
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                try {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        displayHeader();
-                        displayCourseDescription();
-                        displayMeetings();
-                        displaySaveButton();
+                            displayHeader();
+                            displayCourseDescription();
+                            displayMeetings();
+                            displaySaveButton();
 
-                    }
-                });
-                dialog.dismiss();
+                        }
+                    });
+                    dialog.dismiss();
+                } catch (Exception e){}
             }
 
         }).start();
@@ -203,13 +205,15 @@ public class SectionDetailsFragment extends Fragment {
         // go through each meeting object and create a new view with the
         // fields filled in
         for (int position = 0; position < section.meetings.size(); position++) {
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-            View rowView = inflater.inflate(R.layout.meeting_details, null, true);
+            if (isAdded()) {
+                LayoutInflater inflater = getActivity().getLayoutInflater();
 
-            // Alternate background colors
-            if (position % 2 == 0) {
-                rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
-            }
+                View rowView = inflater.inflate(R.layout.meeting_details, null, true);
+
+                // Alternate background colors
+                if (position % 2 == 0) {
+                    rowView.setBackgroundColor(getResources().getColor(R.color.lightGray));
+                }
 
             /*
                 Days: [Days]
@@ -217,31 +221,32 @@ public class SectionDetailsFragment extends Fragment {
                 Instructor(s): [Instructors]
                 Location: [Location]
             */
-            Section.Meeting currentMeeting = section.meetings.get(position);
+                Section.Meeting currentMeeting = section.meetings.get(position);
 
-            // display days
-            TextView display_days = (TextView) rowView.findViewById(R.id.days);
-            String days = "Days:  " + currentMeeting.days;
-            display_days.setText(days);
+                // display days
+                TextView display_days = (TextView) rowView.findViewById(R.id.days);
+                String days = "Days:  " + currentMeeting.days;
+                display_days.setText(days);
 
-            // display times
-            TextView display_times = (TextView) rowView.findViewById(R.id.times);
-            String times = "Times: " + currentMeeting.times;
-            display_times.setText(times);
+                // display times
+                TextView display_times = (TextView) rowView.findViewById(R.id.times);
+                String times = "Times: " + currentMeeting.times;
+                display_times.setText(times);
 
-            // display instructors
-            TextView display_instructors = (TextView) rowView.findViewById(R.id.instructors);
-            // join instructors array into form Instructors: [Instructor 1], [Instructor 2], ...
-            String instructors = "Instructors: " + TextUtils.join(", ", currentMeeting.instructors);
-            display_instructors.setText(instructors);
+                // display instructors
+                TextView display_instructors = (TextView) rowView.findViewById(R.id.instructors);
+                // join instructors array into form Instructors: [Instructor 1], [Instructor 2], ...
+                String instructors = "Instructors: " + TextUtils.join(", ", currentMeeting.instructors);
+                display_instructors.setText(instructors);
 
-            // display location
-            TextView display_location = (TextView) rowView.findViewById(R.id.location);
-            String location = "Location: " + currentMeeting.location;
-            display_location.setText(location);
+                // display location
+                TextView display_location = (TextView) rowView.findViewById(R.id.location);
+                String location = "Location: " + currentMeeting.location;
+                display_location.setText(location);
 
-            // add the newly created view to the end of the linear layout
-            layout.addView(rowView);
+                // add the newly created view to the end of the linear layout
+                layout.addView(rowView);
+            }
         }
     }
 
@@ -250,12 +255,13 @@ public class SectionDetailsFragment extends Fragment {
     private void displaySaveButton() {
         // Save Button
         Button saveButton = (Button) getView().findViewById(R.id.saveButton);
-        saveButton.setTypeface(Typeface.createFromAsset(
-                getActivity().getAssets(),
-                "fonts/Quicksand-Regular.otf")
-        );
-        // this is so the button doesn't show up before the other info
-        saveButton.setVisibility(View.VISIBLE);
+        if(isAdded()) {
+            saveButton.setTypeface(Typeface.createFromAsset(
+                    getActivity().getAssets(),
+                    "fonts/Quicksand-Regular.otf")
+            );
+            // this is so the button doesn't show up before the other info
+            saveButton.setVisibility(View.VISIBLE);
 
         saveButton.setOnClickListener(
                 new View.OnClickListener() {
@@ -269,8 +275,9 @@ public class SectionDetailsFragment extends Fragment {
                             System.out.println("OTHER ERROR OCCURRED");
                         }
 
+                        }
                     }
-                }
-        );
+            );
+        }
     }
 }

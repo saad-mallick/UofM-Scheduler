@@ -59,17 +59,19 @@ public class SectionListFragment extends Fragment {
             @Override
             public void run() {
                 sections = getSections();
-                final CustomAdapter adapter = new CustomAdapter(getActivity(), sections);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                try {
+                    final CustomAdapter adapter = new CustomAdapter(getActivity(), sections);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        ListView list = (ListView) getView().findViewById(R.id.sectionsList);
-                        list.setAdapter(adapter);
+                            ListView list = (ListView) getView().findViewById(R.id.sectionsList);
+                            list.setAdapter(adapter);
 
-                    }
-                });
-                dialog.dismiss();
+                        }
+                    });
+                    dialog.dismiss();
+                } catch(Exception e){}
 
             }
 

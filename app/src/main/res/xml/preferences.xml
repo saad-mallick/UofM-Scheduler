@@ -21,7 +21,6 @@
             android:key="key2"
             android:title="Favorite IDE?"
             android:dialogMessage="What is your favorite IDE?"
-            android:summary="(The right answer is publisher)"
             android:defaultValue="Publisher" />
 
         <android.support.v7.preference.CheckBoxPreference

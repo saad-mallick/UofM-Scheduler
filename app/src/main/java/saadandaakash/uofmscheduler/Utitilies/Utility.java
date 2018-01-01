@@ -5,6 +5,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -19,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -145,6 +148,13 @@ public class Utility {
 
     }
 
+    public static void swapFragment(int container, Fragment fragment, FragmentManager fragmentManager){
+        fragmentManager.beginTransaction()
+                .replace(container, fragment)
+                .addToBackStack(Integer.toString(fragment.getId()))
+                .commit();
+    }
+
     public static ProgressDialog createProgressDialog(Activity activity) {
         final ProgressDialog dialog = ProgressDialog.show(
                 activity, null, null, true, false );
@@ -154,5 +164,4 @@ public class Utility {
 
         return dialog;
     }
-
 }
