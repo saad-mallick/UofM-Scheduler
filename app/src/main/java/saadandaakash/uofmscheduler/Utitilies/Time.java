@@ -4,10 +4,6 @@ import java.util.ArrayList;
 
 import saadandaakash.uofmscheduler.Utitilies.Section.Meeting;
 
-/**
- * Created by Saad on 12/29/2017.
- */
-
 public class Time {
 
     //Times in minutes since 12:00 AM
