@@ -2,8 +2,11 @@ package saadandaakash.uofmscheduler.Fragments;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 
 import saadandaakash.uofmscheduler.R;
 import saadandaakash.uofmscheduler.Utitilies.Section;
+import saadandaakash.uofmscheduler.Utitilies.Time;
 import saadandaakash.uofmscheduler.Utitilies.Utility;
 import saadandaakash.uofmscheduler.Utitilies.customTextView;
 
@@ -30,6 +34,8 @@ public class SectionListFragment extends Fragment {
     private String catalogNumber;
     private String courseTitle;
     private ArrayList<Section> sections = new ArrayList<>();
+
+    boolean checkForOverlaps = false;
 
     public static SectionListFragment newInstance(String subjectCode, String catalogNumber,
                                                   String courseTitle) {
@@ -67,6 +73,12 @@ public class SectionListFragment extends Fragment {
 
                             ListView list = (ListView) getView().findViewById(R.id.sectionsList);
                             list.setAdapter(adapter);
+
+                            // initialize saved courses list
+                            SavedSectionsFragment.loadFile(getActivity());
+                            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                            checkForOverlaps = pref.getBoolean("checkConflicts", false);
+                            System.out.println("Show conflicts: " + (checkForOverlaps ? "true" : "false"));
 
                         }
                     });
@@ -183,7 +195,6 @@ public class SectionListFragment extends Fragment {
             }
             else {
 
-
                 View rowView = inflater.inflate(R.layout.sections_fragment_layout, null, true);
 
                 // Alternate background colors
@@ -211,7 +222,7 @@ public class SectionListFragment extends Fragment {
                     creditsInfo.setVisibility(View.VISIBLE);
                 }
 
-                // display meetings times and days
+                // display meetings times an...
                 TextView meetingsInfo = (TextView) rowView.findViewById(R.id.meetingsInfo);
                 String meetings = currentSection.getMeetings();
                 meetingsInfo.setText(meetings);
@@ -221,6 +232,16 @@ public class SectionListFragment extends Fragment {
                 String enrollment = "Available Seats: " + currentSection.availableSeats + " / " +
                         currentSection.enrollmentCapacity;
                 enrollmentInfo.setText(enrollment);
+
+                // check for overlaps
+                if (checkForOverlaps && SavedSectionsFragment.savedSections != null) {
+                    for (Section s : SavedSectionsFragment.savedSections) {
+                        if (Time.sectionsOverlap(currentSection, s)) {
+                            rowView.setBackgroundColor(getResources().getColor(R.color.lightRed));
+                            break;
+                        }
+                    }
+                }
 
                 View.OnClickListener clickListener = new View.OnClickListener() {
                     public void onClick(View v) {

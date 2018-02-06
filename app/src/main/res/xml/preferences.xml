@@ -7,9 +7,9 @@
         android:title="App Preferences">
 
         <android.support.v7.preference.SwitchPreferenceCompat
-            android:key="key1"
+            android:key="checkConflicts"
             android:title="Show time conflicts when browsing sections"
-            android:defaultValue="true" />
+            android:defaultValue="false" />
 
         <android.support.v7.preference.SwitchPreferenceCompat
             android:key="key1"

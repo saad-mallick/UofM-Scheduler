@@ -47,7 +47,7 @@ public class SavedSectionsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        loadFile();
+        loadFile(getActivity());
 
         // set up and populate the recycler view for the saved courses list
         final RecyclerAdapter adapter = new RecyclerAdapter(getActivity(), savedSections);
@@ -285,12 +285,12 @@ public class SavedSectionsFragment extends Fragment {
         }
     }
 
-    public void loadFile(){
+    public static void loadFile(Activity activity){
         if(savedSections == null) {
             savedSections = new ArrayList<>();
             try {
                 // get the JSONArray of saved sections
-                String jsonArrayString = Utility.readFromFile(getActivity(), Utility.FILENAME);
+                String jsonArrayString = Utility.readFromFile(activity, Utility.FILENAME);
                 JSONArray jsonArray = new JSONArray(jsonArrayString);
 
                 // read data from the JSONArray into section objects

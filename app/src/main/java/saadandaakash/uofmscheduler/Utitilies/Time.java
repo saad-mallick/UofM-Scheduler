@@ -22,21 +22,30 @@ public class Time {
     //REQUIRES: A valid string in form XX:XX AM/PM
     //EFFECTS: Will return number of minutes since midnight
     private int convertToMinutes(String timeString){
+
+        System.out.println("Time:" + timeString + ".");
+
         int returnTime = 0;
-        returnTime = returnTime + 60 * Integer.parseInt(timeString.substring(0, timeString.indexOf(":")));
-        returnTime = returnTime + Integer.parseInt(timeString.substring(3, 5));
+        returnTime = returnTime + 60 * timeString.charAt(0);
+        int index = timeString.indexOf(":") + 1;
+        returnTime = returnTime + Integer.parseInt(timeString.substring(index, index + 2));
 
         if(timeString.contains("PM")){
             returnTime = returnTime + (12 * 60);
         }
 
         return returnTime;
+
+        /*
+        System.out.println("Time: " + timeString + ".");
+        return 0;
+        */
     }
 
     //REQUIRES: Two valid Time Objects
     //EFFECTS: Will return true if the times are overlapping
     public static boolean isOverlapping(Time first, Time second){
-        return first.startTime <= second.endTime && first.endTime >= second.startTime;
+        return first.startTime < second.endTime && first.endTime > second.startTime;
     }
 
     //REQUIRES: Two not null sections
@@ -46,13 +55,19 @@ public class Time {
         ArrayList<Meeting> firstMeetings = first.meetings;
         ArrayList<Meeting> secondMeetings = second.meetings;
 
-        for(Meeting firstSectionsMeeting : firstMeetings){
-            for(Meeting secondSectionsMeeting : secondMeetings){
-                //Time firstSectionTime = new Time(firstSectionsMeeting.times.substring());
+        for(Meeting firstSectionMeeting : firstMeetings){
+            for(Meeting secondSectionMeeting : secondMeetings){
+                String[] firstTimes = firstSectionMeeting.times.split(" - ");
+                String[] secondTimes = secondSectionMeeting.times.split(" - ");
+                Time t1 = new Time(firstTimes[0], firstTimes[1]);
+                Time t2 = new Time(secondTimes[0], secondTimes[1]);
+
+                if (isOverlapping(t1, t2)) {
+                    return true;
+                }
             }
         }
 
-        //for now
         return false;
     }
 
